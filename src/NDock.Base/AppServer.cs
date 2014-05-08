@@ -8,24 +8,13 @@ namespace NDock.Base
 {
     public abstract class AppServer : IAppServer
     {
-        public bool Setup(IServerConfig config, IServiceProvider serviceProvider)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract bool Setup(IServerConfig config, IServiceProvider serviceProvider);
+
+        #region the code about starting
 
         protected virtual void OnPreStart()
         {
 
-        }
-
-        public bool Start()
-        {
-            OnPreStart();
-
-            //TODO: Actual starting code
-
-            OnStarted();
-            return true;
         }
 
         protected virtual void OnStarted()
@@ -33,12 +22,29 @@ namespace NDock.Base
 
         }
 
+        bool IWorkItem.Start()
+        {
+            OnPreStart();
+
+            if (!Start())
+                return false;
+
+            OnStarted();
+            return true;
+        }
+
+        public abstract bool Start();
+
+        #endregion
+
+        #region the code about stoppping
+
         protected virtual void OnPreStop()
         {
             
         }
 
-        public void Stop()
+        void IWorkItem.Stop()
         {
             OnPreStop();
 
@@ -47,9 +53,13 @@ namespace NDock.Base
             OnStopped();
         }
 
+        public abstract void Stop();
+
         protected virtual void OnStopped()
         {
-            
+
         }
+
+        #endregion
     }
 }

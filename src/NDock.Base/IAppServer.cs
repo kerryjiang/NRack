@@ -7,12 +7,8 @@ using NDock.Base.Config;
 
 namespace NDock.Base
 {
-    public interface IAppServer
+    public interface IAppServer : IWorkItem
     {
-        bool Setup(IServerConfig config, IServiceProvider serviceProvider);
 
-        bool Start();
-
-        void Stop();
     }
 }

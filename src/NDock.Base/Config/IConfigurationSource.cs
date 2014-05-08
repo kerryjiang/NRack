@@ -5,12 +5,10 @@ using System.Text;
 
 namespace NDock.Base.Config
 {
-    public interface IServerConfig
+    public interface IConfigurationSource
     {
-        string Name { get; }
+        IsolationMode Isolation { get; }
 
-        string Group { get; }
-
-        string Type { get; }
+        IEnumerable<IServerConfig> Servers { get; }
     }
 }
