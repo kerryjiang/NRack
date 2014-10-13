@@ -45,7 +45,6 @@
     <Compile Include="Config\ConfigurationElementBase.cs" />
     <Compile Include="Config\GenericConfigurationElementCollectionBase.cs" />
     <Compile Include="Config\IConfigurationSource.cs" />
-    <Compile Include="Config\INDockConfig.cs" />
     <Compile Include="Config\NDockConfig.cs" />
     <Compile Include="Config\ServerConfig.cs" />
     <Compile Include="IAppServer.cs" />

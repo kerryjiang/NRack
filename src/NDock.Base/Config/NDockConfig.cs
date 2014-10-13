@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NDock.Base.Config
 {
-    public class NDockConfig : INDockConfig
+    public class NDockConfig : IConfigurationSource
     {
         public IsolationMode Isolation { get; set; }
 
