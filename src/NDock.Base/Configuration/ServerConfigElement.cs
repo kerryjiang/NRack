@@ -20,5 +20,11 @@ namespace NDock.Base.Configuration
         {
             get { return this["type"] as string; }
         }
+
+        [ConfigurationProperty("logFactory", IsRequired = false)]
+        public string LogFactory
+        {
+            get { return this["logFactory"] as string; }
+        }
     }
 }

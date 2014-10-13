@@ -12,5 +12,7 @@ namespace NDock.Base.Config
         public string Group { get; set; }
 
         public string Type { get; set; }
+
+        public string LogFactory { get; set; }
     }
 }
