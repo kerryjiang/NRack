@@ -33,13 +33,21 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppServer.cs" />
+    <Compile Include="Configuration\NDockConfigSection.cs" />
+    <Compile Include="Configuration\ServerConfigElement.cs" />
+    <Compile Include="Config\ConfigurationElementBase.cs" />
+    <Compile Include="Config\GenericConfigurationElementCollectionBase.cs" />
     <Compile Include="Config\IConfigurationSource.cs" />
+    <Compile Include="Config\INDockConfig.cs" />
+    <Compile Include="Config\NDockConfig.cs" />
+    <Compile Include="Config\ServerConfig.cs" />
     <Compile Include="IAppServer.cs" />
     <Compile Include="IBootstrap.cs" />
     <Compile Include="Config\IServerConfig.cs" />
@@ -47,6 +55,7 @@
     <Compile Include="IWorkItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
