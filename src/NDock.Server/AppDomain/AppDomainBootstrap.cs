@@ -8,7 +8,7 @@ namespace NDock.Server.AppDomain
 {
     class AppDomainBootstrap : BootstrapBase
     {
-        public AppDomainBootstrap(IConfigurationSource configSource)
+        public AppDomainBootstrap(IConfigSource configSource)
             : base(configSource)
         {
 

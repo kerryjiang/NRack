@@ -9,6 +9,8 @@ namespace NDock.Base
 {
     public interface IAppServer : IWorkItem
     {
+        IAppEndPoint EndPoint { get; }
 
+        IMessageBus MessageBus { get; }
     }
 }

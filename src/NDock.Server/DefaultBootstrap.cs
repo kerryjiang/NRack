@@ -10,7 +10,7 @@ namespace NDock.Server
 {
     class DefaultBootstrap : BootstrapBase
     {
-        public DefaultBootstrap(IConfigurationSource configSource)
+        public DefaultBootstrap(IConfigSource configSource)
             : base(configSource)
         {
             var exportProvider = ExportProvider;

@@ -8,7 +8,7 @@ namespace NDock.Server.Process
 {
     class ProcessBootstrap : BootstrapBase
     {
-        public ProcessBootstrap(IConfigurationSource configSource)
+        public ProcessBootstrap(IConfigSource configSource)
             : base(configSource)
         {
 

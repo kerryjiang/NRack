@@ -20,7 +20,7 @@ namespace NDock.Server
         /// </summary>
         /// <param name="config">The config.</param>
         /// <returns></returns>
-        public static IBootstrap CreateBootstrap(IConfigurationSource config)
+        public static IBootstrap CreateBootstrap(IConfigSource config)
         {
             if (config == null)
                 throw new ArgumentNullException("config");
@@ -44,7 +44,7 @@ namespace NDock.Server
             if (configSection == null)
                 throw new ConfigurationErrorsException("Missing 'ndock' configuration section.");
 
-            var configSource = configSection as IConfigurationSource;
+            var configSource = configSection as IConfigSource;
             if (configSource == null)
                 throw new ConfigurationErrorsException("Invalid 'ndock' configuration section.");
 
@@ -68,7 +68,7 @@ namespace NDock.Server
             if (configSection == null)
                 throw new ConfigurationErrorsException("Missing 'ndock' configuration section.");
 
-            var configSource = configSection as IConfigurationSource;
+            var configSource = configSection as IConfigSource;
             if (configSource == null)
                 throw new ConfigurationErrorsException("Invalid 'ndock' configuration section.");
 

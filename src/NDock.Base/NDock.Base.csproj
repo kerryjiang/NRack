@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AnyLog">
-      <HintPath>..\References\AnyLog\AnyLog.dll</HintPath>
+    <Reference Include="AnyLog, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AnyLog.0.1.1.0\lib\net40\AnyLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -43,23 +44,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppServer.cs" />
+    <Compile Include="CompositeTargtes\LogFactoryCompositeTarget.cs" />
     <Compile Include="Configuration\ConfigurationExtension.cs" />
     <Compile Include="Configuration\NDockConfigSection.cs" />
     <Compile Include="Configuration\ServerConfigElement.cs" />
     <Compile Include="Config\ConfigurationElementBase.cs" />
     <Compile Include="Config\GenericConfigurationElementCollectionBase.cs" />
-    <Compile Include="Config\IConfigurationSource.cs" />
+    <Compile Include="Config\IConfigSource.cs" />
     <Compile Include="Config\NDockConfig.cs" />
     <Compile Include="Config\ServerConfig.cs" />
     <Compile Include="Environment.cs" />
+    <Compile Include="IAppEndPoint.cs" />
     <Compile Include="IAppServer.cs" />
     <Compile Include="IBootstrap.cs" />
     <Compile Include="Config\IServerConfig.cs" />
+    <Compile Include="ICompositeTarget.cs" />
+    <Compile Include="IMessageBus.cs" />
     <Compile Include="IsolationMode.cs" />
     <Compile Include="IWorkItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

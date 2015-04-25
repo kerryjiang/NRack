@@ -8,7 +8,7 @@ using NDock.Base.Config;
 
 namespace NDock.Base.Configuration
 {
-    public class NDockConfigSection : ConfigurationSection, IConfigurationSource
+    public class NDockConfigSection : ConfigurationSection, IConfigSource
     {
         /// <summary>
         /// Gets the isolation mode.
@@ -31,7 +31,7 @@ namespace NDock.Base.Configuration
             }
         }
 
-        IEnumerable<IServerConfig> IConfigurationSource.Servers
+        IEnumerable<IServerConfig> IConfigSource.Servers
         {
             get { return this.Servers; }
         }

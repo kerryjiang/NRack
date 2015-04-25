@@ -10,13 +10,13 @@ namespace NDock.Server
 {
     abstract class BootstrapBase : IBootstrap
     {
-        private IConfigurationSource m_ConfigSource;
+        private IConfigSource m_ConfigSource;
 
         protected List<IWorkItem> WorkItems { get; private set; }
 
         protected ExportProvider ExportProvider { get; private set; }
 
-        public BootstrapBase(IConfigurationSource configSource)
+        public BootstrapBase(IConfigSource configSource)
         {
             if (configSource == null)
                 throw new ArgumentNullException("configSource");
