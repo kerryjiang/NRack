@@ -6,7 +6,7 @@ using NDock.Base.Config;
 
 namespace NDock.Base
 {
-    public interface IWorkItem
+    public interface IRemoteApp
     {
         bool Setup(IServerConfig config, IServiceProvider serviceProvider);
 

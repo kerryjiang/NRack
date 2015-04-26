@@ -7,7 +7,7 @@ using NDock.Base.Config;
 
 namespace NDock.Base
 {
-    public interface IAppServer : IWorkItem
+    public interface IAppServer : IRemoteApp
     {
         IAppEndPoint EndPoint { get; }
 

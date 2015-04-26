@@ -12,7 +12,7 @@ namespace NDock.Server
     {
         private IConfigSource m_ConfigSource;
 
-        protected List<IWorkItem> WorkItems { get; private set; }
+        protected List<IRemoteApp> WorkItems { get; private set; }
 
         protected ExportProvider ExportProvider { get; private set; }
 
@@ -22,7 +22,7 @@ namespace NDock.Server
                 throw new ArgumentNullException("configSource");
 
             m_ConfigSource = configSource;
-            WorkItems = new List<IWorkItem>();
+            WorkItems = new List<IRemoteApp>();
             ExportProvider = CreateExportProvider();
         }
 

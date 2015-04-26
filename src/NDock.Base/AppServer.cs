@@ -124,7 +124,7 @@ namespace NDock.Base
             LogFactory = logFactory;
         }
 
-        bool IWorkItem.Setup(IServerConfig config, IServiceProvider serviceProvider)
+        bool IRemoteApp.Setup(IServerConfig config, IServiceProvider serviceProvider)
         {
             Config = config;
             Composite(config);
@@ -155,7 +155,7 @@ namespace NDock.Base
 
         }
 
-        bool IWorkItem.Start()
+        bool IRemoteApp.Start()
         {
             OnPreStart();
 
@@ -177,7 +177,7 @@ namespace NDock.Base
             
         }
 
-        void IWorkItem.Stop()
+        void IRemoteApp.Stop()
         {
             OnPreStop();
 

@@ -61,7 +61,7 @@
     <Compile Include="ICompositeTarget.cs" />
     <Compile Include="IMessageBus.cs" />
     <Compile Include="IsolationMode.cs" />
-    <Compile Include="IWorkItem.cs" />
+    <Compile Include="IRemoteApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

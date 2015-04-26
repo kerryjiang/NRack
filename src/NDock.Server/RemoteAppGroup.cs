@@ -7,13 +7,13 @@ using NDock.Base.Config;
 
 namespace NDock.Server
 {
-    class GroupWorkItem : IWorkItem
+    class RemoteAppGroup : IRemoteApp
     {
         public string Name { get; private set; }
 
-        public IWorkItem[] Items { get; private set; }
+        public IRemoteApp[] Items { get; private set; }
 
-        public GroupWorkItem(string name, IEnumerable<IWorkItem> groupItems)
+        public RemoteAppGroup(string name, IEnumerable<IRemoteApp> groupItems)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException("name");
@@ -27,6 +27,8 @@ namespace NDock.Server
 
         public bool Setup(IServerConfig config, IServiceProvider serviceProvider)
         {
+            Config = config;
+
             foreach (var item in Items)
             {
                 if (!item.Setup(config, serviceProvider))
@@ -54,5 +56,8 @@ namespace NDock.Server
                 item.Stop();
             }
         }
+
+
+        public IServerConfig Config { get; private set; }
     }
 }

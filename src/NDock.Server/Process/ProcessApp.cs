@@ -5,9 +5,9 @@ using System.Text;
 using NDock.Base;
 using NDock.Base.Config;
 
-namespace NDock.Server.AppDomain
+namespace NDock.Server.Process
 {
-    class AppDomainWorkItem : IWorkItem
+    class ProcessApp : IRemoteApp
     {
         public bool Setup(IServerConfig config, IServiceProvider serviceProvider)
         {
@@ -22,6 +22,12 @@ namespace NDock.Server.AppDomain
         public void Stop()
         {
             throw new NotImplementedException();
+        }
+
+
+        public IServerConfig Config
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }
