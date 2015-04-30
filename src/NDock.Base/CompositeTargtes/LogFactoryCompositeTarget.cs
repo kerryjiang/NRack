@@ -80,6 +80,7 @@ namespace NDock.Base.CompositeTargtes
             }
 
             server.LogFactory = logFactory;
+            server.Logger = logFactory.GetLog(server.Name);
             return true;
         }
     }
