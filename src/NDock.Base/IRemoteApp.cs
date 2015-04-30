@@ -8,6 +8,8 @@ namespace NDock.Base
 {
     public interface IRemoteApp
     {
+        string Name { get; }
+
         bool Setup(IServerConfig config, IServiceProvider serviceProvider);
 
         IServerConfig Config { get; }

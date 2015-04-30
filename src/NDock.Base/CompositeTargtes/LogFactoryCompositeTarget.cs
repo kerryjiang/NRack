@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,24 +11,23 @@ namespace NDock.Base.CompositeTargtes
 {
     class LogFactoryCompositeTarget : ICompositeTarget
     {
-        [ImportMany]
-        public IEnumerable<Lazy<ILogFactory, ILogFactoryMetadata>> LogFactories { get; set; }
-
-        public void Resolve(IAppServer appServer)
+        public bool Resolve(IAppServer appServer, ExportProvider exportProvider)
         {
             var server = appServer as AppServer;
             var config = server.Config;
+
+            var logFactories = exportProvider.GetExports<ILogFactory, ILogFactoryMetadata>();
 
             Lazy<ILogFactory, ILogFactoryMetadata> lazyLogFactory;
 
             if (!string.IsNullOrEmpty(config.LogFactory))
             {
-                lazyLogFactory = LogFactories.FirstOrDefault(l =>
+                lazyLogFactory = logFactories.FirstOrDefault(l =>
                     l.Metadata.Name.Equals(config.LogFactory, StringComparison.OrdinalIgnoreCase));
             }
             else
             {
-                lazyLogFactory = LogFactories.FirstOrDefault();
+                lazyLogFactory = logFactories.FirstOrDefault();
             }
 
             if (lazyLogFactory == null)
@@ -80,6 +80,7 @@ namespace NDock.Base.CompositeTargtes
             }
 
             server.LogFactory = logFactory;
+            return true;
         }
     }
 }

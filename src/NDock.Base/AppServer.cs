@@ -13,7 +13,9 @@ namespace NDock.Base
 {
     public abstract class AppServer : IAppServer
     {
-        private CompositionContainer m_CompositionContainer;
+        public string Name { get; private set; }
+
+        protected CompositionContainer CompositionContainer { get; private set; }
 
         public IServerConfig Config { get; private set; }
 
@@ -22,7 +24,7 @@ namespace NDock.Base
             targets.Add(new LogFactoryCompositeTarget());
         }
 
-        private void Composite(IServerConfig config)
+        protected virtual CompositionContainer GetCompositionContainer(IServerConfig config)
         {
             //An aggregate catalog that combines multiple catalogs
             var catalog = new AggregateCatalog();
@@ -31,7 +33,12 @@ namespace NDock.Base
             catalog.Catalogs.Add(new DirectoryCatalog(AppDomain.CurrentDomain.BaseDirectory, "*.dll"));
 
             //Create the CompositionContainer with the parts in the catalog
-            m_CompositionContainer = new CompositionContainer(catalog);
+            return new CompositionContainer(catalog);
+        }
+
+        private bool Composite(IServerConfig config)
+        {
+            CompositionContainer = GetCompositionContainer(config);
 
             //Fill the imports of this object
             try
@@ -41,12 +48,26 @@ namespace NDock.Base
 
                 if (targets.Any())
                 {
-                    targets.ForEach(t => m_CompositionContainer.ComposeParts(targets.OfType<object>().ToArray()));
+                    foreach (var t in targets)
+                    {
+                        if(!t.Resolve(this, CompositionContainer))
+                        {
+                            throw new Exception("Failed to resolve the instance of the type: " + t.GetType().FullName);
+                        }
+                    }
                 }
+
+                return true;
             }
-            catch (CompositionException compositionException)
+            catch(Exception e)
             {
-                throw new Exception("MEF composite exception!", compositionException);
+                var logger = Logger;
+
+                if (logger == null)
+                    throw e;
+
+                logger.Error("Composition error", e);
+                return false;
             }
         }
 
@@ -126,11 +147,18 @@ namespace NDock.Base
 
         bool IRemoteApp.Setup(IServerConfig config, IServiceProvider serviceProvider)
         {
-            Config = config;
-            Composite(config);
+            if (config == null)
+                throw new ArgumentNullException("config");
 
-            // setup logfactory at first
-            SetupLogFactory(config);
+            if (!string.IsNullOrEmpty(config.Name))
+                Name = config.Name;
+            else
+                Name = string.Format("{0}-{1}", this.GetType().Name, Math.Abs(this.GetHashCode()));
+
+            Config = config;
+
+            if (!Composite(config))
+                return false;
 
             // initialize default loggger
             Logger = LogFactory.GetLog(config.Name);
