@@ -1,42 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using AnyLog;
+using NDock.Base.Config;
 
-namespace NDock.Base.CompositeTargtes
+namespace NDock.Base.CompositeTargets
 {
-    class LogFactoryCompositeTarget : ICompositeTarget
+    class LogFactoryCompositeTarget : SingleResultCompositeTargetCore<ILogFactory, ILogFactoryMetadata>
     {
-        public bool Resolve(IAppServer appServer, ExportProvider exportProvider)
+        public LogFactoryCompositeTarget(Action<ILogFactory> callback)
+            : base((config) => config.LogFactory, callback, true)
         {
-            var server = appServer as AppServer;
-            var config = server.Config;
 
-            var logFactories = exportProvider.GetExports<ILogFactory, ILogFactoryMetadata>();
+        }
 
-            Lazy<ILogFactory, ILogFactoryMetadata> lazyLogFactory;
+        protected override bool MetadataNameEqual(ILogFactoryMetadata metadata, string name)
+        {
+            return metadata.Name.Equals(name, StringComparison.OrdinalIgnoreCase);
+        }
 
-            if (!string.IsNullOrEmpty(config.LogFactory))
-            {
-                lazyLogFactory = logFactories.FirstOrDefault(l =>
-                    l.Metadata.Name.Equals(config.LogFactory, StringComparison.OrdinalIgnoreCase));
-            }
-            else
-            {
-                lazyLogFactory = logFactories.FirstOrDefault();
-            }
-
-            if (lazyLogFactory == null)
-                throw new Exception("No available LogFacotry has been found!");
-
-            var logFactory = lazyLogFactory.Value;
-
-            var metadata = lazyLogFactory.Metadata;
-
+        protected override bool PrepareResult(ILogFactory result, IAppServer appServer, ILogFactoryMetadata metadata)
+        {
             var currentAppDomain = AppDomain.CurrentDomain;
             var isolation = IsolationMode.None;
 
@@ -74,13 +62,12 @@ namespace NDock.Base.CompositeTargtes
                 configFiles.Add(Path.Combine(Path.Combine(rootDir, "Config"), configFileName));
             }
 
-            if (!logFactory.Initialize(configFiles.ToArray()))
+            if (!result.Initialize(configFiles.ToArray()))
             {
-                throw new Exception("Failed to initialize the logfactory:" + metadata.Name);
+                appServer.Logger.Error("Failed to initialize the logfactory:" + metadata.Name);
+                return false;
             }
 
-            server.LogFactory = logFactory;
-            server.Logger = logFactory.GetLog(server.Name);
             return true;
         }
     }

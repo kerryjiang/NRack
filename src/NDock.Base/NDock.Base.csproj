@@ -44,7 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppServer.cs" />
+    <Compile Include="CompositeTargtes\CompositeTargetBase.cs" />
     <Compile Include="CompositeTargtes\LogFactoryCompositeTarget.cs" />
+    <Compile Include="CompositeTargtes\MultipleResultCompositeTarget.cs" />
+    <Compile Include="CompositeTargtes\SingleResultCompositeTarget.cs" />
     <Compile Include="Configuration\ConfigurationExtension.cs" />
     <Compile Include="Configuration\NDockConfigSection.cs" />
     <Compile Include="Configuration\ServerConfigElement.cs" />
@@ -63,6 +66,7 @@
     <Compile Include="IsolationMode.cs" />
     <Compile Include="IRemoteApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\IProviderMetadata.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

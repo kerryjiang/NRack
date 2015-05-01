@@ -7,7 +7,7 @@ using AnyLog;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
-using NDock.Base.CompositeTargtes;
+using NDock.Base.CompositeTargets;
 
 namespace NDock.Base
 {
@@ -21,7 +21,11 @@ namespace NDock.Base
 
         protected virtual void RegisterCompositeTarget(IList<ICompositeTarget> targets)
         {
-            targets.Add(new LogFactoryCompositeTarget());
+            targets.Add(new LogFactoryCompositeTarget((value) =>
+            {
+                LogFactory = value;
+                Logger = value.GetLog(Name);
+            }));
         }
 
         protected virtual CompositionContainer GetCompositionContainer(IServerConfig config)
@@ -71,9 +75,9 @@ namespace NDock.Base
             }
         }
 
-        protected internal ILogFactory LogFactory { get; internal set; }
+        public ILogFactory LogFactory { get; private set; }
 
-        protected internal ILog Logger { get; internal set; }
+        public ILog Logger { get; private set; }
 
         public IAppEndPoint EndPoint { get; private set; }
 
@@ -98,9 +102,6 @@ namespace NDock.Base
         }
 
         protected abstract bool Setup(IServerConfig config, IServiceProvider serviceProvider);
-
-        [ImportMany]
-        private IEnumerable<Lazy<ILogFactory, ILogFactoryMetadata>> m_LogFactories = null;
 
         #region the code about starting
 
