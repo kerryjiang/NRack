@@ -6,7 +6,7 @@ using NDock.Base.Config;
 
 namespace NDock.Base
 {
-    public interface IRemoteApp
+    public interface IManagedApp
     {
         string Name { get; }
 

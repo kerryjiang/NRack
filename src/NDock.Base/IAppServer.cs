@@ -8,7 +8,7 @@ using NDock.Base.Config;
 
 namespace NDock.Base
 {
-    public interface IAppServer : IRemoteApp
+    public interface IAppServer : IManagedApp
     {
         ILog Logger { get; }
 

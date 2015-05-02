@@ -83,7 +83,7 @@ namespace NDock.Base
 
         public IMessageBus MessageBus { get; private set; }
 
-        bool IRemoteApp.Setup(IServerConfig config, IServiceProvider serviceProvider)
+        bool IManagedApp.Setup(IServerConfig config, IServiceProvider serviceProvider)
         {
             if (config == null)
                 throw new ArgumentNullException("config");
@@ -115,7 +115,7 @@ namespace NDock.Base
 
         }
 
-        bool IRemoteApp.Start()
+        bool IManagedApp.Start()
         {
             OnPreStart();
 
@@ -137,7 +137,7 @@ namespace NDock.Base
             
         }
 
-        void IRemoteApp.Stop()
+        void IManagedApp.Stop()
         {
             OnPreStop();
 
