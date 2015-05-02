@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using NDock.Base;
 using NDock.Base.Config;
+using NDock.Base.Metadata;
 
 namespace NDock.Server.AppDomain
 {
@@ -27,6 +28,16 @@ namespace NDock.Server.AppDomain
         public IServerConfig Config
         {
             get { throw new NotImplementedException(); }
+        }
+
+        public string Name
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public AppServerMetadata GetMetadata()
+        {
+            throw new NotImplementedException();
         }
     }
 }

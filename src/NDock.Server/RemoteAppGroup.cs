@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using NDock.Base;
 using NDock.Base.Config;
+using NDock.Base.Metadata;
 
 namespace NDock.Server
 {
-    class RemoteAppGroup : IManagedApp
+    class ManagedAppGroup : IManagedApp
     {
         public string Name { get; private set; }
 
         public IManagedApp[] Items { get; private set; }
 
-        public RemoteAppGroup(string name, IEnumerable<IManagedApp> groupItems)
+        public ManagedAppGroup(string name, IEnumerable<IManagedApp> groupItems)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException("name");
@@ -59,5 +60,10 @@ namespace NDock.Server
 
 
         public IServerConfig Config { get; private set; }
+
+        public AppServerMetadata GetMetadata()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

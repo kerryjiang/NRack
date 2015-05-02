@@ -29,5 +29,15 @@ namespace NDock.Server.Process
         {
             get { throw new NotImplementedException(); }
         }
+
+        public string Name
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public Base.Metadata.AppServerMetadata GetMetadata()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
