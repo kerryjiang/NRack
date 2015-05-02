@@ -7,13 +7,13 @@ using NDock.Base.Config;
 
 namespace NDock.Server
 {
-    class RemoteAppGroup : IRemoteApp
+    class RemoteAppGroup : IManagedApp
     {
         public string Name { get; private set; }
 
-        public IRemoteApp[] Items { get; private set; }
+        public IManagedApp[] Items { get; private set; }
 
-        public RemoteAppGroup(string name, IEnumerable<IRemoteApp> groupItems)
+        public RemoteAppGroup(string name, IEnumerable<IManagedApp> groupItems)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException("name");

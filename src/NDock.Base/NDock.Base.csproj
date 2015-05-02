@@ -64,6 +64,8 @@
     <Compile Include="IMessageBus.cs" />
     <Compile Include="IsolationMode.cs" />
     <Compile Include="IManagedApp.cs" />
+    <Compile Include="Metadata\AppServerMetadata.cs" />
+    <Compile Include="Metadata\AppServerMetadataTypeAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\IProviderMetadata.cs" />
   </ItemGroup>

@@ -8,6 +8,7 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using NDock.Base.CompositeTargets;
+using NDock.Base.Metadata;
 
 namespace NDock.Base
 {
@@ -82,6 +83,11 @@ namespace NDock.Base
         public IAppEndPoint EndPoint { get; private set; }
 
         public IMessageBus MessageBus { get; private set; }
+
+        public virtual AppServerMetadata GetMetadata()
+        {
+            return AppServerMetadata.GetAppServerMetadata(this.GetType());
+        }
 
         bool IManagedApp.Setup(IServerConfig config, IServiceProvider serviceProvider)
         {

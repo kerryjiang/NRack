@@ -7,7 +7,7 @@ using NDock.Base.Config;
 
 namespace NDock.Server.AppDomain
 {
-    class AppDomainApp : IRemoteApp
+    class AppDomainApp : IManagedApp
     {
         public bool Setup(IServerConfig config, IServiceProvider serviceProvider)
         {
