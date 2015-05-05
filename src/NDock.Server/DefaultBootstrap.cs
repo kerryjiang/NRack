@@ -18,7 +18,7 @@ namespace NDock.Server
             foreach (var config in configSource.Servers)
             {
                 var workItemSrc = exportProvider.GetExport<IAppServer>(config.Type);
-                WorkItems.Add(workItemSrc.Value);
+                ManagedApps.Add(workItemSrc.Value);
             }
         }
     }

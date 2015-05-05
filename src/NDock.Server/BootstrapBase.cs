@@ -12,7 +12,7 @@ namespace NDock.Server
     {
         private IConfigSource m_ConfigSource;
 
-        protected List<IManagedApp> WorkItems { get; private set; }
+        protected List<IManagedApp> ManagedApps { get; private set; }
 
         protected ExportProvider ExportProvider { get; private set; }
 
@@ -22,7 +22,7 @@ namespace NDock.Server
                 throw new ArgumentNullException("configSource");
 
             m_ConfigSource = configSource;
-            WorkItems = new List<IManagedApp>();
+            ManagedApps = new List<IManagedApp>();
             ExportProvider = CreateExportProvider();
         }
 
@@ -34,17 +34,17 @@ namespace NDock.Server
 
         public virtual void Start()
         {
-            foreach (var item in WorkItems)
+            foreach (var app in ManagedApps)
             {
-                item.Start();
+                app.Start();
             }
         }
 
         public virtual void Stop()
         {
-            foreach (var item in WorkItems)
+            foreach (var app in ManagedApps)
             {
-                item.Stop();
+                app.Stop();
             }
         }
     }
