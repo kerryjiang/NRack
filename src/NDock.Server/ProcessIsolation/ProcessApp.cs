@@ -5,11 +5,11 @@ using System.Text;
 using NDock.Base;
 using NDock.Base.Config;
 
-namespace NDock.Server.Process
+namespace NDock.Server.ProcessIsolation
 {
     class ProcessApp : IManagedApp
     {
-        public bool Setup(IServerConfig config, IServiceProvider serviceProvider)
+        public bool Setup(IServerConfig config)
         {
             throw new NotImplementedException();
         }

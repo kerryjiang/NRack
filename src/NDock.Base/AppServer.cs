@@ -89,7 +89,7 @@ namespace NDock.Base
             return AppServerMetadata.GetAppServerMetadata(this.GetType());
         }
 
-        bool IManagedApp.Setup(IServerConfig config, IServiceProvider serviceProvider)
+        bool IManagedApp.Setup(IServerConfig config)
         {
             if (config == null)
                 throw new ArgumentNullException("config");
@@ -104,10 +104,10 @@ namespace NDock.Base
             if (!Composite(config))
                 return false;
 
-            return false;
+            return Setup(config, CompositionContainer);
         }
 
-        protected abstract bool Setup(IServerConfig config, IServiceProvider serviceProvider);
+        protected abstract bool Setup(IServerConfig config, ExportProvider exportProvider);
 
         #region the code about starting
 
@@ -121,7 +121,7 @@ namespace NDock.Base
 
         }
 
-        bool IManagedApp.Start()
+        bool IManagedAppBase.Start()
         {
             OnPreStart();
 
@@ -143,7 +143,7 @@ namespace NDock.Base
             
         }
 
-        void IManagedApp.Stop()
+        void IManagedAppBase.Stop()
         {
             OnPreStop();
 

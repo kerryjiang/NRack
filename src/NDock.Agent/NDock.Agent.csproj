@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AnyLog">
+      <HintPath>..\packages\AnyLog.0.1.4.0\lib\net40\AnyLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,8 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ManagedAppAgent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NDock.Base\NDock.Base.csproj">
+      <Project>{406671c6-5dcb-4b23-bd28-fb02c235eae4}</Project>
+      <Name>NDock.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NDock.Server\NDock.Server.csproj">
+      <Project>{7800b7ea-fb3a-4305-9ee7-74a7b5744c45}</Project>
+      <Name>NDock.Server</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,15 +7,18 @@ using NDock.Base.Metadata;
 
 namespace NDock.Base
 {
-    public interface IManagedApp
+    public interface IManagedApp : IManagedAppBase
     {
         string Name { get; }
 
-        bool Setup(IServerConfig config, IServiceProvider serviceProvider);
-
-        AppServerMetadata GetMetadata();
+        bool Setup(IServerConfig config);
 
         IServerConfig Config { get; }
+    }
+
+    public interface IManagedAppBase
+    {
+        AppServerMetadata GetMetadata();
 
         bool Start();
 

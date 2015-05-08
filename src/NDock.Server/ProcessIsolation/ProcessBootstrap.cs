@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using NDock.Base.Config;
 
-namespace NDock.Server.AppDomain
+namespace NDock.Server.ProcessIsolation
 {
-    class AppDomainBootstrap : BootstrapBase
+    class ProcessBootstrap : BootstrapBase
     {
-        public AppDomainBootstrap(IConfigSource configSource)
+        public ProcessBootstrap(IConfigSource configSource)
             : base(configSource)
         {
 

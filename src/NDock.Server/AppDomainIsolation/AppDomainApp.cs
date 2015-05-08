@@ -6,11 +6,11 @@ using NDock.Base;
 using NDock.Base.Config;
 using NDock.Base.Metadata;
 
-namespace NDock.Server.AppDomain
+namespace NDock.Server.AppDomainIsolation
 {
     class AppDomainApp : IManagedApp
     {
-        public bool Setup(IServerConfig config, IServiceProvider serviceProvider)
+        public bool Setup(IServerConfig config)
         {
             throw new NotImplementedException();
         }
