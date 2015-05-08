@@ -13,13 +13,7 @@ namespace NDock.Server
         public DefaultBootstrap(IConfigSource configSource)
             : base(configSource)
         {
-            var exportProvider = ExportProvider;
-
-            foreach (var config in configSource.Servers)
-            {
-                var workItemSrc = exportProvider.GetExport<IAppServer>(config.Type);
-                ManagedApps.Add(workItemSrc.Value);
-            }
+            
         }
     }
 }

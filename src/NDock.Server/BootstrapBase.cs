@@ -10,7 +10,7 @@ namespace NDock.Server
 {
     abstract class BootstrapBase : IBootstrap
     {
-        private IConfigSource m_ConfigSource;
+        protected IConfigSource ConfigSource { get; private set; }
 
         protected List<IManagedApp> ManagedApps { get; private set; }
 
@@ -21,15 +21,14 @@ namespace NDock.Server
             if (configSource == null)
                 throw new ArgumentNullException("configSource");
 
-            m_ConfigSource = configSource;
+            ConfigSource = configSource;
             ManagedApps = new List<IManagedApp>();
             ExportProvider = CreateExportProvider();
         }
 
         protected virtual ExportProvider CreateExportProvider()
         {
-            var catalog = new DirectoryCatalog(System.AppDomain.CurrentDomain.BaseDirectory);
-            return new CompositionContainer(catalog);
+            return AppDomain.CurrentDomain.GetCurrentAppDomainExportProvider();
         }
 
         public virtual void Start()

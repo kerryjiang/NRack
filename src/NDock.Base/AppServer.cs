@@ -16,7 +16,7 @@ namespace NDock.Base
     {
         public string Name { get; private set; }
 
-        protected CompositionContainer CompositionContainer { get; private set; }
+        protected ExportProvider CompositionContainer { get; private set; }
 
         public IServerConfig Config { get; private set; }
 
@@ -29,16 +29,9 @@ namespace NDock.Base
             }));
         }
 
-        protected virtual CompositionContainer GetCompositionContainer(IServerConfig config)
+        protected virtual ExportProvider GetCompositionContainer(IServerConfig config)
         {
-            //An aggregate catalog that combines multiple catalogs
-            var catalog = new AggregateCatalog();
-            //Adds all the parts found in the same assembly as the Program class
-            catalog.Catalogs.Add(new AssemblyCatalog(typeof(IAppServer).Assembly));
-            catalog.Catalogs.Add(new DirectoryCatalog(AppDomain.CurrentDomain.BaseDirectory, "*.dll"));
-
-            //Create the CompositionContainer with the parts in the catalog
-            return new CompositionContainer(catalog);
+            return AppDomain.CurrentDomain.GetCurrentAppDomainExportProvider();
         }
 
         private bool Composite(IServerConfig config)
