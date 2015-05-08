@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Text;
+using AnyLog;
 using NDock.Base;
 using NDock.Base.Config;
 
 namespace NDock.Server
 {
-    abstract class BootstrapBase : IBootstrap
+    public abstract class BootstrapBase : IBootstrap
     {
         protected IConfigSource ConfigSource { get; private set; }
 
         protected List<IManagedApp> ManagedApps { get; private set; }
 
         protected ExportProvider ExportProvider { get; private set; }
+
+        protected ILogFactory LogFactory { get; private set; }
+
+        protected ILog Log { get; private set; }
 
         public BootstrapBase(IConfigSource configSource)
         {
@@ -45,6 +50,61 @@ namespace NDock.Server
             {
                 app.Stop();
             }
+        }
+
+        protected abstract IManagedApp CreateAppInstance(IServerConfig serverConfig);
+
+        public virtual bool Initialize()
+        {
+            AnyLog.LogFactory.Configurate(ExportProvider, ConfigSource.LogFactory);
+            var logFactory = AnyLog.LogFactory.Current;
+
+            if (logFactory == null)
+                throw new Exception("Failed to load LogFactory.");
+
+            LogFactory = logFactory;
+            Log = logFactory.GetLog(this.GetType().Name);
+
+            foreach(var config in ConfigSource.Servers)
+            {
+                IManagedApp server = null;
+                
+                try
+                {
+                    server = CreateAppInstance(config);
+                }
+                catch(Exception e)
+                {
+                    Log.Error(string.Format("Failed to create server instance with {0}", config.Type), e);
+                    return false;
+                }
+
+                if(server == null)
+                {
+                    Log.Error(string.Format("Failed to create server instance with {0}", config.Type));
+                    return false;
+                }
+
+                try
+                {
+                    if (!server.Setup(config))
+                        throw new Exception("Unknown reason");
+                }
+                catch(Exception e)
+                {
+                    Log.Error(string.Format("Failed to setup server instance with {0}", config.Name), e);
+                    return false;
+                }
+
+                ManagedApps.Add(server);
+            }
+
+            return true;
+        }
+
+        IEnumerable<IManagedApp> IBootstrap.AppServers
+        {
+            get { return ManagedApps; }
         }
     }
 }

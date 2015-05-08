@@ -8,12 +8,17 @@ using NDock.Base.Config;
 
 namespace NDock.Server
 {
-    class DefaultBootstrap : BootstrapBase
+    public class DefaultBootstrap : BootstrapBase
     {
         public DefaultBootstrap(IConfigSource configSource)
             : base(configSource)
         {
             
+        }
+
+        protected override IManagedApp CreateAppInstance(IServerConfig serverConfig)
+        {
+            throw new NotImplementedException();
         }
     }
 }
