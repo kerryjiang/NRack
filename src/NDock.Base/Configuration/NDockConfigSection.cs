@@ -19,6 +19,12 @@ namespace NDock.Base.Configuration
             get { return (IsolationMode)this["isolation"]; }
         }
 
+        [ConfigurationProperty("logFactory", IsRequired = false)]
+        public string LogFactory
+        {
+            get { return (string)this["logFactory"]; }
+        }
+
         /// <summary>
         /// Gets all the server configurations
         /// </summary>

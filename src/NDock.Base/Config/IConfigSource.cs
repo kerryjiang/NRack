@@ -7,6 +7,8 @@ namespace NDock.Base.Config
 {
     public interface IConfigSource
     {
+        string LogFactory { get; }
+
         IsolationMode Isolation { get; }
 
         IEnumerable<IServerConfig> Servers { get; }

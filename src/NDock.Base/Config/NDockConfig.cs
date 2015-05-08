@@ -10,5 +10,7 @@ namespace NDock.Base.Config
         public IsolationMode Isolation { get; set; }
 
         public IEnumerable<IServerConfig> Servers { get; set; }
+
+        public string LogFactory { get; set; }
     }
 }
