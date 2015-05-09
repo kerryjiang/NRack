@@ -13,6 +13,8 @@ namespace NDock.Base
 
         bool Setup(IServerConfig config);
 
+        ServerState State { get; }
+
         IServerConfig Config { get; }
     }
 

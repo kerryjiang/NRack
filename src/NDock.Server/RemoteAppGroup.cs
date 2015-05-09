@@ -65,5 +65,8 @@ namespace NDock.Server
         {
             throw new NotImplementedException();
         }
+
+
+        public ServerState State { get; private set; }
     }
 }

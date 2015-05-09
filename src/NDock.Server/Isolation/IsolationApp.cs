@@ -40,5 +40,7 @@ namespace NDock.Server.Isolation
         {
             throw new NotImplementedException();
         }
+
+        public ServerState State { get; protected set; }
     }
 }

@@ -73,6 +73,8 @@ namespace NDock.Base
 
         public ILog Logger { get; private set; }
 
+        public ServerState State { get; private set; }
+
         public IAppEndPoint EndPoint { get; private set; }
 
         public IMessageBus MessageBus { get; private set; }
@@ -84,20 +86,34 @@ namespace NDock.Base
 
         bool IManagedApp.Setup(IServerConfig config)
         {
-            if (config == null)
-                throw new ArgumentNullException("config");
+            var initialized = false;
+            State = ServerState.Initializing;
 
-            if (!string.IsNullOrEmpty(config.Name))
-                Name = config.Name;
-            else
-                Name = string.Format("{0}-{1}", this.GetType().Name, Math.Abs(this.GetHashCode()));
+            try
+            {
+                if (config == null)
+                    throw new ArgumentNullException("config");
 
-            Config = config;
+                if (!string.IsNullOrEmpty(config.Name))
+                    Name = config.Name;
+                else
+                    Name = string.Format("{0}-{1}", this.GetType().Name, Math.Abs(this.GetHashCode()));
 
-            if (!Composite(config))
-                return false;
+                Config = config;
 
-            return Setup(config, CompositionContainer);
+                if (!Composite(config))
+                    return false;
+
+                initialized = Setup(config, CompositionContainer);
+                return initialized;
+            }
+            finally
+            {
+                if (initialized)
+                    State = ServerState.NotStarted;
+                else
+                    State = ServerState.NotInitialized;
+            }
         }
 
         protected abstract bool Setup(IServerConfig config, ExportProvider exportProvider);
@@ -116,13 +132,25 @@ namespace NDock.Base
 
         bool IManagedAppBase.Start()
         {
-            OnPreStart();
+            var started = false;
 
-            if (!Start())
-                return false;
+            try
+            {
+                State = ServerState.Starting;
 
-            OnStarted();
-            return true;
+                OnPreStart();
+
+                if (!Start())
+                    return false;
+
+                OnStarted();
+                started = true;
+                return true;
+            }
+            finally
+            {
+                State = started ? ServerState.Running : ServerState.NotStarted;
+            }
         }
 
         public abstract bool Start();
@@ -138,11 +166,23 @@ namespace NDock.Base
 
         void IManagedAppBase.Stop()
         {
-            OnPreStop();
+            var stoppped = false;
 
-            //TODO: Actual stopping code
+            try
+            {
+                State = ServerState.Stopping;
 
-            OnStopped();
+                OnPreStop();
+
+                //TODO: Actual stopping code
+
+                OnStopped();
+                stoppped = true;
+            }
+            finally
+            {
+                State = stoppped ? ServerState.NotStarted : ServerState.Running;
+            }
         }
 
         public abstract void Stop();
