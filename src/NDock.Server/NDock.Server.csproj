@@ -43,8 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppDomainIsolation\AppDomainBootstrap.cs" />
-    <Compile Include="AppDomainIsolation\AppDomainApp.cs" />
+    <Compile Include="Isolation\AppDomainIsolation\AppDomainBootstrap.cs" />
+    <Compile Include="Isolation\AppDomainIsolation\AppDomainApp.cs" />
     <Compile Include="AssemblyImport.cs" />
     <Compile Include="BootstrapBase.cs" />
     <Compile Include="BootstrapFactory.cs" />
@@ -52,8 +52,8 @@
     <Compile Include="IRemoteManagedApp.cs" />
     <Compile Include="Isolation\IsolationApp.cs" />
     <Compile Include="Isolation\IsolationBootstrap.cs" />
-    <Compile Include="ProcessIsolation\ProcessBootstrap.cs" />
-    <Compile Include="ProcessIsolation\ProcessApp.cs" />
+    <Compile Include="Isolation\ProcessIsolation\ProcessBootstrap.cs" />
+    <Compile Include="Isolation\ProcessIsolation\ProcessApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteAppGroup.cs" />
     <Compile Include="RemoteAppTypeValidator.cs">

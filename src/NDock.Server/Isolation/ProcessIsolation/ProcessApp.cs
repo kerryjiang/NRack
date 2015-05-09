@@ -7,7 +7,7 @@ using NDock.Base.Config;
 using NDock.Base.Metadata;
 using NDock.Server.Isolation;
 
-namespace NDock.Server.ProcessIsolation
+namespace NDock.Server.Isolation.ProcessIsolation
 {
     class ProcessApp : IsolationApp
     {

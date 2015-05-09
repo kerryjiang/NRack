@@ -7,11 +7,11 @@ using NDock.Base.Config;
 using NDock.Base.Metadata;
 using NDock.Server.Isolation;
 
-namespace NDock.Server.AppDomainIsolation
+namespace NDock.Server.Isolation.ProcessIsolation
 {
-    class AppDomainBootstrap : IsolationBootstrap
+    class ProcessBootstrap : IsolationBootstrap
     {
-        public AppDomainBootstrap(IConfigSource configSource)
+        public ProcessBootstrap(IConfigSource configSource)
             : base(configSource)
         {
 
@@ -19,7 +19,7 @@ namespace NDock.Server.AppDomainIsolation
 
         protected override IManagedApp CreateAppInstanceByMetadata(AppServerMetadataAttribute metadata)
         {
-            return new AppDomainApp(metadata);
+            return new ProcessApp(metadata);
         }
     }
 }

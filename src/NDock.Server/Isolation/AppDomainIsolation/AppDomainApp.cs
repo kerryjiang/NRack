@@ -7,7 +7,7 @@ using NDock.Base.Config;
 using NDock.Base.Metadata;
 using NDock.Server.Isolation;
 
-namespace NDock.Server.AppDomainIsolation
+namespace NDock.Server.Isolation.AppDomainIsolation
 {
     class AppDomainApp : IsolationApp
     {

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using NDock.Base;
 using NDock.Base.Config;
-using NDock.Server.AppDomainIsolation;
-using NDock.Server.ProcessIsolation;
+using NDock.Server.Isolation.AppDomainIsolation;
+using NDock.Server.Isolation.ProcessIsolation;
 
 namespace NDock.Server
 {
