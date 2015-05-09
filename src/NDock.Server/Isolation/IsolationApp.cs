@@ -12,8 +12,11 @@ namespace NDock.Server.Isolation
     {
         private AppServerMetadataAttribute m_Metadata;
 
+        protected const string WorkingDir = "AppRoot";
+
         protected IsolationApp(AppServerMetadataAttribute metadata)
         {
+            State = ServerState.NotInitialized;
             m_Metadata = metadata;
         }
 
@@ -21,7 +24,11 @@ namespace NDock.Server.Isolation
 
         public bool Setup(IServerConfig config)
         {
-            throw new NotImplementedException();
+            State = ServerState.Initializing;
+            Config = config;
+            Name = config.Name;
+            State = ServerState.NotStarted;
+            return true;
         }
 
         public IServerConfig Config { get; private set; }
