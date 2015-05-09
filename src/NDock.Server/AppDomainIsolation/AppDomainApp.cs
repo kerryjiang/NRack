@@ -5,39 +5,16 @@ using System.Text;
 using NDock.Base;
 using NDock.Base.Config;
 using NDock.Base.Metadata;
+using NDock.Server.Isolation;
 
 namespace NDock.Server.AppDomainIsolation
 {
-    class AppDomainApp : IManagedApp
+    class AppDomainApp : IsolationApp
     {
-        public bool Setup(IServerConfig config)
+        public AppDomainApp(AppServerMetadataAttribute metadata)
+            : base(metadata)
         {
-            throw new NotImplementedException();
-        }
 
-        public bool Start()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Stop()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IServerConfig Config
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public string Name
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public AppServerMetadata GetMetadata()
-        {
-            throw new NotImplementedException();
         }
     }
 }

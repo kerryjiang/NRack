@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using NDock.Base;
 using NDock.Base.Config;
+using NDock.Base.Metadata;
+using NDock.Server.Isolation;
 
 namespace NDock.Server.AppDomainIsolation
 {
-    class AppDomainBootstrap : BootstrapBase
+    class AppDomainBootstrap : IsolationBootstrap
     {
         public AppDomainBootstrap(IConfigSource configSource)
             : base(configSource)
@@ -15,9 +17,9 @@ namespace NDock.Server.AppDomainIsolation
 
         }
 
-        protected override IManagedApp CreateAppInstance(IServerConfig serverConfig)
+        protected override IManagedApp CreateAppInstanceByMetadata(AppServerMetadataAttribute metadata)
         {
-            throw new NotImplementedException();
+            return new AppDomainApp(metadata);
         }
     }
 }

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using NDock.Base;
 using NDock.Base.Config;
+using NDock.Base.Metadata;
+using NDock.Server.Isolation;
 
 namespace NDock.Server.ProcessIsolation
 {
-    class ProcessBootstrap : BootstrapBase
+    class ProcessBootstrap : IsolationBootstrap
     {
         public ProcessBootstrap(IConfigSource configSource)
             : base(configSource)
@@ -15,9 +17,9 @@ namespace NDock.Server.ProcessIsolation
 
         }
 
-        protected override IManagedApp CreateAppInstance(IServerConfig serverConfig)
+        protected override IManagedApp CreateAppInstanceByMetadata(AppServerMetadataAttribute metadata)
         {
-            throw new NotImplementedException();
+            return new ProcessApp(metadata);
         }
     }
 }

@@ -77,9 +77,9 @@ namespace NDock.Base
 
         public IMessageBus MessageBus { get; private set; }
 
-        public virtual AppServerMetadata GetMetadata()
+        public virtual AppServerMetadataAttribute GetMetadata()
         {
-            return AppServerMetadata.GetAppServerMetadata(this.GetType());
+            return AppServerMetadataAttribute.GetAppServerMetadata(this.GetType());
         }
 
         bool IManagedApp.Setup(IServerConfig config)
