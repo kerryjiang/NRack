@@ -52,6 +52,7 @@
     <Compile Include="IRemoteManagedApp.cs" />
     <Compile Include="Isolation\IsolationApp.cs" />
     <Compile Include="Isolation\IsolationBootstrap.cs" />
+    <Compile Include="Isolation\MarshalManagedApp.cs" />
     <Compile Include="Isolation\ProcessIsolation\ProcessBootstrap.cs" />
     <Compile Include="Isolation\ProcessIsolation\ProcessApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
