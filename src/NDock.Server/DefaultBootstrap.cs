@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using NDock.Base;
 using NDock.Base.Config;
+using NDock.Base.Metadata;
 
 namespace NDock.Server
 {
@@ -16,9 +17,9 @@ namespace NDock.Server
             
         }
 
-        protected override IManagedApp CreateAppInstance(IServerConfig serverConfig)
+        protected override IManagedApp CreateAppInstanceByMetadata(AppServerMetadataAttribute metadata)
         {
-            throw new NotImplementedException();
+            return (IManagedApp)Activator.CreateInstance(Type.GetType(metadata.AppType, true, true));
         }
     }
 }

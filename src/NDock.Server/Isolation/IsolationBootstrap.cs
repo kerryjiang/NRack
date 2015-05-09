@@ -16,7 +16,7 @@ namespace NDock.Server.Isolation
 
         }
 
-        protected virtual AppServerMetadataAttribute GetAppServerMetadata(IServerConfig serverConfig)
+        protected override AppServerMetadataAttribute GetAppServerMetadata(IServerConfig serverConfig)
         {
             AppDomain validateDomain = null;
             AppServerMetadataAttribute metadata = null;
@@ -38,18 +38,6 @@ namespace NDock.Server.Isolation
             }
 
             return metadata;
-        }
-
-        protected abstract IManagedApp CreateAppInstanceByMetadata(AppServerMetadataAttribute metadata);
-
-        protected override IManagedApp CreateAppInstance(IServerConfig serverConfig)
-        {
-            var metadata = GetAppServerMetadata(serverConfig);
-
-            if (metadata == null)
-                throw new Exception("Failed to load server's type");
-
-            return CreateAppInstanceByMetadata(metadata);
         }
     }
 }

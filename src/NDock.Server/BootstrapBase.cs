@@ -6,6 +6,7 @@ using System.Text;
 using AnyLog;
 using NDock.Base;
 using NDock.Base.Config;
+using NDock.Base.Metadata;
 
 namespace NDock.Server
 {
@@ -52,7 +53,23 @@ namespace NDock.Server
             }
         }
 
-        protected abstract IManagedApp CreateAppInstance(IServerConfig serverConfig);
+        protected virtual AppServerMetadataAttribute GetAppServerMetadata(IServerConfig serverConfig)
+        {
+            var typeValidator = new RemoteAppTypeValidator();
+            return typeValidator.GetServerMetadata(serverConfig.Type);
+        }
+
+        protected abstract IManagedApp CreateAppInstanceByMetadata(AppServerMetadataAttribute metadata);
+
+        protected virtual IManagedApp CreateAppInstance(IServerConfig serverConfig)
+        {
+            var metadata = GetAppServerMetadata(serverConfig);
+
+            if (metadata == null)
+                throw new Exception("Failed to load server's type: " + serverConfig.Type);
+
+            return CreateAppInstanceByMetadata(metadata);
+        }
 
         public virtual bool Initialize()
         {
