@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Configuration;
 using NDock.Base;
 using NDock.Base.Config;
+using NDock.Base.Configuration;
 using NDock.Base.Metadata;
 using NDock.Server.Isolation;
 
@@ -19,7 +21,8 @@ namespace NDock.Server.Isolation.AppDomainIsolation
 
         protected override IManagedApp CreateAppInstanceByMetadata(AppServerMetadataAttribute metadata)
         {
-            return new AppDomainApp(metadata);
+            var config = ((ConfigurationElement)ConfigSource).GetCurrentConfiguration();
+            return new AppDomainApp(metadata, config.FilePath);
         }
     }
 }

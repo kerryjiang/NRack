@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using NDock.Base;
 using NDock.Base.Config;
 using NDock.Base.Metadata;
 
 namespace NDock.Server.Isolation
 {
-    class IsolationApp : IManagedApp
+    abstract class IsolationApp : IManagedApp
     {
         private AppServerMetadataAttribute m_Metadata;
+
+        protected IManagedApp ManagedApp { get; private set; }
 
         protected const string WorkingDir = "AppRoot";
 
@@ -38,16 +41,68 @@ namespace NDock.Server.Isolation
             return m_Metadata;
         }
 
+        protected abstract IManagedApp CreateAndStartServerInstance();
+
         public bool Start()
         {
-            throw new NotImplementedException();
+            State = ServerState.Starting;
+
+            ManagedApp = CreateAndStartServerInstance();
+
+            if (ManagedApp != null)
+            {
+                State = ServerState.Running;
+                return true;
+            }
+            else
+            {
+                State = ServerState.NotStarted;
+                return false;
+            }
         }
 
-        public void Stop()
+        void IManagedAppBase.Stop()
         {
-            throw new NotImplementedException();
+            var app = ManagedApp;
+
+            if (app == null)
+                return;
+
+            State = ServerState.Stopping;
+            app.Stop();
+
+            m_StopTaskSrc = new TaskCompletionSource<bool>();
+
+            var stopTask = m_StopTaskSrc.Task;
+
+            Stop();
+
+            stopTask.Wait();
         }
+
+        private TaskCompletionSource<bool> m_StopTaskSrc;
+
+        protected virtual void OnStopped()
+        {
+            State = ServerState.NotStarted;
+            ManagedApp = null;
+            m_StopTaskSrc.SetResult(true);
+        }
+
+        protected abstract void Stop();
 
         public ServerState State { get; protected set; }
+
+        public event EventHandler<ErrorEventArgs> ExceptionThrown;
+
+        protected void OnExceptionThrown(Exception exc)
+        {
+            var handler = ExceptionThrown;
+
+            if (handler == null)
+                return;
+
+            handler(this, new ErrorEventArgs(exc));
+        }
     }
 }

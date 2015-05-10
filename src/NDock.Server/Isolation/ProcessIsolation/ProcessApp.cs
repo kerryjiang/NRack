@@ -16,5 +16,15 @@ namespace NDock.Server.Isolation.ProcessIsolation
         {
 
         }
+
+        protected override IManagedApp CreateAndStartServerInstance()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void Stop()
+        {
+            
+        }
     }
 }
