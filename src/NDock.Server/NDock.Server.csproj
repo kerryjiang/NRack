@@ -31,16 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AnyLog, Version=0.1.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AnyLog.0.1.4.0\lib\net40\AnyLog.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="AnyLog">
+      <HintPath>..\packages\AnyLog.0.1.4.0\lib\net40\AnyLog.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Isolation\AppDomainIsolation\AppDomainBootstrap.cs" />
@@ -60,10 +59,11 @@
     <Compile Include="RemoteAppTypeValidator.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Isolation\ProcessIsolation\ProcessLocker.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NDock.Base\NDock.Base.csproj">
-      <Project>{406671c6-5dcb-4b23-bd28-fb02c235eae4}</Project>
+      <Project>{406671C6-5DCB-4B23-BD28-FB02C235EAE4}</Project>
       <Name>NDock.Base</Name>
     </ProjectReference>
   </ItemGroup>

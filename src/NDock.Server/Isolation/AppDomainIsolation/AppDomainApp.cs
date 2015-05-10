@@ -62,7 +62,7 @@ namespace NDock.Server.Isolation.AppDomainIsolation
             return hostAppDomain;
         }
 
-        protected override IManagedApp CreateAndStartServerInstance()
+        protected override IManagedAppBase CreateAndStartServerInstance()
         {
             IManagedApp appServer;
 

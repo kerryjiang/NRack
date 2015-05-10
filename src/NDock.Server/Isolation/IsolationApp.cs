@@ -13,7 +13,7 @@ namespace NDock.Server.Isolation
     {
         private AppServerMetadataAttribute m_Metadata;
 
-        protected IManagedApp ManagedApp { get; private set; }
+        protected IManagedAppBase ManagedApp { get; private set; }
 
         protected const string WorkingDir = "AppRoot";
 
@@ -41,7 +41,7 @@ namespace NDock.Server.Isolation
             return m_Metadata;
         }
 
-        protected abstract IManagedApp CreateAndStartServerInstance();
+        protected abstract IManagedAppBase CreateAndStartServerInstance();
 
         public bool Start()
         {
