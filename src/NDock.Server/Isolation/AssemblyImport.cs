@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace NDock.Server
+namespace NDock.Server.Isolation
 {
     /// <summary>
     /// AssemblyImport, used for importing assembly to the current AppDomain

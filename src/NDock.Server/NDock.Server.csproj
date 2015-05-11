@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Isolation\AppDomainIsolation\AppDomainBootstrap.cs" />
     <Compile Include="Isolation\AppDomainIsolation\AppDomainApp.cs" />
-    <Compile Include="AssemblyImport.cs" />
+    <Compile Include="Isolation\AssemblyImport.cs" />
     <Compile Include="BootstrapBase.cs" />
     <Compile Include="BootstrapFactory.cs" />
     <Compile Include="DefaultBootstrap.cs" />

@@ -7,6 +7,7 @@ using NDock.Base;
 using NDock.Base.Config;
 using NDock.Base.Metadata;
 using NDock.Server;
+using NDock.Server.Isolation;
 
 namespace NDock.Agent
 {
