@@ -150,6 +150,16 @@ namespace NDock.Base.CompositeTargets
         protected abstract bool MetadataNameEqual(TMetadata metadata, string name);
 
         /// <summary>
+        /// Sorts the specified factories by priority.
+        /// </summary>
+        /// <param name="factories">The factories.</param>
+        /// <returns></returns>
+        protected virtual IEnumerable<Lazy<TTarget, TMetadata>> Sort(IEnumerable<Lazy<TTarget, TMetadata>> factories)
+        {
+            return factories;
+        }
+
+        /// <summary>
         /// Prepares the result before it is returned.
         /// </summary>
         /// <param name="result">The result.</param>

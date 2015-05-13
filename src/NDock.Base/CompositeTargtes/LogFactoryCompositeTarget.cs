@@ -23,6 +23,11 @@ namespace NDock.Base.CompositeTargets
             return metadata.Name.Equals(name, StringComparison.OrdinalIgnoreCase);
         }
 
+        protected override IEnumerable<Lazy<ILogFactory, ILogFactoryMetadata>> Sort(IEnumerable<Lazy<ILogFactory, ILogFactoryMetadata>> factories)
+        {
+            return factories.OrderBy(f => f.Metadata.Priority);
+        }
+
         protected override bool PrepareResult(ILogFactory result, IAppServer appServer, ILogFactoryMetadata metadata)
         {
             var currentAppDomain = AppDomain.CurrentDomain;
