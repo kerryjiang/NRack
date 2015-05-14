@@ -17,7 +17,7 @@ namespace NDock.Server
             
         }
 
-        protected override IManagedApp CreateAppInstanceByMetadata(AppServerMetadataAttribute metadata)
+        protected override IManagedApp CreateAppInstanceByMetadata(AppServerMetadata metadata)
         {
             return (IManagedApp)Activator.CreateInstance(Type.GetType(metadata.AppType, true, true));
         }

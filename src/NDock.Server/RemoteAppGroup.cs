@@ -61,7 +61,7 @@ namespace NDock.Server
 
         public IServerConfig Config { get; private set; }
 
-        public AppServerMetadataAttribute GetMetadata()
+        public AppServerMetadata GetMetadata()
         {
             throw new NotImplementedException();
         }

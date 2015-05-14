@@ -17,17 +17,18 @@ namespace NDock.Server
             m_ExportProvider = AppDomain.CurrentDomain.GetCurrentAppDomainExportProvider();
         }
 
-        public AppServerMetadataAttribute GetServerMetadata(string serverTypeName)
+        public AppServerMetadata GetServerMetadata(string serverTypeName)
         {
             var lazyServerFactory = m_ExportProvider.GetExports<IAppServer, IAppServerMetadata>()
                 .FirstOrDefault(f => f.Metadata.Name.Equals(serverTypeName, StringComparison.OrdinalIgnoreCase));
+            
 
             if (lazyServerFactory != null)
-                return lazyServerFactory.Metadata as AppServerMetadataAttribute;
+                return lazyServerFactory.Metadata as AppServerMetadata;
 
             try
             {
-                return AppServerMetadataAttribute.GetAppServerMetadata(Type.GetType(serverTypeName, true, true));
+                return AppServerMetadata.GetAppServerMetadata(Type.GetType(serverTypeName, true, true));
             }
             catch
             {

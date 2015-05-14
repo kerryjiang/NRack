@@ -79,9 +79,9 @@ namespace NDock.Base
 
         public IMessageBus MessageBus { get; private set; }
 
-        public virtual AppServerMetadataAttribute GetMetadata()
+        public virtual AppServerMetadata GetMetadata()
         {
-            return AppServerMetadataAttribute.GetAppServerMetadata(this.GetType());
+            return AppServerMetadata.GetAppServerMetadata(this.GetType());
         }
 
         bool IManagedApp.Setup(IServerConfig config)
@@ -116,7 +116,10 @@ namespace NDock.Base
             }
         }
 
-        protected abstract bool Setup(IServerConfig config, ExportProvider exportProvider);
+        protected virtual bool Setup(IServerConfig config, ExportProvider exportProvider)
+        {
+            return true;
+        }
 
         #region the code about starting
 

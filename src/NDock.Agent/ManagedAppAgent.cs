@@ -77,7 +77,7 @@ namespace NDock.Agent
             m_AppServer.Stop();
         }
 
-        AppServerMetadataAttribute IManagedAppBase.GetMetadata()
+        AppServerMetadata IManagedAppBase.GetMetadata()
         {
             return m_AppServer.GetMetadata();
         }

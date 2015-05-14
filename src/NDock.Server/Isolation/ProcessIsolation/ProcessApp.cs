@@ -35,7 +35,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
         private string m_ProcessWorkStatus = string.Empty;
 
-        public ProcessApp(AppServerMetadataAttribute metadata)
+        public ProcessApp(AppServerMetadata metadata)
             : base(metadata)
         {
 

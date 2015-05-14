@@ -33,10 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AnyLog, Version=0.1.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AnyLog.0.1.5.0\lib\net40\AnyLog.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -44,6 +40,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Xml" />
+    <Reference Include="AnyLog">
+      <HintPath>..\packages\AnyLog.0.1.5.0\lib\net40\AnyLog.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ManagedAppAgent.cs" />
@@ -52,11 +51,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NDock.Base\NDock.Base.csproj">
-      <Project>{406671c6-5dcb-4b23-bd28-fb02c235eae4}</Project>
+      <Project>{406671C6-5DCB-4B23-BD28-FB02C235EAE4}</Project>
       <Name>NDock.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\NDock.Server\NDock.Server.csproj">
-      <Project>{7800b7ea-fb3a-4305-9ee7-74a7b5744c45}</Project>
+      <Project>{7800B7EA-FB3A-4305-9EE7-74A7B5744C45}</Project>
       <Name>NDock.Server</Name>
     </ProjectReference>
   </ItemGroup>

@@ -42,7 +42,7 @@ namespace NDock.Server.Isolation
             get { return m_ManagedApp.Config; }
         }
 
-        public AppServerMetadataAttribute GetMetadata()
+        public AppServerMetadata GetMetadata()
         {
             return m_ManagedApp.GetMetadata();
         }

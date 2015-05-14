@@ -16,10 +16,10 @@ namespace NDock.Server.Isolation
 
         }
 
-        protected override AppServerMetadataAttribute GetAppServerMetadata(IServerConfig serverConfig)
+        protected override AppServerMetadata GetAppServerMetadata(IServerConfig serverConfig)
         {
             AppDomain validateDomain = null;
-            AppServerMetadataAttribute metadata = null;
+            AppServerMetadata metadata = null;
 
             try
             {

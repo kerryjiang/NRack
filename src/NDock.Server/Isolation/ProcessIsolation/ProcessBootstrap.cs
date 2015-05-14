@@ -17,7 +17,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
         }
 
-        protected override IManagedApp CreateAppInstanceByMetadata(AppServerMetadataAttribute metadata)
+        protected override IManagedApp CreateAppInstanceByMetadata(AppServerMetadata metadata)
         {
             return new ProcessApp(metadata);
         }

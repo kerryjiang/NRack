@@ -11,13 +11,13 @@ namespace NDock.Server.Isolation
 {
     abstract class IsolationApp : IManagedApp
     {
-        private AppServerMetadataAttribute m_Metadata;
+        private AppServerMetadata m_Metadata;
 
         protected IManagedAppBase ManagedApp { get; private set; }
 
         protected const string WorkingDir = "AppRoot";
 
-        protected IsolationApp(AppServerMetadataAttribute metadata)
+        protected IsolationApp(AppServerMetadata metadata)
         {
             State = ServerState.NotInitialized;
             m_Metadata = metadata;
@@ -36,7 +36,7 @@ namespace NDock.Server.Isolation
 
         public IServerConfig Config { get; private set; }
 
-        public AppServerMetadataAttribute GetMetadata()
+        public AppServerMetadata GetMetadata()
         {
             return m_Metadata;
         }

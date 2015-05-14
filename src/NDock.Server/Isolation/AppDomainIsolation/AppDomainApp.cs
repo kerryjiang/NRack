@@ -18,7 +18,7 @@ namespace NDock.Server.Isolation.AppDomainIsolation
 
         private string m_StartupConfigFile;
 
-        public AppDomainApp(AppServerMetadataAttribute metadata, string startupConfigFile)
+        public AppDomainApp(AppServerMetadata metadata, string startupConfigFile)
             : base(metadata)
         {
             m_StartupConfigFile = startupConfigFile;

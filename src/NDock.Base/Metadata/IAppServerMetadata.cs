@@ -8,9 +8,5 @@ namespace NDock.Base.Metadata
     public interface IAppServerMetadata
     {
         string Name { get; }
-
-        string AppType { get; }
-
-        StatusInfoAttribute[] StatusFields { get; }
     }
 }

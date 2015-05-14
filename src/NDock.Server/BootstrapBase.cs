@@ -53,13 +53,13 @@ namespace NDock.Server
             }
         }
 
-        protected virtual AppServerMetadataAttribute GetAppServerMetadata(IServerConfig serverConfig)
+        protected virtual AppServerMetadata GetAppServerMetadata(IServerConfig serverConfig)
         {
             var typeValidator = new RemoteAppTypeValidator();
             return typeValidator.GetServerMetadata(serverConfig.Type);
         }
 
-        protected abstract IManagedApp CreateAppInstanceByMetadata(AppServerMetadataAttribute metadata);
+        protected abstract IManagedApp CreateAppInstanceByMetadata(AppServerMetadata metadata);
 
         protected virtual IManagedApp CreateAppInstance(IServerConfig serverConfig)
         {

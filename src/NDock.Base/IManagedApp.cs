@@ -20,7 +20,7 @@ namespace NDock.Base
 
     public interface IManagedAppBase
     {
-        AppServerMetadataAttribute GetMetadata();
+        AppServerMetadata GetMetadata();
 
         bool Start();
 
