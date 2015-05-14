@@ -6,13 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using NDock.Base;
 using NDock.Server;
-using NUnit;
 using NUnit.Framework;
 
 namespace NDock.Test
 {
     [TestFixture]
-    public class Basic
+    public class Test
     {
         [Test]
         public void ConfigLoadTest()
@@ -20,6 +19,8 @@ namespace NDock.Test
             var configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Asserts", "Config", "Basic.config");
             var bootstrap = BootstrapFactory.CreateBootstrapFromConfigFile(configFile);
             Assert.IsNotNull(bootstrap);
+
+            Assert.IsTrue(bootstrap.Initialize());
         }
     }
 }
