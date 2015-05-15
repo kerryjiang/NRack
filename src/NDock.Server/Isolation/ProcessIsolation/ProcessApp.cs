@@ -78,7 +78,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
                 ProcessStartInfo startInfo;
 
-                if (!NDock.Base.Environment.IsMono)
+                if (!NDock.Base.NDockEnv.IsMono)
                 {
                     startInfo = new ProcessStartInfo(m_AgentAssemblyName, args);
                 }

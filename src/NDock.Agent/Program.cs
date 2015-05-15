@@ -43,7 +43,7 @@ namespace NDock.Agent
                 throw new Exception("Root cannot be null or empty.");
 
             //Hack to change the default AppDomain's root
-            if (NDock.Base.Environment.IsMono) //for Mono
+            if (NDockEnv.IsMono) //for Mono
             {
                 var pro = typeof(AppDomain).GetProperty("SetupInformationNoCopy", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetProperty);
                 var setupInfo = (AppDomainSetup)pro.GetValue(AppDomain.CurrentDomain, null);

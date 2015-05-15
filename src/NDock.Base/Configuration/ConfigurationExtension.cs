@@ -114,7 +114,7 @@ namespace NDock.Base.Configuration
         {
             var source = config.ElementInformation.Source;
 
-            if (!string.IsNullOrEmpty(source) || !Environment.IsMono)
+            if (!string.IsNullOrEmpty(source) || !NDockEnv.IsMono)
                 return source;
 
             var configProperty = typeof(ConfigurationElement).GetProperty("Configuration", BindingFlags.Instance | BindingFlags.NonPublic);

@@ -55,7 +55,7 @@
     <Compile Include="Config\IConfigSource.cs" />
     <Compile Include="Config\NDockConfig.cs" />
     <Compile Include="Config\ServerConfig.cs" />
-    <Compile Include="Environment.cs" />
+    <Compile Include="NDockEnv.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IAppEndPoint.cs" />
     <Compile Include="IAppServer.cs" />

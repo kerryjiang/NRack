@@ -8,14 +8,14 @@ namespace NDock.Base
     /// <summary>
     /// System environment variables of NDock
     /// </summary>
-    public static class Environment
+    public static class NDockEnv
     {
         /// <summary>
         /// Is this runtime Mono
         /// </summary>
         public static readonly bool IsMono;
 
-        static Environment()
+        static NDockEnv()
         {
             // detect the runtime by the type Mono.Runtime
             IsMono = Type.GetType("Mono.Runtime") != null;
