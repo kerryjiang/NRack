@@ -11,12 +11,12 @@ namespace NDock.Test
     {
         public override bool Start()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public override void Stop()
         {
-            throw new NotImplementedException();
+
         }
         
     }
