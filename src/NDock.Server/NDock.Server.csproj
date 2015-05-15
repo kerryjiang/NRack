@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7800B7EA-FB3A-4305-9EE7-74A7B5744C45}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NDock.Server</RootNamespace>
     <AssemblyName>NDock.Server</AssemblyName>
@@ -30,11 +30,17 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="AnyLog">
@@ -42,6 +48,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlCommand.cs" />
     <Compile Include="Isolation\AppDomainIsolation\AppDomainBootstrap.cs" />
     <Compile Include="Isolation\AppDomainIsolation\AppDomainApp.cs" />
     <Compile Include="Isolation\AssemblyImport.cs" />
@@ -55,12 +62,26 @@
     <Compile Include="Isolation\ProcessIsolation\ProcessBootstrap.cs" />
     <Compile Include="Isolation\ProcessIsolation\ProcessApp.cs" />
     <Compile Include="MefExtensions.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteAppGroup.cs" />
     <Compile Include="RemoteAppTypeValidator.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Isolation\ProcessIsolation\ProcessLocker.cs" />
+    <Compile Include="Service\NDockService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service\NDockService.Designer.cs">
+      <DependentUpon>NDockService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Service\NDockServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service\NDockServiceInstaller.Designer.cs">
+      <DependentUpon>NDockServiceInstaller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Service\SelfInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NDock.Base\NDock.Base.csproj">
@@ -69,6 +90,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ndock.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ndock.sh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
