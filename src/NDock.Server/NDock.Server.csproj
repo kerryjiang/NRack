@@ -69,6 +69,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Isolation\ProcessIsolation\ProcessLocker.cs" />
+    <Compile Include="RemoteBootstrapProxy.cs" />
     <Compile Include="Service\NDockService.cs">
       <SubType>Component</SubType>
     </Compile>

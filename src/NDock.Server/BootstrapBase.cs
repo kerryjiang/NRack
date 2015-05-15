@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
+using System.IO;
 using System.Linq;
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Ipc;
 using System.Text;
 using AnyLog;
 using NDock.Base;
@@ -116,12 +120,49 @@ namespace NDock.Server
                 ManagedApps.Add(server);
             }
 
+            try
+            {
+                RegisterRemotingService();
+            }
+            catch (Exception e)
+            {
+                if (Log.IsErrorEnabled)
+                    Log.Error("Failed to register remoting access service!", e);
+
+                return false;
+            }
+
             return true;
         }
 
         IEnumerable<IManagedApp> IBootstrap.AppServers
         {
             get { return ManagedApps; }
+        }
+
+        /// <summary>
+        /// Registers the bootstrap remoting access service.
+        /// </summary>
+        protected virtual void RegisterRemotingService()
+        {
+            var bootstrapIpcPort = string.Format("NDock.Bootstrap[{0}]", Math.Abs(AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar).GetHashCode()));
+
+            var serverChannelName = "Bootstrap";
+
+            var serverChannel = ChannelServices.RegisteredChannels.FirstOrDefault(c => c.ChannelName == serverChannelName);
+
+            if (serverChannel != null)
+                ChannelServices.UnregisterChannel(serverChannel);
+
+            serverChannel = new IpcServerChannel(serverChannelName, bootstrapIpcPort);
+            ChannelServices.RegisterChannel(serverChannel, false);
+
+            AppDomain.CurrentDomain.SetData("BootstrapIpcPort", bootstrapIpcPort);
+
+            var bootstrapProxyType = typeof(RemoteBootstrapProxy);
+
+            if (!RemotingConfiguration.GetRegisteredWellKnownServiceTypes().Any(s => s.ObjectType == bootstrapProxyType))
+                RemotingConfiguration.RegisterWellKnownServiceType(bootstrapProxyType, "Bootstrap.rem", WellKnownObjectMode.Singleton);
         }
     }
 }

@@ -145,8 +145,8 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
                 var bootstrapIpcPort = AppDomain.CurrentDomain.GetData("BootstrapIpcPort") as string;
 
-                //if (string.IsNullOrEmpty(bootstrapIpcPort))
-                //    throw new Exception("The bootstrap's remoting service has not been started.");
+                if (string.IsNullOrEmpty(bootstrapIpcPort))
+                    throw new Exception("The bootstrap's remoting service has not been started.");
 
                 var ret = false;
                 Exception exc = null;
