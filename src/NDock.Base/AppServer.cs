@@ -16,7 +16,7 @@ namespace NDock.Base
     {
         public string Name { get; private set; }
 
-        protected ExportProvider CompositionContainer { get; private set; }
+        protected CompositionContainer CompositionContainer { get; private set; }
 
         public IServerConfig Config { get; private set; }
 
@@ -29,7 +29,7 @@ namespace NDock.Base
             }));
         }
 
-        protected virtual ExportProvider GetCompositionContainer(IServerConfig config)
+        protected virtual CompositionContainer GetCompositionContainer(IServerConfig config)
         {
             return AppDomain.CurrentDomain.GetCurrentAppDomainExportProvider();
         }

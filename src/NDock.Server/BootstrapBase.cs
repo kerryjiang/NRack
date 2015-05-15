@@ -32,7 +32,7 @@ namespace NDock.Server
             ExportProvider = CreateExportProvider();
         }
 
-        protected virtual ExportProvider CreateExportProvider()
+        protected virtual CompositionContainer CreateExportProvider()
         {
             return AppDomain.CurrentDomain.GetCurrentAppDomainExportProvider();
         }

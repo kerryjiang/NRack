@@ -16,9 +16,9 @@ namespace NDock.Base
         /// </summary>
         /// <param name="appDomain">The application domain.</param>
         /// <returns></returns>
-        public static ExportProvider GetCurrentAppDomainExportProvider(this AppDomain appDomain)
+        public static CompositionContainer GetCurrentAppDomainExportProvider(this AppDomain appDomain)
         {
-            var exportProvider = appDomain.GetData(CurrentAppDomainExportProviderKey) as ExportProvider;
+            var exportProvider = appDomain.GetData(CurrentAppDomainExportProviderKey) as CompositionContainer;
 
             if (exportProvider != null)
                 return exportProvider;

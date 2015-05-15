@@ -10,7 +10,7 @@ namespace NDock.Server
 {
     public class RemoteAppTypeValidator : MarshalByRefObject
     {
-        private ExportProvider m_ExportProvider;
+        private CompositionContainer m_ExportProvider;
 
         public RemoteAppTypeValidator()
         {
@@ -20,8 +20,7 @@ namespace NDock.Server
         public AppServerMetadata GetServerMetadata(string serverTypeName)
         {
             var lazyServerFactory = m_ExportProvider.GetExports<IAppServer, IAppServerMetadata>()
-                .FirstOrDefault(f => f.Metadata.Name.Equals(serverTypeName, StringComparison.OrdinalIgnoreCase));
-            
+                .FirstOrDefault(f => f.Metadata.Name.Equals(serverTypeName, StringComparison.OrdinalIgnoreCase)); 
 
             if (lazyServerFactory != null)
                 return lazyServerFactory.Metadata as AppServerMetadata;
