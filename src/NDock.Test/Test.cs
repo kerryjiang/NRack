@@ -13,9 +13,14 @@ namespace NDock.Test
     [TestFixture]
     public class Test
     {
+        protected virtual string ConfigFile
+        {
+            get { return "Basic.config"; }
+        }
+
         private IBootstrap GetBootstrap()
         {
-            var configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Asserts", "Config", "Basic.config");
+            var configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Asserts", "Config", ConfigFile);
             return BootstrapFactory.CreateBootstrapFromConfigFile(configFile);
         }
 
