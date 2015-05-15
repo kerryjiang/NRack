@@ -30,6 +30,11 @@ namespace NDock.Base.CompositeTargets
 
         protected override bool PrepareResult(ILogFactory result, IAppServer appServer, ILogFactoryMetadata metadata)
         {
+            if (string.IsNullOrEmpty(metadata.ConfigFileName))
+            {
+                return result.Initialize(new string[0]);
+            }
+
             var currentAppDomain = AppDomain.CurrentDomain;
             var isolation = IsolationMode.None;
 
