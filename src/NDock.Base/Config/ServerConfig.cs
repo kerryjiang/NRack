@@ -5,8 +5,13 @@ using System.Text;
 
 namespace NDock.Base.Config
 {
+    [Serializable]
     public class ServerConfig : IServerConfig
     {
+        public ServerConfig(IServerConfig serverConfig)
+        {
+            serverConfig.CopyPropertiesTo(this);
+        }
         public string Name { get; set; }
 
         public string Group { get; set; }

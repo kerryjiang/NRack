@@ -11,9 +11,17 @@ namespace NDock.Server.Isolation
     abstract class IsolationBootstrap : BootstrapBase
     {
         public IsolationBootstrap(IConfigSource configSource)
-            : base(configSource)
+            : base(GetSerializableConfigSource(configSource))
         {
 
+        }
+
+        private static IConfigSource GetSerializableConfigSource(IConfigSource configSource)
+        {
+            if (configSource.GetType().IsSerializable)
+                return configSource;
+
+            return new NDockConfig(configSource);
         }
 
         protected override AppServerMetadata GetAppServerMetadata(IServerConfig serverConfig)

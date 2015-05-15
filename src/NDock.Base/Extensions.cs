@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace NDock.Base
@@ -30,6 +31,57 @@ namespace NDock.Base
 
             appDomain.SetData(CurrentAppDomainExportProviderKey, exportProvider);
             return exportProvider;
+        }
+
+        /// <summary>
+        /// Copies the properties of one object to another object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="target">The target.</param>
+        /// <returns></returns>
+        public static T CopyPropertiesTo<T>(this T source, T target)
+        {
+            return source.CopyPropertiesTo(p => true, target);
+        }
+
+        /// <summary>
+        /// Copies the properties of one object to another object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="predict">The properties predict.</param>
+        /// <param name="target">The target.</param>
+        /// <returns></returns>
+        public static T CopyPropertiesTo<T>(this T source, Predicate<PropertyInfo> predict, T target)
+        {
+            PropertyInfo[] properties = source.GetType()
+                .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty);
+
+            Dictionary<string, PropertyInfo> sourcePropertiesDict = properties.ToDictionary(p => p.Name);
+
+            PropertyInfo[] targetProperties = target.GetType()
+                .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty)
+                .Where(p => predict(p)).ToArray();
+
+            for (int i = 0; i < targetProperties.Length; i++)
+            {
+                var p = targetProperties[i];
+                PropertyInfo sourceProperty;
+
+                if (sourcePropertiesDict.TryGetValue(p.Name, out sourceProperty))
+                {
+                    if (sourceProperty.PropertyType != p.PropertyType)
+                        continue;
+
+                    if (!sourceProperty.PropertyType.IsSerializable)
+                        continue;
+
+                    p.SetValue(target, sourceProperty.GetValue(source, null), null);
+                }
+            }
+
+            return target;
         }
     }
 }
