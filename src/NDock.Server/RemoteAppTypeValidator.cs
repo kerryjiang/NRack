@@ -23,7 +23,9 @@ namespace NDock.Server
                 .FirstOrDefault(f => f.Metadata.Name.Equals(serverTypeName, StringComparison.OrdinalIgnoreCase)); 
 
             if (lazyServerFactory != null)
-                return lazyServerFactory.Metadata as AppServerMetadata;
+            {
+                return new AppServerMetadata(lazyServerFactory.Metadata, lazyServerFactory.GetExportType());
+            }
 
             try
             {

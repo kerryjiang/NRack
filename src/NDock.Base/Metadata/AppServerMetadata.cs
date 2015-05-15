@@ -5,17 +5,17 @@ using NDock.Base.Metadata;
 namespace NDock.Base
 {
     [Serializable]
-    public class AppServerMetadata : IAppServerMetadata
+    public class AppServerMetadata
     {
         public AppServerMetadata()
         {
 
         }
         
-        public AppServerMetadata(AppServerMetadataAttribute attribute, Type appType)
+        public AppServerMetadata(IAppServerMetadata attribute, Type appType)
         {
             Name = attribute.Name;
-            AppType = appType.ToString();
+            AppType = appType.AssemblyQualifiedName;
 
             StatusFields = attribute.GetType()
                 .GetCustomAttributes(typeof(StatusInfoAttribute), true)

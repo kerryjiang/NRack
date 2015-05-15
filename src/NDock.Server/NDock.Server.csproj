@@ -54,6 +54,7 @@
     <Compile Include="Isolation\MarshalManagedApp.cs" />
     <Compile Include="Isolation\ProcessIsolation\ProcessBootstrap.cs" />
     <Compile Include="Isolation\ProcessIsolation\ProcessApp.cs" />
+    <Compile Include="MefExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteAppGroup.cs" />
     <Compile Include="RemoteAppTypeValidator.cs">

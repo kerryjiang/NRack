@@ -73,7 +73,6 @@
     <Compile Include="Provider\IProviderMetadata.cs" />
     <Compile Include="ServerState.cs" />
     <Compile Include="ErrorEventArgs.cs" />
-    <Compile Include="Metadata\IStatusInfo.cs" />
     <Compile Include="Metadata\AppServerMetadata.cs" />
   </ItemGroup>
   <ItemGroup>
