@@ -108,7 +108,7 @@ namespace NDock.Server
 
                 try
                 {
-                    if (!server.Setup(config))
+                    if (!server.Setup(this, config))
                         throw new Exception("Unknown reason");
                 }
                 catch(Exception e)

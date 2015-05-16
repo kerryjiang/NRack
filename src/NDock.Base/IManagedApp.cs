@@ -11,7 +11,7 @@ namespace NDock.Base
     {
         string Name { get; }
 
-        bool Setup(IServerConfig config);
+        bool Setup(IBootstrap bootstrap, IServerConfig config);
 
         ServerState State { get; }
 

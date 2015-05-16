@@ -26,13 +26,13 @@ namespace NDock.Server
             Items = groupItems.ToArray();
         }
 
-        public bool Setup(IServerConfig config)
+        public bool Setup(IBootstrap bootstrap, IServerConfig config)
         {
             Config = config;
 
             foreach (var item in Items)
             {
-                if (!item.Setup(config))
+                if (!item.Setup(bootstrap, config))
                     return false;
             }
 

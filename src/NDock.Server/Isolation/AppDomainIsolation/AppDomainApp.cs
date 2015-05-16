@@ -85,7 +85,7 @@ namespace NDock.Server.Isolation.AppDomainIsolation
                     null,
                     new object[0]);
 
-                if (!appServer.Setup(Config))
+                if (!appServer.Setup(Bootstrap, Config))
                 {
                     OnExceptionThrown(new Exception("Failed to setup MarshalManagedApp"));
                     return null;

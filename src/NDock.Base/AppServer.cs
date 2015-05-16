@@ -20,6 +20,8 @@ namespace NDock.Base
 
         public IServerConfig Config { get; private set; }
 
+        protected IBootstrap Bootstrap { get; private set; }
+
         protected virtual void RegisterCompositeTarget(IList<ICompositeTarget> targets)
         {
             targets.Add(new LogFactoryCompositeTarget((value) =>
@@ -84,8 +86,10 @@ namespace NDock.Base
             return AppServerMetadata.GetAppServerMetadata(this.GetType());
         }
 
-        bool IManagedApp.Setup(IServerConfig config)
+        bool IManagedApp.Setup(IBootstrap bootstrap, IServerConfig config)
         {
+            Bootstrap = Bootstrap;
+
             var initialized = false;
             State = ServerState.Initializing;
 

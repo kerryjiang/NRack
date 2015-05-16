@@ -41,7 +41,7 @@ namespace NDock.Agent
 
             var bootstrap = (IBootstrap)Activator.GetObject(typeof(IBootstrap), bootstrapUri);
 
-            var ret = m_AppServer.Setup(config);
+            var ret = m_AppServer.Setup(bootstrap, config);
 
             if (ret)
             {

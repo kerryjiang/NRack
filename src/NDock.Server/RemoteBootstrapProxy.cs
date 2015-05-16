@@ -37,7 +37,7 @@ namespace NDock.Server
                 m_ManagedApp.Stop();
             }
 
-            public bool Setup(IServerConfig config)
+            public bool Setup(IBootstrap bootstrap, IServerConfig config)
             {
                 throw new NotImplementedException();
             }

@@ -17,6 +17,8 @@ namespace NDock.Server.Isolation
 
         protected const string WorkingDir = "AppRoot";
 
+        protected IBootstrap Bootstrap { get; private set; }
+
         protected IsolationApp(AppServerMetadata metadata)
         {
             State = ServerState.NotInitialized;
@@ -25,8 +27,9 @@ namespace NDock.Server.Isolation
 
         public string Name { get; private set; }
 
-        public bool Setup(IServerConfig config)
+        public bool Setup(IBootstrap bootstrap, IServerConfig config)
         {
+            Bootstrap = bootstrap;
             State = ServerState.Initializing;
             Config = config;
             Name = config.Name;

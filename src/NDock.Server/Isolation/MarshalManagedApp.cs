@@ -27,9 +27,9 @@ namespace NDock.Server.Isolation
             get { return m_ManagedApp.Name; }
         }
 
-        public bool Setup(IServerConfig config)
+        public bool Setup(IBootstrap bootstrap, IServerConfig config)
         {
-            return m_ManagedApp.Setup(config);
+            return m_ManagedApp.Setup(bootstrap, config);
         }
 
         public ServerState State
