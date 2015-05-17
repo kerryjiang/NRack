@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -24,9 +25,22 @@ namespace NDock.Base
             if (exportProvider != null)
                 return exportProvider;
 
+            var isolation = IsolationMode.None;
+            var isolationValue = appDomain.GetData(typeof(IsolationMode).Name);
+
+            if (isolationValue != null)
+                isolation = (IsolationMode)isolationValue;
+
             var catalog = new AggregateCatalog();
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(IAppServer).Assembly));
-            catalog.Catalogs.Add(new DirectoryCatalog(AppDomain.CurrentDomain.BaseDirectory, "*.dll"));
+
+            catalog.Catalogs.Add(new DirectoryCatalog(AppDomain.CurrentDomain.BaseDirectory, "*.*"));
+
+            if (isolation != IsolationMode.None)
+            {
+                catalog.Catalogs.Add(new DirectoryCatalog(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName, "*.*"));
+            }
+
             exportProvider = new CompositionContainer(catalog);
 
             appDomain.SetData(CurrentAppDomainExportProviderKey, exportProvider);
