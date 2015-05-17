@@ -21,8 +21,7 @@ namespace NDock.Server.Isolation.AppDomainIsolation
 
         protected override IManagedApp CreateAppInstanceByMetadata(AppServerMetadata metadata)
         {
-            var config = ((ConfigurationElement)ConfigSource).GetCurrentConfiguration();
-            return new AppDomainApp(metadata, config.FilePath);
+            return new AppDomainApp(metadata, Configuration.FilePath);
         }
     }
 }
