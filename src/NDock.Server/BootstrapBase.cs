@@ -75,6 +75,11 @@ namespace NDock.Server
             return CreateAppInstanceByMetadata(metadata);
         }
 
+        protected virtual bool Setup(IManagedApp managedApp, IServerConfig config)
+        {
+            return managedApp.Setup(this, config);
+        }
+
         public virtual bool Initialize()
         {
             AnyLog.LogFactory.Configurate(ExportProvider, ConfigSource.LogFactory);
@@ -108,7 +113,7 @@ namespace NDock.Server
 
                 try
                 {
-                    if (!server.Setup(this, config))
+                    if (!Setup(server, config))
                         throw new Exception("Unknown reason");
                 }
                 catch(Exception e)

@@ -48,8 +48,6 @@ namespace NDock.Server.Isolation.AppDomainIsolation
                     ConfigurationFile = startupConfigFile
                 });
 
-            hostAppDomain.SetData(typeof(IsolationMode).Name, IsolationMode.AppDomain);
-
             var assemblyImportType = typeof(AssemblyImport);
 
             hostAppDomain.CreateInstanceFrom(assemblyImportType.Assembly.CodeBase,

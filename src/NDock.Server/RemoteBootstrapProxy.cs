@@ -55,24 +55,25 @@ namespace NDock.Server
 
         private IBootstrap m_Bootstrap;
 
-        private List<IManagedApp> m_ManagedApps = new List<IManagedApp>();
+        private List<IManagedApp> m_ManagedApps;
 
-        public RemoteBootstrapProxy()
+        public RemoteBootstrapProxy(IBootstrap bootstarp)
         {
-            m_Bootstrap = (IBootstrap)AppDomain.CurrentDomain.GetData("Bootstrap");
-
-            foreach (var s in m_Bootstrap.AppServers)
-            {
-                if (s is MarshalByRefObject)
-                    m_ManagedApps.Add(s);
-                else
-                    m_ManagedApps.Add(new ServerProxy(s));
-            }
+            m_Bootstrap = bootstarp;
         }
 
         public IEnumerable<IManagedApp> AppServers
         {
-            get { return m_ManagedApps; }
+            get
+            {
+                if(m_ManagedApps == null)
+                {
+                    m_ManagedApps = m_Bootstrap.AppServers.Select(s => new ServerProxy(s))
+                        .OfType<IManagedApp>().ToList();
+                }
+
+                return m_ManagedApps;
+            }
         }
 
         public bool Initialize()
