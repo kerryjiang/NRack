@@ -8,6 +8,11 @@ namespace NDock.Base.Config
     [Serializable]
     public class ServerConfig : IServerConfig
     {
+        public ServerConfig()
+        {
+
+        }
+
         public ServerConfig(IServerConfig serverConfig)
         {
             serverConfig.CopyPropertiesTo(this);
