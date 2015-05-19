@@ -5,7 +5,7 @@ NDock  [![Build Status](https://travis-ci.org/kerryjiang/NDock.svg?branch=master
 
 **Features**:
 
-* Automatic service host
+* Automatic service hosting
 * Multiple application isolation
 * App Garden
 * Watch dog
