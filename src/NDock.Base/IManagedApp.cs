@@ -25,5 +25,7 @@ namespace NDock.Base
         bool Start();
 
         void Stop();
+
+        bool CanBeRecycled();
     }
 }

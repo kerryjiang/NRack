@@ -104,5 +104,10 @@ namespace NDock.Agent
         {
             return null;
         }
+
+        public bool CanBeRecycled()
+        {
+            return m_AppServer.CanBeRecycled();
+        }
     }
 }

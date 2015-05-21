@@ -125,6 +125,11 @@ namespace NDock.Base
             return true;
         }
 
+        public virtual bool CanBeRecycled()
+        {
+            return true;
+        }
+
         #region the code about starting
 
         protected virtual void OnPreStart()

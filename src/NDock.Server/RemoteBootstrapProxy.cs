@@ -51,6 +51,11 @@ namespace NDock.Server
             {
                 return m_ManagedApp.GetMetadata();
             }
+
+            public bool CanBeRecycled()
+            {
+                return m_ManagedApp.CanBeRecycled();
+            }
         }
 
         private IBootstrap m_Bootstrap;

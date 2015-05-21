@@ -68,5 +68,11 @@ namespace NDock.Server
 
 
         public ServerState State { get; private set; }
+
+
+        public bool CanBeRecycled()
+        {
+            return true;
+        }
     }
 }

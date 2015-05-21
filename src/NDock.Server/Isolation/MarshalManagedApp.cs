@@ -56,5 +56,10 @@ namespace NDock.Server.Isolation
         {
             m_ManagedApp.Stop();
         }
+
+        public bool CanBeRecycled()
+        {
+            return m_ManagedApp.CanBeRecycled();
+        }
     }
 }

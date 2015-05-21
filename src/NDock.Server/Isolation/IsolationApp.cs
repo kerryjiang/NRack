@@ -121,5 +121,16 @@ namespace NDock.Server.Isolation
         {
             return null;
         }
+
+
+        public bool CanBeRecycled()
+        {
+            var app = ManagedApp;
+
+            if (app == null)
+                return false;
+
+            return app.CanBeRecycled();
+        }
     }
 }
