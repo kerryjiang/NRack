@@ -17,9 +17,14 @@ namespace NDock.Server
                 .GetField("m_valueFactory", BindingFlags.Instance | BindingFlags.NonPublic);
 
             var valueFactory = (Func<TExport>)valueFactoryField.GetValue(lazyFactory);
-            var exportField = valueFactory.Target.GetType().GetField("export");
+
+            var exportField = valueFactory.Target.GetType()
+                .GetField("export", BindingFlags.NonPublic | BindingFlags.Instance);
+            
             var export = exportField.GetValue(valueFactory.Target) as Export;
-            var memberInfo = (LazyMemberInfo)export.Definition.GetType().GetProperty("ExportingLazyMember").GetValue(export.Definition, null);
+            var memberInfo = (LazyMemberInfo)export.Definition.GetType()
+                .GetProperty("ExportingLazyMember").GetValue(export.Definition, null);
+            
             return memberInfo.GetAccessors()[0] as Type;
         }
     }
