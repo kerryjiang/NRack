@@ -19,7 +19,7 @@ namespace NDock.Server
             var valueFactory = (Func<TExport>)valueFactoryField.GetValue(lazyFactory);
 
             var exportField = valueFactory.Target.GetType()
-                .GetField("export", BindingFlags.NonPublic | BindingFlags.Instance);
+                .GetField("export", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             
             var export = exportField.GetValue(valueFactory.Target) as Export;
             var memberInfo = (LazyMemberInfo)export.Definition.GetType()
