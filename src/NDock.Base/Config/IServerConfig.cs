@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
@@ -14,5 +15,9 @@ namespace NDock.Base.Config
         string Type { get; }
 
         string LogFactory { get; }
+
+        NameValueCollection Options { get; }
+
+        NameValueCollection OptionElements { get; }
     }
 }
