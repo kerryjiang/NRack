@@ -73,6 +73,7 @@
     <Compile Include="Metadata\StatusInfoKeys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\IProviderMetadata.cs" />
+    <Compile Include="Provider\ProviderMetadataAttribute.cs" />
     <Compile Include="ServerState.cs" />
     <Compile Include="ErrorEventArgs.cs" />
     <Compile Include="Metadata\AppServerMetadata.cs" />
