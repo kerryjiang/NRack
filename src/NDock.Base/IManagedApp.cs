@@ -27,5 +27,7 @@ namespace NDock.Base
         void Stop();
 
         bool CanBeRecycled();
+
+        StatusInfoCollection CollectStatus();
     }
 }

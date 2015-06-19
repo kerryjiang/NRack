@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NDock.Base.Config;
-using AnyLog;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using AnyLog;
 using NDock.Base.CompositeTargets;
+using NDock.Base.Config;
 using NDock.Base.Metadata;
 
 namespace NDock.Base
@@ -21,6 +22,10 @@ namespace NDock.Base
         public IServerConfig Config { get; private set; }
 
         protected IBootstrap Bootstrap { get; private set; }
+
+        public DateTime StartedTime { get; private set; }
+
+        private StatusInfoCollection m_AppStatus;
 
         protected virtual void RegisterCompositeTarget(IList<ICompositeTarget> targets)
         {
@@ -157,6 +162,7 @@ namespace NDock.Base
 
                 OnStarted();
                 started = true;
+                StartedTime = DateTime.Now;
                 return true;
             }
             finally
@@ -205,5 +211,41 @@ namespace NDock.Base
         }
 
         #endregion
+
+
+        StatusInfoCollection IManagedAppBase.CollectStatus()
+        {
+            var status = m_AppStatus;
+
+            if (status == null)
+            {
+                status = new StatusInfoCollection();
+                status.Name = Name;
+                status.Tag = Name;
+                status.StartedTime = StartedTime;
+                m_AppStatus = status;
+            }
+
+            UpdateStatus(status);
+            Task.Factory.StartNew(() => OnStatusCollected(status)).ContinueWith(t =>
+                {
+                    Logger.LogAggregateException("Exception happend in OnStatusCollected.", t.Exception);
+                }, TaskContinuationOptions.OnlyOnFaulted);
+            return status;
+        }
+
+        protected virtual void UpdateStatus(StatusInfoCollection status)
+        {
+            status[StatusInfoKeys.IsRunning] = (State == ServerState.Running);
+        }
+
+        /// <summary>
+        /// Called when [status collected].
+        /// </summary>
+        /// <param name="status">The app status.</param>
+        protected virtual void OnStatusCollected(StatusInfoCollection status)
+        {
+
+        }
     }
 }

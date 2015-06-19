@@ -109,5 +109,11 @@ namespace NDock.Agent
         {
             return m_AppServer.CanBeRecycled();
         }
+
+
+        public StatusInfoCollection CollectStatus()
+        {
+            return m_AppServer.CollectStatus();
+        }
     }
 }

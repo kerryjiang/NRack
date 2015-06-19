@@ -12,6 +12,7 @@ namespace NDock.Base.Metadata
     [Serializable]
 #endif
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    [StatusInfo(StatusInfoKeys.IsRunning, Name = "Is Running", DataType = typeof(bool), Order = 100)]
     public class StatusInfoAttribute : Attribute
     {
         /// <summary>

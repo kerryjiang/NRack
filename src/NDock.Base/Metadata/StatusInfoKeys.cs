@@ -50,13 +50,6 @@ namespace NDock.Base.Metadata
         #endregion
 
         #region For server instance
-
-        /// <summary>
-        /// The started time.
-        /// </summary>
-        public const string StartedTime = "StartedTime";
-
-
         /// <summary>
         /// 	<c>true</c> if this instance is running; otherwise, <c>false</c>.
         /// </summary>

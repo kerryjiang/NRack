@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using AnyLog;
 
 namespace NDock.Base
 {
@@ -96,6 +97,27 @@ namespace NDock.Base
             }
 
             return target;
+        }
+
+        /// <summary>
+        /// Logs the aggregate exception.
+        /// </summary>
+        /// <param name="log">The logger.</param>
+        /// <param name="message">The message.</param>
+        /// <param name="exception">The exception.</param>
+        public static void LogAggregateException(this ILog log, string message, AggregateException exception)
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine(message);
+
+            foreach (var e in exception.InnerExceptions)
+            {
+                sb.AppendLine("#1: " + e.Message);
+                sb.AppendLine(e.StackTrace);
+            }
+
+            log.Error(sb.ToString());
         }
     }
 }
