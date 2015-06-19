@@ -19,7 +19,7 @@ namespace NDock.Base.Metadata
         /// </summary>
         public StatusInfoAttribute()
         {
-            OutputInPerfLog = true;
+            OutputInLog = true;
         }
 
         /// <summary>
@@ -74,12 +74,12 @@ namespace NDock.Base.Metadata
 
 
         /// <summary>
-        /// Gets or sets a value indicating whether [output in perf log].
+        /// Gets or sets a value indicating whether [output in log].
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [output in perf log]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [output in log]; otherwise, <c>false</c>.
         /// </value>
-        public bool OutputInPerfLog { get; set; }
+        public bool OutputInLog { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the data.
