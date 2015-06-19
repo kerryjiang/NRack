@@ -126,5 +126,16 @@ namespace NDock.Server.Isolation.AppDomainIsolation
             m_HostDomain = null;
             OnStopped();
         }
+
+        protected internal override long MemorySize
+        {
+            get
+            {
+                if (m_HostDomain == null)
+                    return 0;
+
+                return m_HostDomain.MonitoringSurvivedMemorySize;
+            }
+        }
     }
 }

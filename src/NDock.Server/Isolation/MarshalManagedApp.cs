@@ -61,5 +61,10 @@ namespace NDock.Server.Isolation
         {
             return m_ManagedApp.CanBeRecycled();
         }
+
+        public StatusInfoCollection CollectStatus()
+        {
+            return m_ManagedApp.CollectStatus();
+        }
     }
 }

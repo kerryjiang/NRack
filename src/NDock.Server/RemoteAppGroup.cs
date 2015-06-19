@@ -74,5 +74,10 @@ namespace NDock.Server
         {
             return true;
         }
+
+        public StatusInfoCollection CollectStatus()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

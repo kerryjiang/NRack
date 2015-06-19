@@ -7,6 +7,9 @@ using NDock.Base;
 using NDock.Base.Config;
 using NDock.Base.Configuration;
 using NDock.Base.Metadata;
+using NDock.Base.Provider;
+using NDock.Server.Config;
+using NDock.Server.Recycle;
 
 namespace NDock.Server.Isolation
 {
@@ -52,6 +55,64 @@ namespace NDock.Server.Isolation
             }
 
             return metadata;
+        }
+
+        void SetupRecycleTriggers(IManagedApp managedApp, IServerConfig config)
+        {
+            try
+            {
+                var recycleTriggers = config.OptionElements.GetChildConfig<RecycleTriggerConfigCollection>("recycleTriggers");
+
+                if (recycleTriggers != null && recycleTriggers.Count > 0)
+                {
+                    var exportProvider = AppDomain.CurrentDomain.GetCurrentAppDomainExportProvider();
+                    var recycleTriggerTypes = exportProvider.GetExports<IRecycleTrigger, IProviderMetadata>();
+
+                    var triggers = new List<IRecycleTrigger>();
+
+                    foreach (var triggerConfig in recycleTriggers)
+                    {
+                        var triggerType = recycleTriggerTypes.FirstOrDefault(t =>
+                                t.Metadata.Name.Equals(triggerConfig.Name, StringComparison.OrdinalIgnoreCase));
+
+                        if (triggerType == null)
+                        {
+                            Log.ErrorFormat("We cannot find a RecycleTrigger with the name '{0}'.", triggerConfig.Name);
+                            continue;
+                        }
+
+                        var trigger = triggerType.Value;
+
+                        if (!trigger.Initialize(triggerConfig.Options))
+                        {
+                            Log.ErrorFormat("Failed to initialize the RecycleTrigger '{0}'.", triggerConfig.Name);
+                            continue;
+                        }
+
+                        triggers.Add(trigger);
+                    }
+
+                    if (triggers.Any())
+                    {
+                        (managedApp as IsolationApp).RecycleTriggers = triggers.ToArray();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error("Failed to load recycle triggers.", e);
+            }
+        }
+
+        protected override bool Setup(IManagedApp managedApp, IServerConfig config)
+        {
+            var ret = base.Setup(managedApp, config);
+
+            if (!ret)
+                return false;
+
+            SetupRecycleTriggers(managedApp, config);
+            return ret;
         }
     }
 }

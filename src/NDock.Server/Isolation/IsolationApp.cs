@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NDock.Base;
 using NDock.Base.Config;
 using NDock.Base.Metadata;
+using NDock.Server.Recycle;
 
 namespace NDock.Server.Isolation
 {
@@ -131,6 +132,21 @@ namespace NDock.Server.Isolation
                 return false;
 
             return app.CanBeRecycled();
+        }
+
+        internal protected abstract long MemorySize { get; }
+
+        public IRecycleTrigger[] RecycleTriggers { get; internal set; }
+
+
+        public StatusInfoCollection CollectStatus()
+        {
+            var app = ManagedApp;
+
+            if (app == null)
+                return null;
+
+            return app.CollectStatus();
         }
     }
 }

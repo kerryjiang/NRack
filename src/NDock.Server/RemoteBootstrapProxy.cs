@@ -56,6 +56,11 @@ namespace NDock.Server
             {
                 return m_ManagedApp.CanBeRecycled();
             }
+
+            public StatusInfoCollection CollectStatus()
+            {
+                return m_ManagedApp.CollectStatus();
+            }
         }
 
         private IBootstrap m_Bootstrap;

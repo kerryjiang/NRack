@@ -278,5 +278,16 @@ namespace NDock.Server.Isolation.ProcessIsolation
         {
             ShutdownProcess();
         }
+
+        protected internal override long MemorySize
+        {
+            get
+            {
+                if (m_WorkingProcess == null)
+                    return 0;
+
+                return m_WorkingProcess.WorkingSet64;
+            }
+        }
     }
 }
