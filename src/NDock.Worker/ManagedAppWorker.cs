@@ -14,7 +14,7 @@ namespace NDock.Agent
     /// <summary>
     /// The service exposed to bootstrap to control the agent
     /// </summary>
-    public class ManagedAppAgent : MarshalByRefObject, IRemoteManagedApp
+    public class ManagedAppWorker : MarshalByRefObject, IRemoteManagedApp
     {
         private IManagedApp m_AppServer;
 
@@ -25,9 +25,9 @@ namespace NDock.Agent
         private ILog m_Log;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ManagedAppAgent" /> class.
+        /// Initializes a new instance of the <see cref="ManagedAppWorker" /> class.
         /// </summary>
-        public ManagedAppAgent()
+        public ManagedAppWorker()
         {
 
         }

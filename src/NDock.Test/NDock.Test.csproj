@@ -54,10 +54,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NDock.Agent\NDock.Agent.csproj">
-      <Project>{93A2E31D-9AF3-4C9E-986C-1659309F5436}</Project>
-      <Name>NDock.Agent</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NDock.Base\NDock.Base.csproj">
       <Project>{406671C6-5DCB-4B23-BD28-FB02C235EAE4}</Project>
       <Name>NDock.Base</Name>
@@ -65,6 +61,10 @@
     <ProjectReference Include="..\NDock.Server\NDock.Server.csproj">
       <Project>{7800B7EA-FB3A-4305-9EE7-74A7B5744C45}</Project>
       <Name>NDock.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NDock.Worker\NDock.Worker.csproj">
+      <Project>{93a2e31d-9af3-4c9e-986c-1659309f5436}</Project>
+      <Name>NDock.Worker</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

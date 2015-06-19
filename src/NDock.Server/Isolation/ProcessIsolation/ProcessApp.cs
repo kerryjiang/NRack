@@ -14,11 +14,11 @@ namespace NDock.Server.Isolation.ProcessIsolation
 {
     class ProcessApp : IsolationApp
     {
-        private const string m_AgentUri = "ipc://{0}/ManagedAppAgent.rem";
+        private const string m_WorkerUri = "ipc://{0}/ManagedAppWorker.rem";
 
-        private const string m_PortNameTemplate = "{0}[NDock.Agent:{1}]";
+        private const string m_PortNameTemplate = "{0}[NDock.Worker:{1}]";
 
-        private const string m_AgentAssemblyName = "NDock.Agent.exe";
+        private const string m_WorkerAssemblyName = "NDock.Worker.exe";
 
         private Process m_WorkingProcess;
 
@@ -80,11 +80,11 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
                 if (!NDock.Base.NDockEnv.IsMono)
                 {
-                    startInfo = new ProcessStartInfo(m_AgentAssemblyName, args);
+                    startInfo = new ProcessStartInfo(m_WorkerAssemblyName, args);
                 }
                 else
                 {
-                    startInfo = new ProcessStartInfo((Path.DirectorySeparatorChar == '\\' ? "mono.exe" : "mono"), "--runtime=v" + System.Environment.Version.ToString(2) + " \"" + m_AgentAssemblyName + "\" " + args);
+                    startInfo = new ProcessStartInfo((Path.DirectorySeparatorChar == '\\' ? "mono.exe" : "mono"), "--runtime=v" + System.Environment.Version.ToString(2) + " \"" + m_WorkerAssemblyName + "\" " + args);
                 }
 
                 startInfo.CreateNoWindow = true;
@@ -119,7 +119,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
             portName = string.Format(portName, m_WorkingProcess.Id);
             m_ServerTag = portName;
 
-            var remoteUri = string.Format(m_AgentUri, portName);
+            var remoteUri = string.Format(m_WorkerUri, portName);
 
             IRemoteManagedApp appServer = null;
 
@@ -134,7 +134,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
                 if (!"Ok".Equals(m_ProcessWorkStatus, StringComparison.OrdinalIgnoreCase))
                 {
-                    OnExceptionThrown(new Exception("The Agent process didn't start successfully!"));
+                    OnExceptionThrown(new Exception("The worker process didn't start successfully!"));
                     return null;
                 }
 

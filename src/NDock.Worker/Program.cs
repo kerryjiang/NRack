@@ -63,7 +63,7 @@ namespace NDock.Agent
                 var clientChannel = new IpcClientChannel();
                 ChannelServices.RegisterChannel(serverChannel, false);
                 ChannelServices.RegisterChannel(clientChannel, false);
-                RemotingConfiguration.RegisterWellKnownServiceType(typeof(ManagedAppAgent), "ManagedAppAgent.rem", WellKnownObjectMode.Singleton);
+                RemotingConfiguration.RegisterWellKnownServiceType(typeof(ManagedAppWorker), "ManagedAppWorker.rem", WellKnownObjectMode.Singleton);
                 Console.WriteLine("Ok");
 
                 var line = Console.ReadLine();
