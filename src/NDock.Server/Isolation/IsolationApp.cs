@@ -134,19 +134,8 @@ namespace NDock.Server.Isolation
             return app.CanBeRecycled();
         }
 
-        internal protected abstract long MemorySize { get; }
-
         public IRecycleTrigger[] RecycleTriggers { get; internal set; }
 
-
-        public StatusInfoCollection CollectStatus()
-        {
-            var app = ManagedApp;
-
-            if (app == null)
-                return null;
-
-            return app.CollectStatus();
-        }
+        public abstract StatusInfoCollection CollectStatus();
     }
 }

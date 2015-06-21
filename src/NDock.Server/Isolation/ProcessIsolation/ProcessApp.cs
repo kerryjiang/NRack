@@ -24,6 +24,8 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
         private string m_ServerTag;
 
+        private ProcessPerformanceCounter m_PerformanceCounter;
+
         public string ServerTag
         {
             get { return m_ServerTag; }
@@ -197,8 +199,37 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
             m_WorkingProcess.Exited += new EventHandler(m_WorkingProcess_Exited);
 
-            return appServer;
+            m_PerformanceCounter = new ProcessPerformanceCounter(m_WorkingProcess, GetPerformanceCounterDefinitions());
 
+            return appServer;
+        }
+
+        protected virtual PerformanceCounterInfo[] GetPerformanceCounterDefinitions()
+        {
+            return new PerformanceCounterInfo[]
+            {
+                new PerformanceCounterInfo
+                {
+                    Category = "Process",
+                    Name = "% Processor Time",
+                    StatusInfoKey = StatusInfoKeys.CpuUsage,
+                    Read = (value) => value / Environment.ProcessorCount
+                },
+                new PerformanceCounterInfo
+                {
+                    Category = "Process",
+                    Name = "Thread Count",
+                    StatusInfoKey = StatusInfoKeys.TotalThreadCount,
+                    Read = (value) => (int)value
+                },
+                new PerformanceCounterInfo
+                {
+                    Category = "Process",
+                    Name = "Working Set",
+                    StatusInfoKey = StatusInfoKeys.MemoryUsage,
+                    Read = (value) => (long)value
+                }
+            };
         }
 
         IRemoteManagedApp GetRemoteServer(string remoteUri)
@@ -239,6 +270,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
         void m_WorkingProcess_Exited(object sender, EventArgs e)
         {
             m_Locker.CleanLock();
+            m_PerformanceCounter = null;
             OnStopped();
         }
 
@@ -279,15 +311,19 @@ namespace NDock.Server.Isolation.ProcessIsolation
             ShutdownProcess();
         }
 
-        protected internal override long MemorySize
+        public override StatusInfoCollection CollectStatus()
         {
-            get
-            {
-                if (m_WorkingProcess == null)
-                    return 0;
+            var app = ManagedApp;
 
-                return m_WorkingProcess.WorkingSet64;
-            }
+            if (app == null)
+                return null;
+
+            var status = app.CollectStatus();
+
+            if (m_PerformanceCounter != null)
+                m_PerformanceCounter.Collect(status);
+
+            return status;
         }
     }
 }

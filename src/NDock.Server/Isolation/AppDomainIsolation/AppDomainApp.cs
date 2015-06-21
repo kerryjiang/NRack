@@ -9,6 +9,7 @@ using NDock.Base;
 using NDock.Base.Config;
 using NDock.Base.Metadata;
 using NDock.Server.Isolation;
+using System.Diagnostics;
 
 namespace NDock.Server.Isolation.AppDomainIsolation
 {
@@ -127,15 +128,18 @@ namespace NDock.Server.Isolation.AppDomainIsolation
             OnStopped();
         }
 
-        protected internal override long MemorySize
+        public override StatusInfoCollection CollectStatus()
         {
-            get
-            {
-                if (m_HostDomain == null)
-                    return 0;
+            var app = ManagedApp;
 
-                return m_HostDomain.MonitoringSurvivedMemorySize;
-            }
+            if (app == null)
+                return null;
+
+            var status = app.CollectStatus();
+
+            status[StatusInfoKeys.MemoryUsage] = m_HostDomain == null ? 0 : m_HostDomain.MonitoringSurvivedMemorySize;
+
+            return status;
         }
     }
 }

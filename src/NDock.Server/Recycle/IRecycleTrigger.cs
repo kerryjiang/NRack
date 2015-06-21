@@ -12,6 +12,6 @@ namespace NDock.Server.Recycle
     {
         bool Initialize(NameValueCollection options);
 
-        bool NeedBeRecycled(IManagedApp app);
+        bool NeedBeRecycled(IManagedApp app, StatusInfoCollection status);
     }
 }

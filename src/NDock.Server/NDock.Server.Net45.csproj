@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Isolation\PerformanceCounterInfo.cs" />
     <Compile Include="Recycle\RecycleTriggerConfig.cs" />
     <Compile Include="ControlCommand.cs" />
     <Compile Include="Isolation\AppDomainIsolation\AppDomainBootstrap.cs" />
@@ -88,6 +89,7 @@
       <DependentUpon>NDockServiceInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="Service\SelfInstaller.cs" />
+    <Compile Include="Isolation\ProcessPerformanceCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NDock.Base\NDock.Base.Net45.csproj">
@@ -103,6 +105,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
