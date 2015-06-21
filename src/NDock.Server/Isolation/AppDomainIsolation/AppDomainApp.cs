@@ -128,7 +128,7 @@ namespace NDock.Server.Isolation.AppDomainIsolation
             OnStopped();
         }
 
-        public override StatusInfoCollection CollectStatus()
+        protected override StatusInfoCollection CollectStatus()
         {
             var app = ManagedApp;
 

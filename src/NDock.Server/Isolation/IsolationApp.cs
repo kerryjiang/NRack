@@ -136,6 +136,46 @@ namespace NDock.Server.Isolation
 
         public IRecycleTrigger[] RecycleTriggers { get; internal set; }
 
-        public abstract StatusInfoCollection CollectStatus();
+        StatusInfoCollection IManagedAppBase.CollectStatus()
+        {
+            var status = CollectStatus();
+            RunRecycleTriggers(status);
+            return status;
+        }
+
+        void RunRecycleTriggers(StatusInfoCollection status)
+        {
+            if (RecycleTriggers.Any())
+            {
+                foreach (var trigger in RecycleTriggers)
+                {
+                    var toBeRecycle = false;
+
+                    try
+                    {
+                        toBeRecycle = trigger.NeedBeRecycled(this, status) && CanBeRecycled();
+                    }
+                    catch(Exception e)
+                    {
+                        OnExceptionThrown(e);
+                        continue;
+                    }
+
+                    if (toBeRecycle)
+                    {
+                        Task.Factory.StartNew(Restart)
+                            .ContinueWith(t => OnExceptionThrown(t.Exception), TaskContinuationOptions.OnlyOnFaulted);
+                    }
+                }
+            }
+        }
+
+        private void Restart()
+        {
+            Stop();
+            Start();
+        }
+
+        protected abstract StatusInfoCollection CollectStatus();
     }
 }

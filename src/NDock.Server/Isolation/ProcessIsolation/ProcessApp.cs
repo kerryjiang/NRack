@@ -311,7 +311,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
             ShutdownProcess();
         }
 
-        public override StatusInfoCollection CollectStatus()
+        protected override StatusInfoCollection CollectStatus()
         {
             var app = ManagedApp;
 
