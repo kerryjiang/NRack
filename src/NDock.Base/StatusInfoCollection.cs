@@ -51,7 +51,7 @@ namespace NDock.Base
         /// <value>
         /// The started time.
         /// </value>
-        public DateTime StartedTime { get; set; }
+        public DateTime? StartedTime { get; set; }
 
         /// <summary>
         /// Gets or sets the collected time.
