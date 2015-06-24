@@ -25,6 +25,12 @@ namespace NDock.Base.Configuration
             get { return (string)this["logFactory"]; }
         }
 
+        [ConfigurationProperty("statusCollectInterval", IsRequired = false, DefaultValue = 60)]
+        public int StatusCollectInterval
+        {
+            get { return (int)this["statusCollectInterval"]; }
+        }
+
         /// <summary>
         /// Gets all the server configurations
         /// </summary>

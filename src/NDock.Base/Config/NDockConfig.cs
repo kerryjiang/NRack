@@ -18,6 +18,7 @@ namespace NDock.Base.Config
         {
             Isolation = configSource.Isolation;
             LogFactory = configSource.LogFactory;
+            StatusCollectInterval = configSource.StatusCollectInterval;
 
             if (configSource.Servers != null && configSource.Servers.Any())
             {
@@ -30,5 +31,7 @@ namespace NDock.Base.Config
         public IEnumerable<IServerConfig> Servers { get; set; }
 
         public string LogFactory { get; set; }
+
+        public int StatusCollectInterval { get; set; }
     }
 }

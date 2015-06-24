@@ -11,6 +11,8 @@ namespace NDock.Base.Config
 
         IsolationMode Isolation { get; }
 
+        int StatusCollectInterval { get; }
+
         IEnumerable<IServerConfig> Servers { get; }
     }
 }
