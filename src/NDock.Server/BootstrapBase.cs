@@ -75,7 +75,13 @@ namespace NDock.Server
 
             interval = interval * 1000;
 
-            m_StatusCollectTimer = new Timer(OnStatusCollectTimerCallback, interval, interval, interval);
+            var state = new StatusCollectState
+            {
+                Interval = interval,
+                Collector = ExportProvider.GetExport<IStatusCollector>().Value
+            };
+
+            m_StatusCollectTimer = new Timer(OnStatusCollectTimerCallback, state, interval, interval);
         }
 
         private void StopStatusCollect()
@@ -84,8 +90,11 @@ namespace NDock.Server
             m_StatusCollectTimer = null;
         }
 
-        private void OnStatusCollectTimerCallback(object status)
+        private void OnStatusCollectTimerCallback(object state)
         {
+            var collectState = state as StatusCollectState;
+            var collector = collectState.Collector;
+
             m_StatusCollectTimer.Change(Timeout.Infinite, Timeout.Infinite);
 
             try
@@ -100,14 +109,14 @@ namespace NDock.Server
                     statusList.Add(new KeyValuePair<AppServerMetadata, StatusInfoCollection>(meta, appStatus));
                 }
 
-                ExportProvider.GetExport<IStatusCollector>().Value.Collect(statusList, LogFactory.GetLog("NDockStatus"));
+                collector.Collect(statusList, LogFactory.GetLog("NDockStatus"));
             }
             catch(Exception e)
             {
                 Log.Error("One exception was thrown in OnStatusCollectTimerCallback", e);
             }
 
-            int interval = (int)status;
+            int interval = collectState.Interval;
             m_StatusCollectTimer.Change(interval, interval);
         }
 
@@ -224,6 +233,13 @@ namespace NDock.Server
 
             if (!RemotingConfiguration.GetRegisteredWellKnownServiceTypes().Any(s => s.ObjectType == bootstrapProxyType))
                 RemotingConfiguration.RegisterWellKnownServiceType(bootstrapProxyType, "Bootstrap.rem", WellKnownObjectMode.Singleton);
+        }
+
+        class StatusCollectState
+        {
+            public int Interval { get; set; }
+
+            public IStatusCollector Collector { get; set; }
         }
     }
 }
