@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlCommand.cs" />
+    <Compile Include="DefaultStatusCollector.cs" />
     <Compile Include="Isolation\AppDomainIsolation\AppDomainBootstrap.cs" />
     <Compile Include="Isolation\AppDomainIsolation\AppDomainApp.cs" />
     <Compile Include="Isolation\AssemblyImport.cs" />
@@ -103,6 +104,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Schedule\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,6 +7,7 @@ using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
 using System.Text;
+using System.Threading;
 using AnyLog;
 using NDock.Base;
 using NDock.Base.Config;
@@ -25,6 +26,8 @@ namespace NDock.Server
         protected ILogFactory LogFactory { get; private set; }
 
         protected ILog Log { get; private set; }
+
+        private Timer m_StatusCollectTimer;
 
         public BootstrapBase(IConfigSource configSource)
         {
@@ -47,6 +50,8 @@ namespace NDock.Server
             {
                 app.Start();
             }
+
+            StartStatusCollect();
         }
 
         public virtual void Stop()
@@ -55,7 +60,58 @@ namespace NDock.Server
             {
                 app.Stop();
             }
+
+            StopStatusCollect();
         }
+
+        #region status collect
+
+        private void StartStatusCollect()
+        {
+            var interval = this.ConfigSource.StatusCollectInterval;
+
+            if(interval == 0)
+                interval = 60;
+
+            interval = interval * 1000;
+
+            m_StatusCollectTimer = new Timer(OnStatusCollectTimerCallback, interval, interval, interval);
+        }
+
+        private void StopStatusCollect()
+        {
+            m_StatusCollectTimer.Dispose();
+            m_StatusCollectTimer = null;
+        }
+
+        private void OnStatusCollectTimerCallback(object status)
+        {
+            m_StatusCollectTimer.Change(Timeout.Infinite, Timeout.Infinite);
+
+            try
+            {
+                var statusList = new List<KeyValuePair<AppServerMetadata, StatusInfoCollection>>();
+
+                foreach(var app in ManagedApps)
+                {
+                    var meta = app.GetMetadata();
+                    var appStatus = app.CollectStatus();
+
+                    statusList.Add(new KeyValuePair<AppServerMetadata, StatusInfoCollection>(meta, appStatus));
+                }
+
+                ExportProvider.GetExport<IStatusCollector>().Value.Collect(statusList, LogFactory.GetLog("NDockStatus"));
+            }
+            catch(Exception e)
+            {
+                Log.Error("One exception was thrown in OnStatusCollectTimerCallback", e);
+            }
+
+            int interval = (int)status;
+            m_StatusCollectTimer.Change(interval, interval);
+        }
+
+        #endregion
 
         protected virtual AppServerMetadata GetAppServerMetadata(IServerConfig serverConfig)
         {

@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="Service\SelfInstaller.cs" />
     <Compile Include="Isolation\ProcessPerformanceCounter.cs" />
+    <Compile Include="DefaultStatusCollector.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NDock.Base\NDock.Base.Net45.csproj">
