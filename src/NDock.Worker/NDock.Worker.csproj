@@ -7,8 +7,8 @@
     <ProjectGuid>{93A2E31D-9AF3-4C9E-986C-1659309F5436}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NDock.Agent</RootNamespace>
-    <AssemblyName>NDock.Agent</AssemblyName>
+    <RootNamespace>NDock.Worker</RootNamespace>
+    <AssemblyName>NDock.Worker</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
