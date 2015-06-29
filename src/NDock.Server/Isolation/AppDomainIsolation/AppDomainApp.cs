@@ -29,7 +29,7 @@ namespace NDock.Server.Isolation.AppDomainIsolation
         {
             var currentDomain = AppDomain.CurrentDomain;
 
-            var workingDir = Path.Combine(Path.Combine(currentDomain.BaseDirectory, WorkingDir), Name);
+            var workingDir = Path.Combine(Path.Combine(currentDomain.BaseDirectory, IsolationAppConst.WorkingDir), Name);
 
             if (!Directory.Exists(workingDir))
                 Directory.CreateDirectory(workingDir);

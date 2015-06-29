@@ -12,14 +12,19 @@ using NDock.Server.Isolation;
 
 namespace NDock.Server.Isolation.ProcessIsolation
 {
+    public class ProcessAppConst : IsolationAppConst
+    {
+        public const string PortNameTemplate = "{0}[NDock.Worker:{1}]";
+
+        public const string WorkerAssemblyName = "NDock.Worker.exe";
+
+        public const string WorkerUri = "ipc://{0}/{1}";
+
+        public const string WorkerRemoteName = "ManagedAppWorker.rem";
+    }
+
     class ProcessApp : IsolationApp
     {
-        private const string m_WorkerUri = "ipc://{0}/ManagedAppWorker.rem";
-
-        private const string m_PortNameTemplate = "{0}[NDock.Worker:{1}]";
-
-        private const string m_WorkerAssemblyName = "NDock.Worker.exe";
-
         private Process m_WorkingProcess;
 
         private string m_ServerTag;
@@ -63,30 +68,28 @@ namespace NDock.Server.Isolation.ProcessIsolation
         protected override IManagedAppBase CreateAndStartServerInstance()
         {
             var currentDomain = AppDomain.CurrentDomain;
-            var workingDir = Path.Combine(Path.Combine(currentDomain.BaseDirectory, WorkingDir), Name);
+            var workingDir = Path.Combine(Path.Combine(currentDomain.BaseDirectory, ProcessAppConst.WorkingDir), Name);
 
             if (!Directory.Exists(workingDir))
                 Directory.CreateDirectory(workingDir);
 
             m_Locker = new ProcessLocker(workingDir, "instance.lock");
 
-            var portName = string.Format(m_PortNameTemplate, Name, "{0}");
-
             var process = m_Locker.GetLockedProcess();
 
             if (process == null)
             {
-                var args = string.Join(" ", (new string[] { Name, portName, workingDir }).Select(a => "\"" + a + "\"").ToArray());
+                var args = string.Join(" ", (new string[] { Name }).Select(a => "\"" + a + "\"").ToArray());
 
                 ProcessStartInfo startInfo;
 
                 if (!NDock.Base.NDockEnv.IsMono)
                 {
-                    startInfo = new ProcessStartInfo(m_WorkerAssemblyName, args);
+                    startInfo = new ProcessStartInfo(ProcessAppConst.WorkerAssemblyName, args);
                 }
                 else
                 {
-                    startInfo = new ProcessStartInfo((Path.DirectorySeparatorChar == '\\' ? "mono.exe" : "mono"), "--runtime=v" + System.Environment.Version.ToString(2) + " \"" + m_WorkerAssemblyName + "\" " + args);
+                    startInfo = new ProcessStartInfo((Path.DirectorySeparatorChar == '\\' ? "mono.exe" : "mono"), "--runtime=v" + System.Environment.Version.ToString(2) + " \"" + ProcessAppConst.WorkerAssemblyName + "\" " + args);
                 }
 
                 startInfo.CreateNoWindow = true;
@@ -118,10 +121,10 @@ namespace NDock.Server.Isolation.ProcessIsolation
             m_WorkingProcess.BeginErrorReadLine();
             m_WorkingProcess.BeginOutputReadLine();
 
-            portName = string.Format(portName, m_WorkingProcess.Id);
+            var portName = string.Format(ProcessAppConst.PortNameTemplate, Name, m_WorkingProcess.Id);
             m_ServerTag = portName;
 
-            var remoteUri = string.Format(m_WorkerUri, portName);
+            var remoteUri = string.Format(ProcessAppConst.WorkerUri, portName, ProcessAppConst.WorkerRemoteName);
 
             IRemoteManagedApp appServer = null;
 

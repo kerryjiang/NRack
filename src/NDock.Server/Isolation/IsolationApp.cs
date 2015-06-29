@@ -10,13 +10,16 @@ using NDock.Server.Recycle;
 
 namespace NDock.Server.Isolation
 {
+    public class IsolationAppConst
+    {
+        public const string WorkingDir = "AppRoot";
+    }
+
     abstract class IsolationApp : MarshalByRefObject, IManagedApp
     {
         private AppServerMetadata m_Metadata;
 
         protected IManagedAppBase ManagedApp { get; private set; }
-
-        protected const string WorkingDir = "AppRoot";
 
         protected IBootstrap Bootstrap { get; private set; }
 

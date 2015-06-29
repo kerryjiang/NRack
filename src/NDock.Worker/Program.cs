@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Remoting;
@@ -10,6 +11,7 @@ using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading.Tasks;
 using NDock.Base;
+using NDock.Server.Isolation.ProcessIsolation;
 
 namespace NDock.Agent
 {
@@ -20,7 +22,7 @@ namespace NDock.Agent
             if (args == null)
                 throw new ArgumentNullException("args");
 
-            if (args.Length != 3)
+            if (args.Length != 1)
                 throw new ArgumentException("Arguments number doesn't match!", "args");
 
             var name = args[0];
@@ -30,32 +32,24 @@ namespace NDock.Agent
 
             name = name.Trim('"');
 
-            var channelPort = args[1];
+            var channelPort = string.Format(ProcessAppConst.PortNameTemplate, name, Process.GetCurrentProcess().Id);
 
-            if (string.IsNullOrEmpty(channelPort))
-                throw new Exception("Channel port cannot be null or empty.");
-
-            channelPort = channelPort.Trim('"');
-            channelPort = string.Format(channelPort, Process.GetCurrentProcess().Id);
-
-            var root = args[2];
-
-            if (string.IsNullOrEmpty(root))
-                throw new Exception("Root cannot be null or empty.");
+            var currentDomain = AppDomain.CurrentDomain;
+            var root = Path.Combine(Path.Combine(currentDomain.BaseDirectory, ProcessAppConst.WorkingDir), name);
 
             //Hack to change the default AppDomain's root
             if (NDockEnv.IsMono) //for Mono
             {
                 var pro = typeof(AppDomain).GetProperty("SetupInformationNoCopy", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetProperty);
-                var setupInfo = (AppDomainSetup)pro.GetValue(AppDomain.CurrentDomain, null);
+                var setupInfo = (AppDomainSetup)pro.GetValue(currentDomain, null);
                 setupInfo.ApplicationBase = root;
             }
             else // for .NET
             {
-                AppDomain.CurrentDomain.SetData("APPBASE", root);
+                currentDomain.SetData("APPBASE", root);
             }
 
-            AppDomain.CurrentDomain.SetData(typeof(IsolationMode).Name, IsolationMode.Process);
+            currentDomain.SetData(typeof(IsolationMode).Name, IsolationMode.Process);
 
             try
             {
@@ -63,7 +57,7 @@ namespace NDock.Agent
                 var clientChannel = new IpcClientChannel();
                 ChannelServices.RegisterChannel(serverChannel, false);
                 ChannelServices.RegisterChannel(clientChannel, false);
-                RemotingConfiguration.RegisterWellKnownServiceType(typeof(ManagedAppWorker), "ManagedAppWorker.rem", WellKnownObjectMode.Singleton);
+                RemotingConfiguration.RegisterWellKnownServiceType(typeof(ManagedAppWorker), ProcessAppConst.WorkerRemoteName, WellKnownObjectMode.Singleton);
                 Console.WriteLine("Ok");
 
                 var line = Console.ReadLine();
