@@ -247,5 +247,34 @@ namespace NDock.Base
         {
 
         }
+
+        /// <summary>
+        /// Gets the physical file path by the relative file path,
+        /// search both in the appserver's root and in the NDock root dir if the isolation level has been set other than 'None'.
+        /// </summary>
+        /// <param name="relativeFilePath">The relative file path.</param>
+        /// <returns></returns>
+        public string GetFilePath(string relativeFilePath)
+        {
+            var currentAppDomain = AppDomain.CurrentDomain;
+
+            var filePath = Path.Combine(currentAppDomain.BaseDirectory, relativeFilePath);
+
+            if (File.Exists(filePath))
+                return filePath;
+
+            var isolationValue = currentAppDomain.GetData(typeof(IsolationMode).Name);
+
+            if (isolationValue == null || ((IsolationMode)isolationValue) == IsolationMode.None)
+                return filePath;
+
+            var rootDir = Directory.GetParent(currentAppDomain.BaseDirectory).Parent.FullName;
+            var rootFilePath = Path.Combine(rootDir, relativeFilePath);
+
+            if (File.Exists(rootFilePath))
+                return rootFilePath;
+
+            return filePath;
+        }
     }
 }
