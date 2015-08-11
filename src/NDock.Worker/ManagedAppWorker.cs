@@ -39,8 +39,6 @@ namespace NDock.Worker
         {
             m_AssemblyImporter = new AssemblyImport(assemblyImportRoot);
 
-            Debugger.Launch();
-
             if(!string.IsNullOrEmpty(startupConfigFile))
             {
                 AppDomain.CurrentDomain.ResetConfiguration(startupConfigFile);
