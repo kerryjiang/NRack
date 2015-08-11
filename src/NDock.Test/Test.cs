@@ -35,6 +35,11 @@ namespace NDock.Test
         [Test]
         public void StartStopTest()
         {
+            StartStopWrap(null);
+        }
+
+        protected void StartStopWrap(Action action)
+        {
             var bootstrap = GetBootstrap();
             Assert.IsNotNull(bootstrap);
             Assert.IsTrue(bootstrap.Initialize());
@@ -45,6 +50,9 @@ namespace NDock.Test
 
             bootstrap.Start();
             Assert.AreEqual(ServerState.Running, server.State);
+
+            if(action != null)
+                action();
 
             bootstrap.Stop();
             Assert.AreEqual(ServerState.NotStarted, server.State);

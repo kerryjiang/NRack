@@ -19,7 +19,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
         protected override IManagedApp CreateAppInstanceByMetadata(AppServerMetadata metadata)
         {
-            return new ProcessApp(metadata);
+            return new ProcessApp(metadata, Configuration.FilePath);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -11,9 +12,10 @@ using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading.Tasks;
 using NDock.Base;
+using NDock.Server;
 using NDock.Server.Isolation.ProcessIsolation;
 
-namespace NDock.Agent
+namespace NDock.Worker
 {
     class Program
     {
@@ -58,6 +60,7 @@ namespace NDock.Agent
                 ChannelServices.RegisterChannel(serverChannel, false);
                 ChannelServices.RegisterChannel(clientChannel, false);
                 RemotingConfiguration.RegisterWellKnownServiceType(typeof(ManagedAppWorker), ProcessAppConst.WorkerRemoteName, WellKnownObjectMode.Singleton);
+                
                 Console.WriteLine("Ok");
 
                 var line = Console.ReadLine();

@@ -42,8 +42,8 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
         private string m_ProcessWorkStatus = string.Empty;
 
-        public ProcessApp(AppServerMetadata metadata)
-            : base(metadata)
+        public ProcessApp(AppServerMetadata metadata, string startupConfigFile)
+            : base(metadata, startupConfigFile)
         {
 
         }
@@ -159,7 +159,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
                 try
                 {
                     //Setup and then start the remote server instance
-                    ret = appServer.Setup(GetMetadata().AppType, "ipc://" + bootstrapIpcPort + "/Bootstrap.rem", currentDomain.BaseDirectory, Config);
+                    ret = appServer.Setup(GetMetadata().AppType, "ipc://" + bootstrapIpcPort + "/Bootstrap.rem", currentDomain.BaseDirectory, Config, StartupConfigFile);
                 }
                 catch (Exception e)
                 {

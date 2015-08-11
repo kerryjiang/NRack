@@ -17,12 +17,10 @@ namespace NDock.Server.Isolation.AppDomainIsolation
     {
         private AppDomain m_HostDomain;
 
-        private string m_StartupConfigFile;
-
         public AppDomainApp(AppServerMetadata metadata, string startupConfigFile)
-            : base(metadata)
+            : base(metadata, startupConfigFile)
         {
-            m_StartupConfigFile = startupConfigFile;
+
         }
 
         private AppDomain CreateHostAppDomain()
@@ -34,7 +32,7 @@ namespace NDock.Server.Isolation.AppDomainIsolation
             if (!Directory.Exists(workingDir))
                 Directory.CreateDirectory(workingDir);
 
-            var startupConfigFile = m_StartupConfigFile;
+            var startupConfigFile = StartupConfigFile;
 
             if (!string.IsNullOrEmpty(startupConfigFile))
             {

@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using AnyLog;
 using NDock.Base;
 using NDock.Base.Config;
+using NDock.Base.Configuration;
 using NDock.Base.Metadata;
 using NDock.Server;
 using NDock.Server.Isolation;
 
-namespace NDock.Agent
+namespace NDock.Worker
 {
     /// <summary>
     /// The service exposed to bootstrap to control the agent
@@ -32,9 +35,16 @@ namespace NDock.Agent
 
         }
 
-        public bool Setup(string serverType, string bootstrapUri, string assemblyImportRoot, IServerConfig config)
+        public bool Setup(string serverType, string bootstrapUri, string assemblyImportRoot, IServerConfig config, string startupConfigFile)
         {
             m_AssemblyImporter = new AssemblyImport(assemblyImportRoot);
+
+            Debugger.Launch();
+
+            if(!string.IsNullOrEmpty(startupConfigFile))
+            {
+                AppDomain.CurrentDomain.ResetConfiguration(startupConfigFile);
+            }
 
             var serviceType = Type.GetType(serverType);
             m_AppServer = (IManagedApp)Activator.CreateInstance(serviceType);

@@ -19,7 +19,8 @@ namespace NDock.Server
         /// <param name="bootstrapUri">The bootstrap URI.</param>
         /// <param name="assemblyImportRoot">The assembly import root.</param>
         /// <param name="config">The config.</param>
+        /// <param name="startupConfigFile">The startup configuration file path.</param>
         /// <returns></returns>
-        bool Setup(string serverType, string bootstrapUri, string assemblyImportRoot, IServerConfig config);
+        bool Setup(string serverType, string bootstrapUri, string assemblyImportRoot, IServerConfig config, string startupConfigFile);
     }
 }

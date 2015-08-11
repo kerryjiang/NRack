@@ -23,10 +23,13 @@ namespace NDock.Server.Isolation
 
         protected IBootstrap Bootstrap { get; private set; }
 
-        protected IsolationApp(AppServerMetadata metadata)
+        protected string StartupConfigFile { get; private set; }
+
+        protected IsolationApp(AppServerMetadata metadata, string startupConfigFile)
         {
             State = ServerState.NotInitialized;
             m_Metadata = metadata;
+            StartupConfigFile = startupConfigFile;
         }
 
         public string Name { get; private set; }
