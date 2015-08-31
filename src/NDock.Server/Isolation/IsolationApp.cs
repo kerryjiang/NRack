@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NDock.Base;
 using NDock.Base.Config;
+using NDock.Base.Configuration;
 using NDock.Base.Metadata;
 using NDock.Server.Recycle;
 
@@ -41,12 +42,19 @@ namespace NDock.Server.Isolation
 
         protected string GetAppConfigFile()
         {
-            var filePath = Path.Combine(AppWorkingDir, IsolationAppConst.AppConfigFile);
+            var configFile = Config.Options.GetValue("configFile");
 
-            if (!File.Exists(filePath))
+            if (string.IsNullOrEmpty(configFile))
+                configFile = IsolationAppConst.AppConfigFile;
+            else if (Path.IsPathRooted(configFile))
+                return configFile;
+
+            configFile = Path.Combine(AppWorkingDir, configFile);
+
+            if (!File.Exists(configFile))
                 return string.Empty;
 
-            return filePath;
+            return configFile;
         }
 
         public bool Setup(IBootstrap bootstrap, IServerConfig config)
