@@ -42,6 +42,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="AppServer.cs" />
     <Compile Include="CompositeTargtes\CompositeTargetBase.cs" />
     <Compile Include="CompositeTargtes\LogFactoryCompositeTarget.cs" />
