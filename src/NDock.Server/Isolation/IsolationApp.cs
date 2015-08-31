@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace NDock.Server.Isolation
     public class IsolationAppConst
     {
         public const string WorkingDir = "AppRoot";
+
+        public const string AppConfigFile = "App.config";
     }
 
     abstract class IsolationApp : MarshalByRefObject, IManagedApp
@@ -25,6 +28,8 @@ namespace NDock.Server.Isolation
 
         protected string StartupConfigFile { get; private set; }
 
+        protected string AppWorkingDir { get; private set; }
+
         protected IsolationApp(AppServerMetadata metadata, string startupConfigFile)
         {
             State = ServerState.NotInitialized;
@@ -34,13 +39,32 @@ namespace NDock.Server.Isolation
 
         public string Name { get; private set; }
 
+        protected string GetAppConfigFile()
+        {
+            var filePath = Path.Combine(AppWorkingDir, IsolationAppConst.AppConfigFile);
+
+            if (!File.Exists(filePath))
+                return string.Empty;
+
+            return filePath;
+        }
+
         public bool Setup(IBootstrap bootstrap, IServerConfig config)
         {
             Bootstrap = bootstrap;
             State = ServerState.Initializing;
             Config = config;
-            Name = config.Name;
+            Name = config.Name;            
             State = ServerState.NotStarted;
+            AppWorkingDir = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, IsolationAppConst.WorkingDir), Name);
+
+            var appConfigFilePath = GetAppConfigFile();
+
+            // use the application's own config file if it has
+            //AppRoot\AppName\App.config
+            if (!string.IsNullOrEmpty(appConfigFilePath))
+                StartupConfigFile = appConfigFilePath;
+
             return true;
         }
 
@@ -103,7 +127,7 @@ namespace NDock.Server.Isolation
 
         public ServerState State { get; protected set; }
 
-        public event EventHandler<ErrorEventArgs> ExceptionThrown;
+        public event EventHandler<Base.ErrorEventArgs> ExceptionThrown;
 
         protected void OnExceptionThrown(Exception exc)
         {
@@ -112,7 +136,7 @@ namespace NDock.Server.Isolation
             if (handler == null)
                 return;
 
-            handler(this, new ErrorEventArgs(exc));
+            handler(this, new Base.ErrorEventArgs(exc));
         }
 
         /// <summary>
