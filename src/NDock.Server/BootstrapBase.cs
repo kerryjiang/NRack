@@ -78,7 +78,8 @@ namespace NDock.Server
             var state = new StatusCollectState
             {
                 Interval = interval,
-                Collector = ExportProvider.GetExport<IStatusCollector>().Value
+                Collector = ExportProvider.GetExport<IStatusCollector>().Value,
+                Logger = LogFactory.GetLog("NDockStatus")
             };
 
             m_StatusCollectTimer = new Timer(OnStatusCollectTimerCallback, state, interval, interval);
@@ -109,7 +110,7 @@ namespace NDock.Server
                     statusList.Add(new KeyValuePair<AppServerMetadata, StatusInfoCollection>(meta, appStatus));
                 }
 
-                collector.Collect(statusList, LogFactory.GetLog("NDockStatus"));
+                collector.Collect(statusList, collectState.Logger);
             }
             catch(Exception e)
             {
@@ -240,6 +241,8 @@ namespace NDock.Server
             public int Interval { get; set; }
 
             public IStatusCollector Collector { get; set; }
+
+            public ILog Logger { get; set; }
         }
     }
 }
