@@ -31,6 +31,11 @@ namespace NDock.Server.Isolation
 
         protected string AppWorkingDir { get; private set; }
 
+        internal static string GetAppWorkingDir(string appName)
+        {
+            return Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, IsolationAppConst.WorkingDir), appName);
+        }
+
         protected IsolationApp(AppServerMetadata metadata, string startupConfigFile)
         {
             State = ServerState.NotInitialized;
@@ -64,7 +69,11 @@ namespace NDock.Server.Isolation
             Config = config;
             Name = config.Name;            
             State = ServerState.NotStarted;
-            AppWorkingDir = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, IsolationAppConst.WorkingDir), Name);
+
+            AppWorkingDir = GetAppWorkingDir(Name);
+
+            if (!Directory.Exists(AppWorkingDir))
+                Directory.CreateDirectory(AppWorkingDir);
 
             var appConfigFilePath = GetAppConfigFile();
 
@@ -183,27 +192,29 @@ namespace NDock.Server.Isolation
 
         void RunRecycleTriggers(StatusInfoCollection status)
         {
-            if (RecycleTriggers.Any())
+            var triggers = RecycleTriggers;
+
+            if (triggers == null || !triggers.Any())
+                return;
+
+            foreach (var trigger in triggers)
             {
-                foreach (var trigger in RecycleTriggers)
+                var toBeRecycle = false;
+
+                try
                 {
-                    var toBeRecycle = false;
+                    toBeRecycle = trigger.NeedBeRecycled(this, status) && CanBeRecycled();
+                }
+                catch (Exception e)
+                {
+                    OnExceptionThrown(e);
+                    continue;
+                }
 
-                    try
-                    {
-                        toBeRecycle = trigger.NeedBeRecycled(this, status) && CanBeRecycled();
-                    }
-                    catch(Exception e)
-                    {
-                        OnExceptionThrown(e);
-                        continue;
-                    }
-
-                    if (toBeRecycle)
-                    {
-                        Task.Factory.StartNew(Restart)
-                            .ContinueWith(t => OnExceptionThrown(t.Exception), TaskContinuationOptions.OnlyOnFaulted);
-                    }
+                if (toBeRecycle)
+                {
+                    Task.Factory.StartNew(Restart)
+                        .ContinueWith(t => OnExceptionThrown(t.Exception), TaskContinuationOptions.OnlyOnFaulted);
                 }
             }
         }

@@ -68,12 +68,8 @@ namespace NDock.Server.Isolation.ProcessIsolation
         protected override IManagedAppBase CreateAndStartServerInstance()
         {
             var currentDomain = AppDomain.CurrentDomain;
-            var workingDir = Path.Combine(Path.Combine(currentDomain.BaseDirectory, ProcessAppConst.WorkingDir), Name);
 
-            if (!Directory.Exists(workingDir))
-                Directory.CreateDirectory(workingDir);
-
-            m_Locker = new ProcessLocker(workingDir, "instance.lock");
+            m_Locker = new ProcessLocker(AppWorkingDir, "instance.lock");
 
             var process = m_Locker.GetLockedProcess();
 

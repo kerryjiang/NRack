@@ -27,11 +27,6 @@ namespace NDock.Server.Isolation.AppDomainIsolation
         {
             var currentDomain = AppDomain.CurrentDomain;
 
-            var workingDir = Path.Combine(Path.Combine(currentDomain.BaseDirectory, IsolationAppConst.WorkingDir), Name);
-
-            if (!Directory.Exists(workingDir))
-                Directory.CreateDirectory(workingDir);
-
             var startupConfigFile = StartupConfigFile;
 
             if (!string.IsNullOrEmpty(startupConfigFile))
@@ -43,7 +38,7 @@ namespace NDock.Server.Isolation.AppDomainIsolation
             var hostAppDomain = AppDomain.CreateDomain(Name, currentDomain.Evidence, new AppDomainSetup
                 {
                     ApplicationName = Name,
-                    ApplicationBase = workingDir,
+                    ApplicationBase = AppWorkingDir,
                     ConfigurationFile = startupConfigFile
                 });
 
