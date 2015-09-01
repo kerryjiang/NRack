@@ -15,12 +15,12 @@ namespace NDock.Server.Isolation
 {
     abstract class IsolationBootstrap : BootstrapBase
     {
-        protected Configuration Configuration { get; private set; }
+        protected string ConfigFilePath { get; private set; }
 
         public IsolationBootstrap(IConfigSource configSource)
             : base(GetSerializableConfigSource(configSource))
         {
-            Configuration = ((ConfigurationElement)configSource).GetCurrentConfiguration();
+            ConfigFilePath = ((ConfigurationElement)configSource).GetConfigSource();
         }
 
         private static IConfigSource GetSerializableConfigSource(IConfigSource configSource)
@@ -40,8 +40,11 @@ namespace NDock.Server.Isolation
 
             try
             {
-                validateDomain = AppDomain.CreateDomain("ValidationDomain", AppDomain.CurrentDomain.Evidence, AppDomain.CurrentDomain.BaseDirectory, string.Empty, false);
+                validateDomain = AppDomain.CreateDomain("ValidationDomain", AppDomain.CurrentDomain.Evidence, IsolationApp.GetAppWorkingDir(serverConfig.Name), string.Empty, false);
+                
                 AssemblyImport.RegisterAssembplyImport(validateDomain);
+
+                validateDomain.SetData(typeof(IsolationMode).Name, ConfigSource.Isolation);
 
                 var validatorType = typeof(RemoteAppTypeValidator);
                 var validator = (RemoteAppTypeValidator)validateDomain.CreateInstanceAndUnwrap(validatorType.Assembly.FullName, validatorType.FullName);
