@@ -30,17 +30,25 @@ namespace NDock.Server.Isolation
 
             var assemblyFilePath = Path.Combine(m_ImportRoot, name.Name + ".dll");
 
-            if (!File.Exists(assemblyFilePath))
-            {
-                assemblyFilePath = Path.Combine(m_ImportRoot, name.Name + ".exe");
+            if(File.Exists(assemblyFilePath))
+                return Assembly.LoadFrom(assemblyFilePath);
 
-                if (!File.Exists(assemblyFilePath))
-                {
-                    return null;
-                }
-            }
+            assemblyFilePath = Path.Combine(m_ImportRoot, name.Name + ".exe");
 
-            return Assembly.LoadFrom(assemblyFilePath);
+            if (File.Exists(assemblyFilePath))
+                return Assembly.LoadFrom(assemblyFilePath);
+
+            assemblyFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, name.Name + ".dll");
+
+            if (File.Exists(assemblyFilePath))
+                return Assembly.LoadFrom(assemblyFilePath);
+
+            assemblyFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, name.Name + ".exe");
+
+            if (File.Exists(assemblyFilePath))
+                return Assembly.LoadFrom(assemblyFilePath);
+
+            return null;
         }
 
         /// <summary>
