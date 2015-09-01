@@ -13,6 +13,8 @@ using System.Diagnostics;
 
 namespace NDock.Server.Isolation.AppDomainIsolation
 {
+    [StatusInfo(StatusInfoKeys.CpuUsage, Name = "CPU Usage", Format = "{0:0.00}%", DataType = typeof(double), Order = 112)]
+    [StatusInfo(StatusInfoKeys.MemoryUsage, Name = "Memory Usage", Format = "{0:0.00}%", DataType = typeof(double), Order = 113)]
     class AppDomainApp : IsolationApp
     {
         private AppDomain m_HostDomain;
@@ -131,6 +133,10 @@ namespace NDock.Server.Isolation.AppDomainIsolation
             var status = app.CollectStatus();
 
             status[StatusInfoKeys.MemoryUsage] = m_HostDomain == null ? 0 : m_HostDomain.MonitoringSurvivedMemorySize;
+
+            var process = Process.GetCurrentProcess();
+            var value = m_HostDomain.MonitoringTotalProcessorTime.TotalMilliseconds * 100 / process.TotalProcessorTime.TotalMilliseconds;
+            status[StatusInfoKeys.CpuUsage] = value;
 
             return status;
         }

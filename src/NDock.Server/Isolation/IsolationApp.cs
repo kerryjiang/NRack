@@ -40,6 +40,16 @@ namespace NDock.Server.Isolation
         {
             State = ServerState.NotInitialized;
             m_Metadata = metadata;
+
+            var isolationStatusFields = this.GetType()
+                    .GetCustomAttributes(typeof(StatusInfoAttribute), true)
+                    .OfType<StatusInfoAttribute>();
+
+            if(isolationStatusFields.Any())
+            {
+                m_Metadata.StatusFields = m_Metadata.StatusFields.Union(isolationStatusFields).ToArray();
+            }
+
             StartupConfigFile = startupConfigFile;
         }
 
