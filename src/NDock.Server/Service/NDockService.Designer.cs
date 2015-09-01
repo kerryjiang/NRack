@@ -31,7 +31,6 @@ namespace NDock.Server.Service
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            this.ServiceName = ConfigurationManager.AppSettings["ServiceName"];
         }
 
         #endregion

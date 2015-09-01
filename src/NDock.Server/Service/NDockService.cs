@@ -16,6 +16,7 @@ namespace NDock.Server.Service
         public NDockService()
         {
             InitializeComponent();
+            ServiceName = ConfigurationManager.AppSettings["ServiceName"];
             m_Bootstrap = BootstrapFactory.CreateBootstrap();
         }
 
