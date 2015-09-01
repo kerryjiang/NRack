@@ -48,7 +48,12 @@ namespace NDock.Server
         {
             foreach (var app in ManagedApps)
             {
-                app.Start();
+                var ret = app.Start();
+
+                if (ret)
+                    Log.InfoFormat("The app server instance [{0}] is started successfully.", app.Name);
+                else
+                    Log.InfoFormat("The app server instance [{0}] failed to start.", app.Name);
             }
 
             StartStatusCollect();
@@ -164,27 +169,30 @@ namespace NDock.Server
                 try
                 {
                     server = CreateAppInstance(config);
+                    Log.InfoFormat("The app server instance [{0}] is created.", config.Name);
                 }
                 catch(Exception e)
                 {
-                    Log.Error(string.Format("Failed to create server instance with {0}", config.Type), e);
+                    Log.Error(string.Format("Failed to create the app server instance [{0}].", config.Name), e);
                     return false;
                 }
 
                 if(server == null)
                 {
-                    Log.Error(string.Format("Failed to create server instance with {0}", config.Type));
+                    Log.Error(string.Format("Failed to create  the server instance [{0}]", config.Name));
                     return false;
                 }
 
                 try
                 {
                     if (!Setup(server, config))
-                        throw new Exception("Unknown reason");
+                        throw new Exception(string.Format("The app server instance [{0}] failed to be setup.", config.Name));
+
+                    Log.InfoFormat("The app server instance [{0}] is setup successfully.", config.Name);
                 }
                 catch(Exception e)
                 {
-                    Log.Error(string.Format("Failed to setup server instance with {0}", config.Name), e);
+                    Log.Error(string.Format("Failed to setup the app server instance [{0}]", config.Name), e);
                     return false;
                 }
 
