@@ -123,7 +123,7 @@ namespace NDock.Base.CompositeTargets
 
             var configValue = ConfigSelector(config);
 
-            var lazyFactory = factories.FirstOrDefault(
+            var lazyFactory = Sort(factories).FirstOrDefault(
                 f => string.IsNullOrEmpty(configValue) || MetadataNameEqual(f.Metadata, configValue));
 
             if (lazyFactory == null)
