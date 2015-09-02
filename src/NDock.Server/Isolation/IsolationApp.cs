@@ -72,7 +72,7 @@ namespace NDock.Server.Isolation
             return configFile;
         }
 
-        public bool Setup(IBootstrap bootstrap, IServerConfig config)
+        public virtual bool Setup(IBootstrap bootstrap, IServerConfig config)
         {
             Bootstrap = bootstrap;
             State = ServerState.Initializing;
@@ -236,5 +236,33 @@ namespace NDock.Server.Isolation
         }
 
         protected abstract StatusInfoCollection CollectStatus();
+
+        protected virtual PerformanceCounterInfo[] GetPerformanceCounterDefinitions()
+        {
+            return new PerformanceCounterInfo[]
+            {
+                new PerformanceCounterInfo
+                {
+                    Category = "Process",
+                    Name = "% Processor Time",
+                    StatusInfoKey = StatusInfoKeys.CpuUsage,
+                    Read = (value) => value / Environment.ProcessorCount
+                },
+                new PerformanceCounterInfo
+                {
+                    Category = "Process",
+                    Name = "Thread Count",
+                    StatusInfoKey = StatusInfoKeys.TotalThreadCount,
+                    Read = (value) => (int)value
+                },
+                new PerformanceCounterInfo
+                {
+                    Category = "Process",
+                    Name = "Working Set",
+                    StatusInfoKey = StatusInfoKeys.MemoryUsage,
+                    Read = (value) => (long)value
+                }
+            };
+        }
     }
 }

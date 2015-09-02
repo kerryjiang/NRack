@@ -64,6 +64,7 @@
     <Compile Include="Isolation\IsolationBootstrap.cs" />
     <Compile Include="Isolation\MarshalManagedApp.cs" />
     <Compile Include="Isolation\PerformanceCounterInfo.cs" />
+    <Compile Include="Isolation\ProcessIsolation\ExternalProcessApp.cs" />
     <Compile Include="Isolation\ProcessIsolation\ProcessBootstrap.cs" />
     <Compile Include="Isolation\ProcessIsolation\ProcessApp.cs" />
     <Compile Include="Isolation\ProcessPerformanceCounter.cs" />

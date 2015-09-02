@@ -54,6 +54,7 @@
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Isolation\PerformanceCounterInfo.cs" />
+    <Compile Include="Isolation\ProcessIsolation\ExternalProcessApp.cs" />
     <Compile Include="Recycle\RecycleTriggerConfig.cs" />
     <Compile Include="ControlCommand.cs" />
     <Compile Include="Isolation\AppDomainIsolation\AppDomainBootstrap.cs" />
