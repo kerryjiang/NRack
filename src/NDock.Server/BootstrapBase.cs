@@ -162,6 +162,8 @@ namespace NDock.Server
             LogFactory = logFactory;
             Log = logFactory.GetLog(this.GetType().Name);
 
+            AppDomain.CurrentDomain.SetData("Bootstrap", this);
+
             foreach(var config in ConfigSource.Servers)
             {
                 IManagedApp server = null;

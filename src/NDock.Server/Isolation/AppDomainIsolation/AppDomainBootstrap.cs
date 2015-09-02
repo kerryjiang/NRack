@@ -18,7 +18,7 @@ namespace NDock.Server.Isolation.AppDomainIsolation
         public AppDomainBootstrap(IConfigSource configSource)
             : base(configSource)
         {
-            m_RemoteBootstrapWrap = new RemoteBootstrapProxy(this);
+            m_RemoteBootstrapWrap = new RemoteBootstrapProxy();
         }
 
         protected override IManagedApp CreateAppInstanceByMetadata(AppServerMetadata metadata)
