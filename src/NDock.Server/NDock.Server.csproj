@@ -65,6 +65,7 @@
     <Compile Include="Isolation\MarshalManagedApp.cs" />
     <Compile Include="Isolation\PerformanceCounterInfo.cs" />
     <Compile Include="Isolation\ProcessIsolation\ExternalProcessApp.cs" />
+    <Compile Include="Isolation\ProcessIsolation\ExternalProcessAppServerMetadata.cs" />
     <Compile Include="Isolation\ProcessIsolation\ProcessBootstrap.cs" />
     <Compile Include="Isolation\ProcessIsolation\ProcessApp.cs" />
     <Compile Include="Isolation\ProcessPerformanceCounter.cs" />
@@ -109,9 +110,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Schedule\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

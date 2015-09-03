@@ -53,7 +53,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
             }
         }
 
-        public ExternalProcessApp(AppServerMetadata metadata, string startupConfigFile)
+        public ExternalProcessApp(ExternalProcessAppServerMetadata metadata, string startupConfigFile)
             : base(metadata, startupConfigFile)
         {
 
@@ -64,7 +64,9 @@ namespace NDock.Server.Isolation.ProcessIsolation
             if (!base.Setup(bootstrap, config))
                 return false;
 
-            var appFile = config.Options.Get("appFile");
+            var metadata = GetMetadata() as ExternalProcessAppServerMetadata;
+
+            var appFile = metadata.AppFile;
 
             if(string.IsNullOrEmpty(appFile))
             {
@@ -80,7 +82,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
                 workDir = Path.GetDirectoryName(appFile);
             }
 
-            var args = config.Options.Get("appArgs");
+            var args = metadata.AppArgs;
 
             var startInfo = new ProcessStartInfo(appFileName, args);
             startInfo.WorkingDirectory = workDir;
