@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using NDock.Base;
 using NDock.Base.Config;
 using NDock.Base.Metadata;
+using NDock.Server.Utils;
 
 namespace NDock.Server.Isolation.ProcessIsolation
 {
@@ -161,7 +162,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
             m_WorkingProcess.Exited += new EventHandler(m_WorkingProcess_Exited);
 
-            m_PerformanceCounter = new ProcessPerformanceCounter(m_WorkingProcess, GetPerformanceCounterDefinitions());
+            m_PerformanceCounter = new ProcessPerformanceCounter(m_WorkingProcess, PerformanceCounterInfo.GetDefaultPerformanceCounterDefinitions());
 
             m_Status.StartedTime = DateTime.Now;
             m_Status[StatusInfoKeys.IsRunning] = true;

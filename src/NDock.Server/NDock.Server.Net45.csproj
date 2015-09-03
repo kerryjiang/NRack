@@ -53,7 +53,6 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Isolation\PerformanceCounterInfo.cs" />
     <Compile Include="Isolation\ProcessIsolation\ExternalProcessApp.cs" />
     <Compile Include="Isolation\ProcessIsolation\ExternalProcessAppServerMetadata.cs" />
     <Compile Include="Recycle\RecycleTriggerConfig.cs" />
@@ -94,8 +93,9 @@
       <DependentUpon>NDockServiceInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="Service\SelfInstaller.cs" />
-    <Compile Include="Isolation\ProcessPerformanceCounter.cs" />
     <Compile Include="DefaultStatusCollector.cs" />
+    <Compile Include="Utils\PerformanceCounterInfo.cs" />
+    <Compile Include="Utils\ProcessPerformanceCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NDock.Base\NDock.Base.Net45.csproj">
@@ -112,9 +112,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utils\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -41,9 +41,7 @@ namespace NDock.Server.Isolation
             State = ServerState.NotInitialized;
             m_Metadata = metadata;
 
-            var isolationStatusFields = this.GetType()
-                    .GetCustomAttributes(typeof(StatusInfoAttribute), true)
-                    .OfType<StatusInfoAttribute>();
+            var isolationStatusFields = StatusInfoAttribute.GetFromType(this.GetType());
 
             if(isolationStatusFields.Any())
             {
@@ -236,33 +234,5 @@ namespace NDock.Server.Isolation
         }
 
         protected abstract StatusInfoCollection CollectStatus();
-
-        protected virtual PerformanceCounterInfo[] GetPerformanceCounterDefinitions()
-        {
-            return new PerformanceCounterInfo[]
-            {
-                new PerformanceCounterInfo
-                {
-                    Category = "Process",
-                    Name = "% Processor Time",
-                    StatusInfoKey = StatusInfoKeys.CpuUsage,
-                    Read = (value) => value / Environment.ProcessorCount
-                },
-                new PerformanceCounterInfo
-                {
-                    Category = "Process",
-                    Name = "Thread Count",
-                    StatusInfoKey = StatusInfoKeys.TotalThreadCount,
-                    Read = (value) => (int)value
-                },
-                new PerformanceCounterInfo
-                {
-                    Category = "Process",
-                    Name = "Working Set",
-                    StatusInfoKey = StatusInfoKeys.MemoryUsage,
-                    Read = (value) => (long)value
-                }
-            };
-        }
     }
 }

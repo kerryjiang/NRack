@@ -13,6 +13,16 @@ namespace NDock.Base
     [Serializable]
     public class StatusInfoCollection
     {
+        public StatusInfoCollection()
+        {
+
+        }
+
+        public StatusInfoCollection(string name)
+        {
+            Name = name;
+        }
+
         [NonSerialized]
         private Dictionary<string, object> m_Values = new Dictionary<string, object>();
 

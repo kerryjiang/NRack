@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting;
@@ -12,6 +13,7 @@ using AnyLog;
 using NDock.Base;
 using NDock.Base.Config;
 using NDock.Base.Metadata;
+using NDock.Server.Utils;
 
 namespace NDock.Server
 {
@@ -71,6 +73,14 @@ namespace NDock.Server
 
         #region status collect
 
+        protected virtual AppServerMetadata GetBootstrapMetadata()
+        {
+            var metadata = new AppServerMetadata();
+            metadata.Name = "[Bootstrap]";
+            metadata.StatusFields = StatusInfoAttribute.GetFromType(this.GetType()).ToArray();
+            return metadata;
+        }
+
         private void StartStatusCollect()
         {
             var interval = this.ConfigSource.StatusCollectInterval;
@@ -84,7 +94,9 @@ namespace NDock.Server
             {
                 Interval = interval,
                 Collector = ExportProvider.GetExport<IStatusCollector>().Value,
-                Logger = LogFactory.GetLog("NDockStatus")
+                Logger = LogFactory.GetLog("NDockStatus"),
+                PerformanceCounter = new ProcessPerformanceCounter(Process.GetCurrentProcess(), PerformanceCounterInfo.GetDefaultPerformanceCounterDefinitions(), this.ConfigSource.Isolation == IsolationMode.None),
+                BootstrapStatus = new AppServerStatus(GetBootstrapMetadata(), new StatusInfoCollection("[Bootstrap]"))
             };
 
             m_StatusCollectTimer = new Timer(OnStatusCollectTimerCallback, state, interval, interval);
@@ -105,17 +117,18 @@ namespace NDock.Server
 
             try
             {
-                var statusList = new List<KeyValuePair<AppServerMetadata, StatusInfoCollection>>();
+                var statusList = new List<AppServerStatus>();
 
                 foreach(var app in ManagedApps)
                 {
                     var meta = app.GetMetadata();
                     var appStatus = app.CollectStatus();
 
-                    statusList.Add(new KeyValuePair<AppServerMetadata, StatusInfoCollection>(meta, appStatus));
+                    statusList.Add(new AppServerStatus(meta, appStatus));
                 }
 
-                collector.Collect(statusList, collectState.Logger);
+                collectState.PerformanceCounter.Collect(collectState.BootstrapStatus.DataCollection);
+                collector.Collect(collectState.BootstrapStatus, statusList, collectState.Logger);
             }
             catch(Exception e)
             {
@@ -253,6 +266,10 @@ namespace NDock.Server
             public IStatusCollector Collector { get; set; }
 
             public ILog Logger { get; set; }
+
+            public ProcessPerformanceCounter PerformanceCounter { get; set; }
+
+            public AppServerStatus BootstrapStatus { get; set; }
         }
     }
 }

@@ -63,12 +63,12 @@
     <Compile Include="Isolation\IsolationApp.cs" />
     <Compile Include="Isolation\IsolationBootstrap.cs" />
     <Compile Include="Isolation\MarshalManagedApp.cs" />
-    <Compile Include="Isolation\PerformanceCounterInfo.cs" />
+    <Compile Include="Utils\PerformanceCounterInfo.cs" />
     <Compile Include="Isolation\ProcessIsolation\ExternalProcessApp.cs" />
     <Compile Include="Isolation\ProcessIsolation\ExternalProcessAppServerMetadata.cs" />
     <Compile Include="Isolation\ProcessIsolation\ProcessBootstrap.cs" />
     <Compile Include="Isolation\ProcessIsolation\ProcessApp.cs" />
-    <Compile Include="Isolation\ProcessPerformanceCounter.cs" />
+    <Compile Include="Utils\ProcessPerformanceCounter.cs" />
     <Compile Include="MefExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

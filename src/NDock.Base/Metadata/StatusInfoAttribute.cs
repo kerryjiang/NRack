@@ -88,5 +88,10 @@ namespace NDock.Base.Metadata
         /// The type of the data.
         /// </value>
         public Type DataType { get; set; }
+
+        public static IEnumerable<StatusInfoAttribute> GetFromType(Type type)
+        {
+            return type.GetCustomAttributes(typeof(StatusInfoAttribute), true).OfType<StatusInfoAttribute>();
+        }
     }
 }

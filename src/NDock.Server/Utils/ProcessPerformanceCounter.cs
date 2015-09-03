@@ -8,18 +8,26 @@ using System.Threading.Tasks;
 using NDock.Base;
 using NDock.Base.Metadata;
 
-namespace NDock.Server.Isolation
+namespace NDock.Server.Utils
 {
     class ProcessPerformanceCounter
     {
         private PerformanceCounterInfo[] m_CounterDefinitions;
         private PerformanceCounter[] m_Counters;
         private Process m_Process;
+        private bool m_CollectThreadPoolInfo;
 
         public ProcessPerformanceCounter(Process process, PerformanceCounterInfo[] counters)
+            : this(process, counters, true)
+        {
+
+        }
+
+        public ProcessPerformanceCounter(Process process, PerformanceCounterInfo[] counters, bool collectThreadPoolInfo)
         {
             m_Process = process;
             m_CounterDefinitions = counters;
+            m_CollectThreadPoolInfo = collectThreadPoolInfo;
 
             //Windows .Net, to avoid same name process issue
             if (!NDockEnv.IsMono)
@@ -89,12 +97,20 @@ namespace NDock.Server.Isolation
 
         public void Collect(StatusInfoCollection statusCollection)
         {
-            int availableWorkingThreads, availableCompletionPortThreads;
-            ThreadPool.GetAvailableThreads(out availableWorkingThreads, out availableCompletionPortThreads);
+            if(m_CollectThreadPoolInfo)
+            {
+                int availableWorkingThreads, availableCompletionPortThreads;
+                ThreadPool.GetAvailableThreads(out availableWorkingThreads, out availableCompletionPortThreads);
 
-            int maxWorkingThreads;
-            int maxCompletionPortThreads;
-            ThreadPool.GetMaxThreads(out maxWorkingThreads, out maxCompletionPortThreads);
+                int maxWorkingThreads;
+                int maxCompletionPortThreads;
+                ThreadPool.GetMaxThreads(out maxWorkingThreads, out maxCompletionPortThreads);
+
+                statusCollection[StatusInfoKeys.AvailableWorkingThreads] = availableWorkingThreads;
+                statusCollection[StatusInfoKeys.AvailableCompletionPortThreads] = availableCompletionPortThreads;
+                statusCollection[StatusInfoKeys.MaxCompletionPortThreads] = maxCompletionPortThreads;
+                statusCollection[StatusInfoKeys.MaxWorkingThreads] = maxWorkingThreads;
+            }
 
             var retry = false;
 
@@ -102,11 +118,6 @@ namespace NDock.Server.Isolation
             {
                 try
                 {
-                    statusCollection[StatusInfoKeys.AvailableWorkingThreads] = availableWorkingThreads;
-                    statusCollection[StatusInfoKeys.AvailableCompletionPortThreads] = availableCompletionPortThreads;
-                    statusCollection[StatusInfoKeys.MaxCompletionPortThreads] = maxCompletionPortThreads;
-                    statusCollection[StatusInfoKeys.MaxWorkingThreads] = maxWorkingThreads;
-
                     for (var i = 0; i < m_CounterDefinitions.Length; i++)
                     {
                         var counterInfo = m_CounterDefinitions[i];

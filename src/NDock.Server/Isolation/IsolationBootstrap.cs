@@ -13,6 +13,9 @@ using NDock.Server.Recycle;
 
 namespace NDock.Server.Isolation
 {
+    [StatusInfo(StatusInfoKeys.CpuUsage, Name = "CPU Usage", Format = "{0:0.00}%", DataType = typeof(double), Order = 112)]
+    [StatusInfo(StatusInfoKeys.MemoryUsage, Name = "Physical Memory Usage", Format = "{0:N}", DataType = typeof(double), Order = 113)]
+    [StatusInfo(StatusInfoKeys.TotalThreadCount, Name = "Total Thread Count", Format = "{0}", DataType = typeof(double), Order = 114)]
     abstract class IsolationBootstrap : BootstrapBase
     {
         protected string ConfigFilePath { get; private set; }

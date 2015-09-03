@@ -16,10 +16,7 @@ namespace NDock.Base
         {
             Name = attribute.Name;
             AppType = appType.AssemblyQualifiedName;
-
-            StatusFields = attribute.GetType()
-                .GetCustomAttributes(typeof(StatusInfoAttribute), true)
-                .OfType<StatusInfoAttribute>().ToArray();
+            StatusFields = StatusInfoAttribute.GetFromType(attribute.GetType()).ToArray();
         }
 
         public static AppServerMetadata GetAppServerMetadata(Type serverType)
