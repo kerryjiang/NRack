@@ -33,8 +33,6 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
         private StatusInfoCollection m_Status;
 
-        private AutoResetEvent m_ProcessWorkEvent = new AutoResetEvent(false);
-
         private string m_ExitCommand;
 
         /// <summary>
