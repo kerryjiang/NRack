@@ -67,10 +67,9 @@ namespace NDock.Server
 
         private List<IManagedApp> m_ManagedApps;
 
-        public RemoteBootstrapProxy()
+        public RemoteBootstrapProxy(IBootstrap innerBootstrap)
         {
-            m_Bootstrap = (IBootstrap)AppDomain.CurrentDomain.GetData("Bootstrap");
-
+            m_Bootstrap = innerBootstrap;
             m_ManagedApps = new List<IManagedApp>();
 
             foreach (var s in m_Bootstrap.AppServers)
@@ -80,6 +79,12 @@ namespace NDock.Server
                 else
                     m_ManagedApps.Add(new ServerProxy(s));
             }
+        }
+
+        public RemoteBootstrapProxy()
+            : this((IBootstrap)AppDomain.CurrentDomain.GetData("Bootstrap"))
+        {
+            
         }
 
         public IEnumerable<IManagedApp> AppServers

@@ -20,10 +20,13 @@ namespace NDock.Server.Isolation
     {
         protected string ConfigFilePath { get; private set; }
 
+        private IBootstrap m_RemoteBootstrapWrap;
+
         public IsolationBootstrap(IConfigSource configSource)
             : base(GetSerializableConfigSource(configSource))
         {
             ConfigFilePath = ((ConfigurationElement)configSource).GetConfigSource();
+            m_RemoteBootstrapWrap = new RemoteBootstrapProxy(this);
         }
 
         private static IConfigSource GetSerializableConfigSource(IConfigSource configSource)
@@ -112,7 +115,7 @@ namespace NDock.Server.Isolation
 
         protected override bool Setup(IManagedApp managedApp, IServerConfig config)
         {
-            var ret = base.Setup(managedApp, config);
+            var ret = managedApp.Setup(m_RemoteBootstrapWrap, config);
 
             if (!ret)
                 return false;
