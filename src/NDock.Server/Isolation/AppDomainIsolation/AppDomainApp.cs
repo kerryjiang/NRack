@@ -14,10 +14,25 @@ using System.Diagnostics;
 namespace NDock.Server.Isolation.AppDomainIsolation
 {
     [StatusInfo(StatusInfoKeys.CpuUsage, Name = "CPU Usage", Format = "{0:0.00}%", DataType = typeof(double), Order = 112)]
-    [StatusInfo(StatusInfoKeys.MemoryUsage, Name = "Memory Usage", Format = "{0:0.00}%", DataType = typeof(double), Order = 113)]
+    [StatusInfo(StatusInfoKeys.MemoryUsage, Name = "Memory Usage", Format = "{0:N}", DataType = typeof(double), Order = 113)]
     class AppDomainApp : IsolationApp
     {
         private AppDomain m_HostDomain;
+
+        private readonly static bool m_AppDomainMonitoringSupported = false;
+
+        static AppDomainApp()
+        {
+            try
+            {
+                AppDomain.MonitoringIsEnabled = true;
+                m_AppDomainMonitoringSupported = true;
+            }
+            catch (NotImplementedException)
+            {
+                return;
+            }
+        }
 
         public AppDomainApp(AppServerMetadata metadata, string startupConfigFile)
             : base(metadata, startupConfigFile)
@@ -37,12 +52,16 @@ namespace NDock.Server.Isolation.AppDomainIsolation
                     startupConfigFile = Path.Combine(currentDomain.BaseDirectory, startupConfigFile);
             }
 
-            var hostAppDomain = AppDomain.CreateDomain(Name, currentDomain.Evidence, new AppDomainSetup
-                {
-                    ApplicationName = Name,
-                    ApplicationBase = AppWorkingDir,
-                    ConfigurationFile = startupConfigFile
-                });
+            var setupInfo = new AppDomainSetup
+            {
+                ApplicationName = Name,
+                ApplicationBase = AppWorkingDir,
+                ConfigurationFile = startupConfigFile,
+                ShadowCopyFiles = "true",
+                CachePath = Path.Combine(currentDomain.BaseDirectory, IsolationAppConst.ShadowCopyDir)
+            };
+
+            var hostAppDomain = AppDomain.CreateDomain(Name, currentDomain.Evidence, setupInfo);
 
             var assemblyImportType = typeof(AssemblyImport);
 
@@ -132,11 +151,14 @@ namespace NDock.Server.Isolation.AppDomainIsolation
 
             var status = app.CollectStatus();
 
-            status[StatusInfoKeys.MemoryUsage] = m_HostDomain == null ? 0 : m_HostDomain.MonitoringSurvivedMemorySize;
+            if(m_AppDomainMonitoringSupported)
+            {
+                status[StatusInfoKeys.MemoryUsage] = m_HostDomain == null ? 0 : m_HostDomain.MonitoringSurvivedMemorySize;
 
-            var process = Process.GetCurrentProcess();
-            var value = m_HostDomain.MonitoringTotalProcessorTime.TotalMilliseconds * 100 / process.TotalProcessorTime.TotalMilliseconds;
-            status[StatusInfoKeys.CpuUsage] = value;
+                var process = Process.GetCurrentProcess();
+                var value = m_HostDomain.MonitoringTotalProcessorTime.TotalMilliseconds * 100 / process.TotalProcessorTime.TotalMilliseconds;
+                status[StatusInfoKeys.CpuUsage] = value;
+            }
 
             return status;
         }

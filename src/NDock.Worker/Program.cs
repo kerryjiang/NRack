@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NDock.Base;
 using NDock.Server;
+using NDock.Server.Isolation;
 using NDock.Server.Isolation.ProcessIsolation;
 
 namespace NDock.Worker
@@ -36,6 +37,12 @@ namespace NDock.Worker
             var channelPort = string.Format(ProcessAppConst.PortNameTemplate, name, Process.GetCurrentProcess().Id);
 
             var currentDomain = AppDomain.CurrentDomain;
+
+#pragma warning disable CS0618 // Type or member is obsolete
+            currentDomain.SetCachePath(Path.Combine(Path.Combine(currentDomain.BaseDirectory, IsolationAppConst.ShadowCopyDir), name));
+            currentDomain.SetShadowCopyFiles();
+#pragma warning restore CS0618 // Type or member is obsolete
+
             var root = Path.Combine(Path.Combine(currentDomain.BaseDirectory, ProcessAppConst.WorkingDir), name);
 
             //Hack to change the default AppDomain's root

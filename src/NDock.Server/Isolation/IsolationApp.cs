@@ -17,6 +17,8 @@ namespace NDock.Server.Isolation
         public const string WorkingDir = "AppRoot";
 
         public const string AppConfigFile = "App.config";
+
+        public const string ShadowCopyDir = "Temp";
     }
 
     abstract class IsolationApp : MarshalByRefObject, IManagedApp
