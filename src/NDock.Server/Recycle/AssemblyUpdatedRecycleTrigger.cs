@@ -49,6 +49,10 @@ namespace NDock.Server.Recycle
         {
             var state = (app as IsolationApp).AssemblyUpdateState;
 
+            // not start
+            if (state == null)
+                return false;
+
             if (state.LastUpdatedTime > state.CurrentAssemblyTime)
                 return IsDeplayOverdue(state.LastUpdatedTime);
 
