@@ -27,7 +27,7 @@ namespace NDock.Server.Isolation
         {
             var lastUpdatedTime = DateTime.MinValue;
 
-            foreach(var file in Directory.GetFiles(m_AppAssemblyDir, "*.exe|*.dll"))
+            foreach(var file in Directory.GetFiles(m_AppAssemblyDir, "*.dll").Union(Directory.GetFiles(m_AppAssemblyDir, "*.exe")))
             {
                 var fileWriteTime = File.GetLastWriteTime(file);
 

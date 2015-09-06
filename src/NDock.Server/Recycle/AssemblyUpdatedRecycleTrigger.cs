@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using NDock.Server.Isolation;
 
 namespace NDock.Server.Recycle
 {
+    [Export(typeof(IRecycleTrigger))]
     [ProviderMetadata("AssemblyUpdatedTrigger")]
     public class AssemblyUpdatedRecycleTrigger : IRecycleTrigger
     {
@@ -22,14 +24,14 @@ namespace NDock.Server.Recycle
         {
             var checkInterval = 0;
 
-            if (int.TryParse(options.GetValue("checkInterval", "5"), out checkInterval))
+            if (!int.TryParse(options.GetValue("checkInterval", "5"), out checkInterval))
                 return false;
 
             m_CheckInterval = checkInterval;
 
             var restartDelay = 0;
 
-            if (int.TryParse(options.GetValue("restartDelay", "1"), out restartDelay))
+            if (!int.TryParse(options.GetValue("restartDelay", "1"), out restartDelay))
                 return false;
 
             m_RestartRelay = restartDelay;

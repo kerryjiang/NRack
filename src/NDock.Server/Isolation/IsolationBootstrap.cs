@@ -22,11 +22,14 @@ namespace NDock.Server.Isolation
 
         private IBootstrap m_RemoteBootstrapWrap;
 
+        private IEnumerable<Lazy<IRecycleTrigger, IProviderMetadata>> m_RecycleTriggers;
+
         public IsolationBootstrap(IConfigSource configSource)
             : base(GetSerializableConfigSource(configSource))
         {
             ConfigFilePath = ((ConfigurationElement)configSource).GetConfigSource();
             m_RemoteBootstrapWrap = new RemoteBootstrapProxy(this);
+            m_RecycleTriggers = AppDomain.CurrentDomain.GetCurrentAppDomainExportProvider().GetExports<IRecycleTrigger, IProviderMetadata>();
         }
 
         private static IConfigSource GetSerializableConfigSource(IConfigSource configSource)
@@ -72,39 +75,36 @@ namespace NDock.Server.Isolation
             {
                 var recycleTriggers = config.OptionElements.GetChildConfig<RecycleTriggerConfigCollection>("recycleTriggers");
 
-                if (recycleTriggers != null && recycleTriggers.Count > 0)
+                if (recycleTriggers == null || !recycleTriggers.Any())
+                    return;
+
+                var triggers = new List<IRecycleTrigger>();
+
+                foreach (var triggerConfig in recycleTriggers)
                 {
-                    var exportProvider = AppDomain.CurrentDomain.GetCurrentAppDomainExportProvider();
-                    var recycleTriggerTypes = exportProvider.GetExports<IRecycleTrigger, IProviderMetadata>();
+                    var triggerType = m_RecycleTriggers.FirstOrDefault(t =>
+                            t.Metadata.Name.Equals(triggerConfig.Name, StringComparison.OrdinalIgnoreCase));
 
-                    var triggers = new List<IRecycleTrigger>();
-
-                    foreach (var triggerConfig in recycleTriggers)
+                    if (triggerType == null)
                     {
-                        var triggerType = recycleTriggerTypes.FirstOrDefault(t =>
-                                t.Metadata.Name.Equals(triggerConfig.Name, StringComparison.OrdinalIgnoreCase));
-
-                        if (triggerType == null)
-                        {
-                            Log.ErrorFormat("We cannot find a RecycleTrigger with the name '{0}'.", triggerConfig.Name);
-                            continue;
-                        }
-
-                        var trigger = triggerType.Value;
-
-                        if (!trigger.Initialize(triggerConfig.Options))
-                        {
-                            Log.ErrorFormat("Failed to initialize the RecycleTrigger '{0}'.", triggerConfig.Name);
-                            continue;
-                        }
-
-                        triggers.Add(trigger);
+                        Log.ErrorFormat("We cannot find a RecycleTrigger with the name '{0}'.", triggerConfig.Name);
+                        continue;
                     }
 
-                    if (triggers.Any())
+                    var trigger = triggerType.Value;
+
+                    if (!trigger.Initialize(triggerConfig.Options))
                     {
-                        (managedApp as IsolationApp).RecycleTriggers = triggers.ToArray();
+                        Log.ErrorFormat("Failed to initialize the RecycleTrigger '{0}'.", triggerConfig.Name);
+                        continue;
                     }
+
+                    triggers.Add(trigger);
+                }
+
+                if (triggers.Any())
+                {
+                    (managedApp as IsolationApp).RecycleTriggers = triggers.ToArray();
                 }
             }
             catch (Exception e)

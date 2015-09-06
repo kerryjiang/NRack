@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NDock.Base;
-using NDock.Base.Provider;
 using NDock.Base.Configuration;
 using NDock.Base.Metadata;
+using NDock.Base.Provider;
 
 namespace NDock.Server.Recycle
 {
+    [Export(typeof(IRecycleTrigger))]
     [ProviderMetadata("MemoryTrigger")]
     public class MemoryRecycleTrigger : IRecycleTrigger
     {
