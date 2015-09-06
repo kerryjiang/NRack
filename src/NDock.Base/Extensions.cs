@@ -48,6 +48,11 @@ namespace NDock.Base
             return exportProvider;
         }
 
+        public static IBootstrap GetBootstrap(this AppDomain appDomain)
+        {
+            return appDomain.GetData("Bootstrap") as IBootstrap;
+        }
+
         /// <summary>
         /// Copies the properties of one object to another object.
         /// </summary>

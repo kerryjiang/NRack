@@ -112,6 +112,7 @@ namespace NDock.Server.Isolation
 
             if (ManagedApp != null)
             {
+                AssemblyUpdateState = new AppAssemblyUpdateState(AppWorkingDir);
                 State = ServerState.Running;
                 return true;
             }
@@ -236,5 +237,8 @@ namespace NDock.Server.Isolation
         }
 
         protected abstract StatusInfoCollection CollectStatus();
+
+
+        internal AppAssemblyUpdateState AssemblyUpdateState { get; private set; }
     }
 }

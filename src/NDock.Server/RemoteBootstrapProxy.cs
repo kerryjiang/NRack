@@ -82,7 +82,7 @@ namespace NDock.Server
         }
 
         public RemoteBootstrapProxy()
-            : this((IBootstrap)AppDomain.CurrentDomain.GetData("Bootstrap"))
+            : this(AppDomain.CurrentDomain.GetBootstrap())
         {
             
         }
