@@ -56,7 +56,12 @@ namespace NDock.Server.Recycle
                 return false;
 
             if (state.LastUpdatedTime > state.CurrentAssemblyTime)
+            {
+                // check to see if there is any latest update
+                // if yes, deplay much longer time
+                state.TryCheckUpdate();
                 return IsDeplayOverdue(state.LastUpdatedTime);
+            }
 
             // next check time has not reached yet
             if (state.LastCheckTime.AddMinutes(m_CheckInterval) > DateTime.Now)
