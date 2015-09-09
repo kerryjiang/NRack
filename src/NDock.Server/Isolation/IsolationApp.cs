@@ -148,7 +148,11 @@ namespace NDock.Server.Isolation
         {
             State = ServerState.NotStarted;
             ManagedApp = null;
-            m_StopTaskSrc.SetResult(true);
+
+            var stopTaskSrc = m_StopTaskSrc;
+
+            if(stopTaskSrc != null)
+                stopTaskSrc.SetResult(true);
         }
 
         protected abstract void Stop();
@@ -232,8 +236,9 @@ namespace NDock.Server.Isolation
 
         private void Restart()
         {
-            Stop();
-            Start();
+            var app = this as IManagedAppBase;
+            app.Stop();
+            app.Start();
         }
 
         protected abstract StatusInfoCollection CollectStatus();
