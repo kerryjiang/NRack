@@ -65,7 +65,8 @@ namespace NDock.Server
         {
             foreach (var app in ManagedApps)
             {
-                app.Stop();
+                if(app.State == ServerState.Running)
+                    app.Stop();
             }
 
             StopStatusCollect();
