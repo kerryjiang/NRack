@@ -144,7 +144,16 @@ namespace NDock.Server
         protected virtual AppServerMetadata GetAppServerMetadata(IServerConfig serverConfig)
         {
             var typeValidator = new RemoteAppTypeValidator();
-            return typeValidator.GetServerMetadata(serverConfig.Type);
+
+            var result = typeValidator.GetServerMetadata(serverConfig.Type);
+
+            if (!result.Result)
+            {
+                Log.Error(result.Message);
+                return null;
+            }
+
+            return result.Value;
         }
 
         protected abstract IManagedApp CreateAppInstanceByMetadata(AppServerMetadata metadata);

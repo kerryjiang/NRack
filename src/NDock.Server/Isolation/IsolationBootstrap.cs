@@ -58,7 +58,15 @@ namespace NDock.Server.Isolation
                 var validatorType = typeof(RemoteAppTypeValidator);
                 var validator = (RemoteAppTypeValidator)validateDomain.CreateInstanceAndUnwrap(validatorType.Assembly.FullName, validatorType.FullName);
 
-                metadata = validator.GetServerMetadata(serverConfig.Type);
+                var result = validator.GetServerMetadata(serverConfig.Type);
+
+                if(!result.Result)
+                {
+                    Log.Error(result.Message);
+                    return null;
+                }
+
+                metadata = result.Value;
             }
             finally
             {
