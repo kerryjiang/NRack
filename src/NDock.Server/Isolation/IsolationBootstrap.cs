@@ -62,7 +62,7 @@ namespace NDock.Server.Isolation
 
                 if(!result.Result)
                 {
-                    Log.Error(result.Message);
+                    Logger.Error(result.Message);
                     return null;
                 }
 
@@ -95,7 +95,7 @@ namespace NDock.Server.Isolation
 
                     if (triggerType == null)
                     {
-                        Log.ErrorFormat("We cannot find a RecycleTrigger with the name '{0}'.", triggerConfig.Name);
+                        Logger.ErrorFormat("We cannot find a RecycleTrigger with the name '{0}'.", triggerConfig.Name);
                         continue;
                     }
 
@@ -103,7 +103,7 @@ namespace NDock.Server.Isolation
 
                     if (!trigger.Initialize(triggerConfig.Options))
                     {
-                        Log.ErrorFormat("Failed to initialize the RecycleTrigger '{0}'.", triggerConfig.Name);
+                        Logger.ErrorFormat("Failed to initialize the RecycleTrigger '{0}'.", triggerConfig.Name);
                         continue;
                     }
 
@@ -117,7 +117,7 @@ namespace NDock.Server.Isolation
             }
             catch (Exception e)
             {
-                Log.Error("Failed to load recycle triggers.", e);
+                Logger.Error("Failed to load recycle triggers.", e);
             }
         }
 

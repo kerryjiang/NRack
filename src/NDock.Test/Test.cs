@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using NDock.Base;
 using NDock.Server;
@@ -56,6 +57,15 @@ namespace NDock.Test
 
             bootstrap.Stop();
             Assert.AreEqual(ServerState.NotStarted, server.State);
+        }
+
+        [Test]
+        public void StatusCollectTest()
+        {
+            StartStopWrap(() =>
+            {
+                Thread.Sleep(1000 * 60 * 5);
+            });
         }
     }
 }

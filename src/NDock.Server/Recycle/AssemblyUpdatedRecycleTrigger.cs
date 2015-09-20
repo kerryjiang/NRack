@@ -14,11 +14,21 @@ using NDock.Server.Isolation;
 namespace NDock.Server.Recycle
 {
     [Export(typeof(IRecycleTrigger))]
-    [ProviderMetadata("AssemblyUpdatedTrigger")]
+    [ProviderMetadata(TriggerName)]
     public class AssemblyUpdatedRecycleTrigger : IRecycleTrigger
     {
         private int m_CheckInterval;
         private int m_RestartRelay;
+
+        internal const string TriggerName = "AssemblyUpdatedTrigger";
+
+        public string Name
+        {
+            get
+            {
+                return TriggerName;
+            }
+        }
 
         public bool Initialize(NameValueCollection options)
         {

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AnyLog;
 using NDock.Base;
 using NDock.Base.Config;
 
 namespace NDock.Server
 {
-    class RemoteBootstrapProxy : MarshalByRefObject, IBootstrap
+    class RemoteBootstrapProxy : MarshalByRefObject, IBootstrap, ILoggerProvider
     {
         class ServerProxy : MarshalByRefObject, IManagedApp
         {
@@ -92,6 +93,19 @@ namespace NDock.Server
             get
             {
                 return m_ManagedApps;
+            }
+        }
+
+        ILog ILoggerProvider.Logger
+        {
+            get
+            {
+                var loggerProvider = m_Bootstrap as ILoggerProvider;
+
+                if (loggerProvider == null)
+                    return null;
+
+                return loggerProvider.Logger;
             }
         }
 

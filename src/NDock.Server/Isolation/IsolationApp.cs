@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AnyLog;
 using NDock.Base;
 using NDock.Base.Config;
 using NDock.Base.Configuration;
@@ -21,7 +22,7 @@ namespace NDock.Server.Isolation
         public const string ShadowCopyDir = "Temp";
     }
 
-    abstract class IsolationApp : MarshalByRefObject, IManagedApp
+    abstract class IsolationApp : MarshalByRefObject, IManagedApp, ILoggerProvider
     {
         private AppServerMetadata m_Metadata;
 
@@ -32,6 +33,8 @@ namespace NDock.Server.Isolation
         protected string StartupConfigFile { get; private set; }
 
         protected string AppWorkingDir { get; private set; }
+
+        public ILog Logger { get; private set; }
 
         internal static string GetAppWorkingDir(string appName)
         {
@@ -75,6 +78,12 @@ namespace NDock.Server.Isolation
         public virtual bool Setup(IBootstrap bootstrap, IServerConfig config)
         {
             Bootstrap = bootstrap;
+
+            var loggerProvider = bootstrap as ILoggerProvider;
+
+            if (loggerProvider != null)
+                Logger = loggerProvider.Logger;
+
             State = ServerState.Initializing;
             Config = config;
             Name = config.Name;            
@@ -159,16 +168,9 @@ namespace NDock.Server.Isolation
 
         public ServerState State { get; protected set; }
 
-        public event EventHandler<Base.ErrorEventArgs> ExceptionThrown;
-
         protected void OnExceptionThrown(Exception exc)
         {
-            var handler = ExceptionThrown;
-
-            if (handler == null)
-                return;
-
-            handler(this, new Base.ErrorEventArgs(exc));
+            Logger.Error(exc);
         }
 
         /// <summary>
@@ -228,17 +230,25 @@ namespace NDock.Server.Isolation
 
                 if (toBeRecycle)
                 {
+                    Logger.InfoFormat("The app server {0} will be recycled because of the trigger {1}", this.Name, trigger.Name);
+
                     Task.Factory.StartNew(Restart)
                         .ContinueWith(t => OnExceptionThrown(t.Exception), TaskContinuationOptions.OnlyOnFaulted);
+
+                    break;
                 }
             }
         }
 
         private void Restart()
         {
+            Logger.InfoFormat("The app server {0} is restarting...", this.Name);
+
             var app = this as IManagedAppBase;
             app.Stop();
             app.Start();
+
+            Logger.InfoFormat("The app server {0} restarted successfully.", this.Name);
         }
 
         protected abstract StatusInfoCollection CollectStatus();

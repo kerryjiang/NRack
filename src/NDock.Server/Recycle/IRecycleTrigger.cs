@@ -10,6 +10,8 @@ namespace NDock.Server.Recycle
 {
     public interface IRecycleTrigger
     {
+        string Name { get; }
+
         bool Initialize(NameValueCollection options);
 
         bool NeedBeRecycled(IManagedApp app, StatusInfoCollection status);

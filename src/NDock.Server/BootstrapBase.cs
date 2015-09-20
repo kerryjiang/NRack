@@ -17,7 +17,7 @@ using NDock.Server.Utils;
 
 namespace NDock.Server
 {
-    public abstract class BootstrapBase : IBootstrap
+    public abstract class BootstrapBase : IBootstrap, ILoggerProvider, ILogFactoryProvider
     {
         protected IConfigSource ConfigSource { get; private set; }
 
@@ -27,7 +27,23 @@ namespace NDock.Server
 
         protected ILogFactory LogFactory { get; private set; }
 
-        protected ILog Log { get; private set; }
+        ILogFactory ILogFactoryProvider.LogFactory
+        {
+            get
+            {
+                return this.LogFactory;
+            }
+        }
+
+        protected ILog Logger { get; private set; }
+
+        ILog ILoggerProvider.Logger
+        {
+            get
+            {
+                return this.Logger;
+            }
+        }
 
         private Timer m_StatusCollectTimer;
 
@@ -53,9 +69,9 @@ namespace NDock.Server
                 var ret = app.Start();
 
                 if (ret)
-                    Log.InfoFormat("The app server instance [{0}] is started successfully.", app.Name);
+                    Logger.InfoFormat("The app server instance [{0}] is started successfully.", app.Name);
                 else
-                    Log.InfoFormat("The app server instance [{0}] failed to start.", app.Name);
+                    Logger.InfoFormat("The app server instance [{0}] failed to start.", app.Name);
             }
 
             StartStatusCollect();
@@ -133,7 +149,7 @@ namespace NDock.Server
             }
             catch(Exception e)
             {
-                Log.Error("One exception was thrown in OnStatusCollectTimerCallback", e);
+                Logger.Error("One exception was thrown in OnStatusCollectTimerCallback", e);
             }
 
             int interval = collectState.Interval;
@@ -150,7 +166,7 @@ namespace NDock.Server
 
             if (!result.Result)
             {
-                Log.Error(result.Message);
+                Logger.Error(result.Message);
                 return null;
             }
 
@@ -183,7 +199,7 @@ namespace NDock.Server
                 throw new Exception("Failed to load LogFactory.");
 
             LogFactory = logFactory;
-            Log = logFactory.GetLog(this.GetType().Name);
+            Logger = logFactory.GetLog(this.GetType().Name);
 
             AppDomain.CurrentDomain.SetData("Bootstrap", this);
 
@@ -194,17 +210,17 @@ namespace NDock.Server
                 try
                 {
                     server = CreateAppInstance(config);
-                    Log.InfoFormat("The app server instance [{0}] is created.", config.Name);
+                    Logger.InfoFormat("The app server instance [{0}] is created.", config.Name);
                 }
                 catch(Exception e)
                 {
-                    Log.Error(string.Format("Failed to create the app server instance [{0}].", config.Name), e);
+                    Logger.Error(string.Format("Failed to create the app server instance [{0}].", config.Name), e);
                     return false;
                 }
 
                 if(server == null)
                 {
-                    Log.Error(string.Format("Failed to create  the server instance [{0}]", config.Name));
+                    Logger.Error(string.Format("Failed to create  the server instance [{0}]", config.Name));
                     return false;
                 }
 
@@ -213,11 +229,11 @@ namespace NDock.Server
                     if (!Setup(server, config))
                         throw new Exception(string.Format("The app server instance [{0}] failed to be setup.", config.Name));
 
-                    Log.InfoFormat("The app server instance [{0}] is setup successfully.", config.Name);
+                    Logger.InfoFormat("The app server instance [{0}] is setup successfully.", config.Name);
                 }
                 catch(Exception e)
                 {
-                    Log.Error(string.Format("Failed to setup the app server instance [{0}]", config.Name), e);
+                    Logger.Error(string.Format("Failed to setup the app server instance [{0}]", config.Name), e);
                     return false;
                 }
 
@@ -230,8 +246,8 @@ namespace NDock.Server
             }
             catch (Exception e)
             {
-                if (Log.IsErrorEnabled)
-                    Log.Error("Failed to register remoting access service!", e);
+                if (Logger.IsErrorEnabled)
+                    Logger.Error("Failed to register remoting access service!", e);
 
                 return false;
             }

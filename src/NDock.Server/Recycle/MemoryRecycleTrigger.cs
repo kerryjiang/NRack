@@ -13,10 +13,20 @@ using NDock.Base.Provider;
 namespace NDock.Server.Recycle
 {
     [Export(typeof(IRecycleTrigger))]
-    [ProviderMetadata("MemoryTrigger")]
+    [ProviderMetadata(TriggerName)]
     public class MemoryRecycleTrigger : IRecycleTrigger
     {
         private long m_MaxMemoryUsage;
+
+        internal const string TriggerName = "MemoryTrigger";
+
+        public string Name
+        {
+            get
+            {
+                return TriggerName;
+            }
+        }
 
         public bool Initialize(NameValueCollection options)
         {
