@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
+using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading;
 using AnyLog;
@@ -274,7 +275,7 @@ namespace NDock.Server
             if (serverChannel != null)
                 ChannelServices.UnregisterChannel(serverChannel);
 
-            serverChannel = new IpcServerChannel(serverChannelName, bootstrapIpcPort);
+            serverChannel = new IpcServerChannel(serverChannelName, bootstrapIpcPort, new BinaryServerFormatterSinkProvider { TypeFilterLevel = TypeFilterLevel.Full });
             ChannelServices.RegisterChannel(serverChannel, false);
 
             AppDomain.CurrentDomain.SetData("BootstrapIpcPort", bootstrapIpcPort);
