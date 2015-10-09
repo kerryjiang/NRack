@@ -57,6 +57,9 @@ namespace NDock.Server.Utils
             var isUnix = Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX;
             var instanceName = (isUnix || NDockEnv.IsMono) ? string.Format("{0}/{1}", m_Process.Id, m_Process.ProcessName) : GetPerformanceCounterInstanceName(m_Process);
 
+            if (string.IsNullOrEmpty(instanceName))
+                return;
+
             SetupPerformanceCounters(instanceName);
         }
 
@@ -82,6 +85,9 @@ namespace NDock.Server.Utils
             {
                 if (!runnedInstance.StartsWith(process.ProcessName, StringComparison.OrdinalIgnoreCase))
                     continue;
+
+                if (process.HasExited)
+                    return string.Empty;
 
                 using (var performanceCounter = new PerformanceCounter("Process", "ID Process", runnedInstance, true))
                 {
@@ -140,6 +146,10 @@ namespace NDock.Server.Utils
                     //If a same name process exited, this process's performance counters instance name could be changed,
                     //so if the old performance counter cannot be access, get the performance counter's name again
                     var newInstanceName = GetPerformanceCounterInstanceName(m_Process);
+
+                    if (string.IsNullOrEmpty(newInstanceName))
+                        break;
+
                     SetupPerformanceCounters(newInstanceName);
                     retry = true;
                 }
