@@ -19,8 +19,15 @@ namespace NDock.Base
         }
 
         public StatusInfoCollection(string name)
+            : this(name, name)
+        {
+            
+        }
+
+        public StatusInfoCollection(string name, string tag)
         {
             Name = name;
+            Tag = tag;
         }
 
         [NonSerialized]

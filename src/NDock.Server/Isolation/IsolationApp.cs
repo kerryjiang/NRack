@@ -36,6 +36,8 @@ namespace NDock.Server.Isolation
 
         public ILog Logger { get; private set; }
 
+        private Lazy<StatusInfoCollection> m_NotStartedStatus;
+
         internal static string GetAppWorkingDir(string appName)
         {
             return Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, IsolationAppConst.WorkingDir), appName);
@@ -100,6 +102,13 @@ namespace NDock.Server.Isolation
             //AppRoot\AppName\App.config
             if (!string.IsNullOrEmpty(appConfigFilePath))
                 StartupConfigFile = appConfigFilePath;
+
+            m_NotStartedStatus = new Lazy<StatusInfoCollection>(() =>
+                {
+                    var status = new StatusInfoCollection(m_Metadata.Name);
+                    status[StatusInfoKeys.IsRunning] = false;
+                    return status;
+                });
 
             return true;
         }
@@ -187,7 +196,6 @@ namespace NDock.Server.Isolation
             return null;
         }
 
-
         public bool CanBeRecycled()
         {
             var app = ManagedApp;
@@ -203,7 +211,17 @@ namespace NDock.Server.Isolation
         StatusInfoCollection IManagedAppBase.CollectStatus()
         {
             var status = CollectStatus();
-            RunRecycleTriggers(status);
+
+            if (status != null)
+            {
+                RunRecycleTriggers(status);
+            }
+            else
+            {
+                status = m_NotStartedStatus.Value;
+                status.CollectedTime = DateTime.Now;
+            }
+
             return status;
         }
 
