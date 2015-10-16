@@ -11,6 +11,7 @@ using System.ServiceProcess;
 using System.Text;
 using NDock.Base;
 using NDock.Base.Config;
+using NDock.Server.Isolation;
 using NDock.Server.Service;
 
 
@@ -360,6 +361,13 @@ namespace NDock.Server
 
         static void RunAsService()
         {
+            var currentDomain = AppDomain.CurrentDomain;
+
+#pragma warning disable CS0618 // Type or member is obsolete
+            currentDomain.SetCachePath(Path.Combine(Path.Combine(currentDomain.BaseDirectory, IsolationAppConst.ShadowCopyDir), "Bootstrap"));
+            currentDomain.SetShadowCopyFiles();
+#pragma warning restore CS0618 // Type or member is obsolete
+
             ServiceBase[] servicesToRun;
             servicesToRun = new ServiceBase[] { new NDockService() };
             ServiceBase.Run(servicesToRun);
