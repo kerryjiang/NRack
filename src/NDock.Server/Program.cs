@@ -363,10 +363,10 @@ namespace NDock.Server
         {
             var currentDomain = AppDomain.CurrentDomain;
 
-#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable 0618 // Type or member is obsolete
             currentDomain.SetCachePath(Path.Combine(Path.Combine(currentDomain.BaseDirectory, IsolationAppConst.ShadowCopyDir), "Bootstrap"));
             currentDomain.SetShadowCopyFiles();
-#pragma warning restore CS0618 // Type or member is obsolete
+#pragma warning restore 0618 // Type or member is obsolete
 
             ServiceBase[] servicesToRun;
             servicesToRun = new ServiceBase[] { new NDockService() };
