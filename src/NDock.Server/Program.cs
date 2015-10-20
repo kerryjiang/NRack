@@ -278,7 +278,12 @@ namespace NDock.Server
 
         static bool StopCommand(IBootstrap bootstrap, string[] arguments)
         {
-            var name = arguments[1];
+            var name = string.Empty;
+
+            if(arguments.Length > 1)
+            {
+                name = arguments[1];
+            }
 
             if (string.IsNullOrEmpty(name))
             {
@@ -301,7 +306,12 @@ namespace NDock.Server
 
         static bool StartCommand(IBootstrap bootstrap, string[] arguments)
         {
-            var name = arguments[1];
+            var name = string.Empty;
+
+            if (arguments.Length > 1)
+            {
+                name = arguments[1];
+            }
 
             if (string.IsNullOrEmpty(name))
             {
