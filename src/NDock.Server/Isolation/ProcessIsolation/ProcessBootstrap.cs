@@ -24,7 +24,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
             if(string.IsNullOrEmpty(appFile))
                 return base.CreateAppInstance(serverConfig);
 
-            var serverMetadata = new ExternalProcessAppServerMetadata(appFile, serverConfig.Options.Get("appArgs"));
+            var serverMetadata = new ExternalProcessAppServerMetadata(serverConfig.Options.Get("appDir"), appFile, serverConfig.Options.Get("appArgs"));
             return new ExternalProcessApp(serverMetadata, ConfigFilePath);
         }
 

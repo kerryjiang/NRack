@@ -9,11 +9,14 @@ namespace NDock.Server.Isolation.ProcessIsolation
 {
     class ExternalProcessAppServerMetadata : AppServerMetadata
     {
-        public ExternalProcessAppServerMetadata(string appFile, string appArgs)
+        public ExternalProcessAppServerMetadata(string appDir, string appFile, string appArgs)
         {
+            AppDir = appDir;
             AppFile = appFile;
             AppArgs = appArgs;
         }
+
+        public string AppDir { get; private set; }
 
         public string AppFile { get; private set; }
 

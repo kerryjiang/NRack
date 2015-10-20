@@ -122,6 +122,11 @@ namespace NDock.Server.Isolation
 
         protected abstract IManagedAppBase CreateAndStartServerInstance();
 
+        protected virtual AppAssemblyUpdateState GetAppAssemblyUpdateState()
+        {
+            return new AppAssemblyUpdateState(AppWorkingDir);
+        }
+
         public bool Start()
         {
             State = ServerState.Starting;
@@ -130,7 +135,7 @@ namespace NDock.Server.Isolation
 
             if (ManagedApp != null)
             {
-                AssemblyUpdateState = new AppAssemblyUpdateState(AppWorkingDir);
+                AssemblyUpdateState = GetAppAssemblyUpdateState();
                 State = ServerState.Running;
                 return true;
             }

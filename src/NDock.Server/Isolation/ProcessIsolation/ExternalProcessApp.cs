@@ -35,6 +35,8 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
         private string m_ExitCommand;
 
+        private string m_ExternalAppDir;
+
         /// <summary>
         /// Gets the process id.
         /// </summary>
@@ -76,10 +78,21 @@ namespace NDock.Server.Isolation.ProcessIsolation
             var workDir = AppWorkingDir;
             var appFileName = Path.GetFileName(appFile);
 
-            if (Path.IsPathRooted(appFile))
+            if (!string.IsNullOrEmpty(metadata.AppDir))
+                appFile = Path.Combine(metadata.AppDir, appFile);
+
+            if (!File.Exists(appFile))
             {
-                workDir = Path.GetDirectoryName(appFile);
+                OnExceptionThrown(new FileNotFoundException("The app file was not found.", appFile));
+                return false;
             }
+
+            if (Path.IsPathRooted(appFile))
+                workDir = Path.GetDirectoryName(appFile);
+            else
+                workDir = Path.GetDirectoryName(Path.GetFullPath(appFile));
+
+            m_ExternalAppDir = workDir;
 
             var args = metadata.AppArgs;
 
@@ -99,6 +112,11 @@ namespace NDock.Server.Isolation.ProcessIsolation
             m_Status = new StatusInfoCollection { Name = config.Name };
 
             return true;
+        }
+
+        protected override AppAssemblyUpdateState GetAppAssemblyUpdateState()
+        {
+            return new AppAssemblyUpdateState(m_ExternalAppDir);
         }
 
         protected override void OnStopped()
