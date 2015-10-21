@@ -76,10 +76,14 @@ namespace NDock.Server.Isolation.ProcessIsolation
             }
 
             var workDir = AppWorkingDir;
-            var appFileName = Path.GetFileName(appFile);
 
             if (!string.IsNullOrEmpty(metadata.AppDir))
                 appFile = Path.Combine(metadata.AppDir, appFile);
+
+            if(!Path.IsPathRooted(appFile))
+            {
+                appFile = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, appFile));
+            }
 
             if (!File.Exists(appFile))
             {
@@ -87,16 +91,13 @@ namespace NDock.Server.Isolation.ProcessIsolation
                 return false;
             }
 
-            if (Path.IsPathRooted(appFile))
-                workDir = Path.GetDirectoryName(appFile);
-            else
-                workDir = Path.GetDirectoryName(Path.GetFullPath(appFile));
+            workDir = Path.GetDirectoryName(appFile);
 
             m_ExternalAppDir = workDir;
 
             var args = metadata.AppArgs;
 
-            var startInfo = new ProcessStartInfo(appFileName, args);
+            var startInfo = new ProcessStartInfo(appFile, args);
             startInfo.WorkingDirectory = workDir;
             startInfo.CreateNoWindow = true;
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;

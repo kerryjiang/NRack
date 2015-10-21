@@ -52,7 +52,10 @@ namespace NDock.Server.Isolation
 
             if(isolationStatusFields.Any())
             {
-                m_Metadata.StatusFields = m_Metadata.StatusFields.Union(isolationStatusFields).ToArray();
+                if (m_Metadata.StatusFields != null && m_Metadata.StatusFields.Any())
+                    m_Metadata.StatusFields = m_Metadata.StatusFields.Union(isolationStatusFields).ToArray();
+                else
+                    m_Metadata.StatusFields = isolationStatusFields.ToArray();
             }
 
             StartupConfigFile = startupConfigFile;
