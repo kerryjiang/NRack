@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
+using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading;
@@ -268,14 +269,25 @@ namespace NDock.Server
         {
             var bootstrapIpcPort = string.Format("NDock.Bootstrap[{0}]", Math.Abs(AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar).GetHashCode()));
 
-            var serverChannelName = "Bootstrap";
+            var serverIpcChannelName = "BootstrapIpc";
 
-            var serverChannel = ChannelServices.RegisteredChannels.FirstOrDefault(c => c.ChannelName == serverChannelName);
+            var serverChannel = ChannelServices.RegisteredChannels.FirstOrDefault(c => c.ChannelName == serverIpcChannelName);
 
             if (serverChannel != null)
                 ChannelServices.UnregisterChannel(serverChannel);
 
-            serverChannel = new IpcServerChannel(serverChannelName, bootstrapIpcPort, new BinaryServerFormatterSinkProvider { TypeFilterLevel = TypeFilterLevel.Full });
+            serverChannel = new IpcServerChannel(serverIpcChannelName, bootstrapIpcPort, new BinaryServerFormatterSinkProvider { TypeFilterLevel = TypeFilterLevel.Full });
+            ChannelServices.RegisterChannel(serverChannel, false);
+
+
+            var serverTcpChannelName = "BootstrapTcp";
+
+            serverChannel = ChannelServices.RegisteredChannels.FirstOrDefault(c => c.ChannelName == serverTcpChannelName);
+
+            if (serverChannel != null)
+                ChannelServices.UnregisterChannel(serverChannel);
+
+            serverChannel = new TcpServerChannel(serverTcpChannelName, 40400, new BinaryServerFormatterSinkProvider { TypeFilterLevel = TypeFilterLevel.Full });
             ChannelServices.RegisterChannel(serverChannel, false);
 
             AppDomain.CurrentDomain.SetData("BootstrapIpcPort", bootstrapIpcPort);
