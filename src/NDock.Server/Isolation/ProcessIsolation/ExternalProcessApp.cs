@@ -166,6 +166,8 @@ namespace NDock.Server.Isolation.ProcessIsolation
                     OnExceptionThrown(e);
                     return null;
                 }
+
+                m_Locker.SaveLock(process);
             }
             else
             {
