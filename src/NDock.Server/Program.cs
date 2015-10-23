@@ -220,7 +220,7 @@ namespace NDock.Server
 
             if (config == null)
             {
-                Console.WriteLine("NDock configiration is required!");
+                Console.WriteLine("NDock configuration is required!");
                 return;
             }
 
