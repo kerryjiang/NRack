@@ -29,9 +29,12 @@ namespace NDock.Base.Config
 
         public string LogFactory { get; set; }
 
+        public StartupType StartupType { get; set; }
+
         public NameValueCollection Options { get; set; }
 
         public NameValueCollection OptionElements { get; set; }
+
 
         /// <summary>
         /// Gets the child config.

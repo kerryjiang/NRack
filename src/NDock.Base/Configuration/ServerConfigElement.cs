@@ -27,6 +27,12 @@ namespace NDock.Base.Configuration
             get { return this["logFactory"] as string; }
         }
 
+        [ConfigurationProperty("startupType", IsRequired = false)]
+        public StartupType StartupType
+        {
+            get { return (StartupType)this["startupType"]; }
+        }
+
         /// <summary>
         /// Gets the child config.
         /// </summary>

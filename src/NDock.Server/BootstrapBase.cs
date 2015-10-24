@@ -66,7 +66,7 @@ namespace NDock.Server
 
         public virtual void Start()
         {
-            foreach (var app in ManagedApps)
+            foreach (var app in ManagedApps.Where(s => s.Config.StartupType == StartupType.Automatic))
             {
                 var ret = app.Start();
 
@@ -205,7 +205,7 @@ namespace NDock.Server
 
             AppDomain.CurrentDomain.SetData("Bootstrap", this);
 
-            foreach(var config in ConfigSource.Servers)
+            foreach(var config in ConfigSource.Servers.Where(s => s.StartupType != StartupType.Disabled))
             {
                 IManagedApp server = null;
                 

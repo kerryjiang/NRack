@@ -82,6 +82,7 @@
     <Compile Include="ServerState.cs" />
     <Compile Include="ErrorEventArgs.cs" />
     <Compile Include="Metadata\AppServerMetadata.cs" />
+    <Compile Include="StartupType.cs" />
     <Compile Include="StatusInfoCollection.cs" />
   </ItemGroup>
   <ItemGroup>

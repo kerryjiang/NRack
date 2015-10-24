@@ -16,6 +16,8 @@ namespace NDock.Base.Config
 
         string LogFactory { get; }
 
+        StartupType StartupType { get; }
+
         NameValueCollection Options { get; }
 
         NameValueCollection OptionElements { get; }
