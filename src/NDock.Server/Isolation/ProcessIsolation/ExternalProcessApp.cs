@@ -125,7 +125,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
             base.OnStopped();
 
-            m_WorkingProcess.ErrorDataReceived -= m_WorkingProcess_ErrorDataReceived;
+            m_WorkingProcess.ErrorDataReceived -= WorkingProcess_ErrorDataReceived;
             m_WorkingProcess = null;
 
             if (unexpectedShutdown)
@@ -159,7 +159,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
             {
                 try
                 {
-                    m_WorkingProcess = Process.Start(m_StartInfo);
+                    process = Process.Start(m_StartInfo);
                 }
                 catch (Exception e)
                 {
@@ -169,18 +169,16 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
                 m_Locker.SaveLock(process);
             }
-            else
-            {
-                m_WorkingProcess = process;
-            }
 
-            m_WorkingProcess.EnableRaisingEvents = true;
-            m_WorkingProcess.ErrorDataReceived += new DataReceivedEventHandler(m_WorkingProcess_ErrorDataReceived);
-            m_WorkingProcess.BeginErrorReadLine();
+            m_WorkingProcess = process;
 
-            m_WorkingProcess.Exited += new EventHandler(m_WorkingProcess_Exited);
+            process.EnableRaisingEvents = true;
+            process.ErrorDataReceived += new DataReceivedEventHandler(WorkingProcess_ErrorDataReceived);
+            process.BeginErrorReadLine();
 
-            m_PerformanceCounter = new ProcessPerformanceCounter(m_WorkingProcess, PerformanceCounterInfo.GetDefaultPerformanceCounterDefinitions());
+            process.Exited += new EventHandler(WorkingProcess_Exited);
+
+            m_PerformanceCounter = new ProcessPerformanceCounter(process, PerformanceCounterInfo.GetDefaultPerformanceCounterDefinitions());
 
             m_Status.StartedTime = DateTime.Now;
             m_Status[StatusInfoKeys.IsRunning] = true;
@@ -188,7 +186,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
             return new NullManagedApp();
         }
 
-        void m_WorkingProcess_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        void WorkingProcess_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (string.IsNullOrEmpty(e.Data))
                 return;
@@ -196,7 +194,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
             OnExceptionThrown(new Exception(e.Data));
         }
 
-        void m_WorkingProcess_Exited(object sender, EventArgs e)
+        void WorkingProcess_Exited(object sender, EventArgs e)
         {
             m_Locker.CleanLock();
             m_PerformanceCounter = null;

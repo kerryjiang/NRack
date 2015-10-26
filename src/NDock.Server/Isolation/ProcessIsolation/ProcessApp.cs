@@ -120,8 +120,8 @@ namespace NDock.Server.Isolation.ProcessIsolation
             }
 
             m_WorkingProcess.EnableRaisingEvents = true;
-            m_WorkingProcess.ErrorDataReceived += new DataReceivedEventHandler(m_WorkingProcess_ErrorDataReceived);
-            m_WorkingProcess.OutputDataReceived += new DataReceivedEventHandler(m_WorkingProcess_OutputDataReceived);
+            m_WorkingProcess.ErrorDataReceived += new DataReceivedEventHandler(WorkingProcess_ErrorDataReceived);
+            m_WorkingProcess.OutputDataReceived += new DataReceivedEventHandler(WorkingProcess_OutputDataReceived);
             m_WorkingProcess.BeginErrorReadLine();
             m_WorkingProcess.BeginOutputReadLine();
 
@@ -204,7 +204,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
                     return null;
             }
 
-            m_WorkingProcess.Exited += new EventHandler(m_WorkingProcess_Exited);
+            m_WorkingProcess.Exited += new EventHandler(WorkingProcess_Exited);
 
             m_PerformanceCounter = new ProcessPerformanceCounter(m_WorkingProcess, PerformanceCounterInfo.GetDefaultPerformanceCounterDefinitions());
 
@@ -225,7 +225,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
             }
         }
 
-        void m_WorkingProcess_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        void WorkingProcess_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (string.IsNullOrEmpty(e.Data))
                 return;
@@ -238,7 +238,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
             }
         }
 
-        void m_WorkingProcess_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        void WorkingProcess_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             if (string.IsNullOrEmpty(e.Data))
                 return;
@@ -246,7 +246,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
             OnExceptionThrown(new Exception(e.Data));
         }
 
-        void m_WorkingProcess_Exited(object sender, EventArgs e)
+        void WorkingProcess_Exited(object sender, EventArgs e)
         {
             m_Locker.CleanLock();
             m_PerformanceCounter = null;
@@ -273,8 +273,8 @@ namespace NDock.Server.Isolation.ProcessIsolation
             var unexpectedShutdown = (State == ServerState.Running);
 
             base.OnStopped();
-            m_WorkingProcess.OutputDataReceived -= m_WorkingProcess_OutputDataReceived;
-            m_WorkingProcess.ErrorDataReceived -= m_WorkingProcess_ErrorDataReceived;
+            m_WorkingProcess.OutputDataReceived -= WorkingProcess_OutputDataReceived;
+            m_WorkingProcess.ErrorDataReceived -= WorkingProcess_ErrorDataReceived;
             m_WorkingProcess = null;
             m_ProcessWorkStatus = string.Empty;
 
