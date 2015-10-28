@@ -113,17 +113,20 @@ namespace NDock.Server.Isolation.ProcessIsolation
                     OnExceptionThrown(e);
                     return null;
                 }
+
+
+                m_WorkingProcess.EnableRaisingEvents = true;
+                m_WorkingProcess.ErrorDataReceived += new DataReceivedEventHandler(WorkingProcess_ErrorDataReceived);
+                m_WorkingProcess.OutputDataReceived += new DataReceivedEventHandler(WorkingProcess_OutputDataReceived);
+                m_WorkingProcess.BeginErrorReadLine();
+                m_WorkingProcess.BeginOutputReadLine();
             }
             else
             {
                 m_WorkingProcess = process;
+                m_WorkingProcess.EnableRaisingEvents = true;
             }
-
-            m_WorkingProcess.EnableRaisingEvents = true;
-            m_WorkingProcess.ErrorDataReceived += new DataReceivedEventHandler(WorkingProcess_ErrorDataReceived);
-            m_WorkingProcess.OutputDataReceived += new DataReceivedEventHandler(WorkingProcess_OutputDataReceived);
-            m_WorkingProcess.BeginErrorReadLine();
-            m_WorkingProcess.BeginOutputReadLine();
+            
 
             var portName = string.Format(ProcessAppConst.PortNameTemplate, Name, m_WorkingProcess.Id);
             m_ServerTag = portName;
