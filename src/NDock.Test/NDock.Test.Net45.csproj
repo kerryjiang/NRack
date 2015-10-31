@@ -28,8 +28,8 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AnyLog, Version=0.1.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AnyLog.0.1.6.0\lib\net40\AnyLog.dll</HintPath>
+    <Reference Include="AnyLog, Version=0.1.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AnyLog.0.1.8\lib\net45\AnyLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -53,6 +53,7 @@
     <None Include="Asserts\Config\AppDomainIsolation.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="packages.NDock.Test.Net45.config" />
     <None Include="packages.config" />
     <None Include="Asserts\Config\Basic.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

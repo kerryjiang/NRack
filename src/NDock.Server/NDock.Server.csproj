@@ -34,6 +34,10 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AnyLog, Version=0.1.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AnyLog.0.1.8\lib\net40\AnyLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration.Install" />
@@ -43,9 +47,6 @@
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
-    <Reference Include="AnyLog">
-      <HintPath>..\packages\AnyLog.0.1.6.0\lib\net40\AnyLog.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs">
@@ -110,7 +111,7 @@
     <None Include="ndock.sh">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="packages.NDock.Server.Net40.config" />
+    <None Include="packages.NDock.Server.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

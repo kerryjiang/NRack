@@ -19,7 +19,7 @@ using NDock.Server.Utils;
 
 namespace NDock.Server
 {
-    public abstract class BootstrapBase : IBootstrap, ILoggerProvider, ILogFactoryProvider
+    public abstract class BootstrapBase : IBootstrap, ILoggerProvider, ILoggerFactoryProvider
     {
         protected IConfigSource ConfigSource { get; private set; }
 
@@ -27,13 +27,13 @@ namespace NDock.Server
 
         protected ExportProvider ExportProvider { get; private set; }
 
-        protected ILogFactory LogFactory { get; private set; }
+        protected ILoggerFactory LoggerFactory { get; private set; }
 
-        ILogFactory ILogFactoryProvider.LogFactory
+        ILoggerFactory ILoggerFactoryProvider.LoggerFactory
         {
             get
             {
-                return this.LogFactory;
+                return this.LoggerFactory;
             }
         }
 
@@ -113,7 +113,7 @@ namespace NDock.Server
             {
                 Interval = interval,
                 Collector = ExportProvider.GetExport<IStatusCollector>().Value,
-                Logger = LogFactory.GetLog("NDockStatus"),
+                Logger = LoggerFactory.GetLogger("NDockStatus"),
                 PerformanceCounter = new ProcessPerformanceCounter(Process.GetCurrentProcess(), PerformanceCounterInfo.GetDefaultPerformanceCounterDefinitions(), this.ConfigSource.Isolation == IsolationMode.None),
                 BootstrapStatus = new AppServerStatus(GetBootstrapMetadata(), new StatusInfoCollection("[Bootstrap]"))
             };
@@ -194,14 +194,14 @@ namespace NDock.Server
 
         public virtual bool Initialize()
         {
-            AnyLog.LogFactory.Configurate(ExportProvider, ConfigSource.LogFactory);
-            var logFactory = AnyLog.LogFactory.Current;
+            AnyLog.LoggerFactory.Configurate(ExportProvider, ConfigSource.LogFactory);
+            var loggerFactory = AnyLog.LoggerFactory.Current;
 
-            if (logFactory == null)
-                throw new Exception("Failed to load LogFactory.");
+            if (loggerFactory == null)
+                throw new Exception("Failed to load loggerFactory.");
 
-            LogFactory = logFactory;
-            Logger = logFactory.GetLog(this.GetType().Name);
+            LoggerFactory = loggerFactory;
+            Logger = loggerFactory.GetLogger(this.GetType().Name);
 
             AppDomain.CurrentDomain.SetData("Bootstrap", this);
 

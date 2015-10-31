@@ -29,10 +29,10 @@ namespace NDock.Base
 
         protected virtual void RegisterCompositeTarget(IList<ICompositeTarget> targets)
         {
-            targets.Add(new LogFactoryCompositeTarget((value) =>
+            targets.Add(new LoggerFactoryCompositeTarget((value) =>
             {
-                LogFactory = value;
-                Logger = value.GetLog(Name);
+                LoggerFactory = value;
+                Logger = value.GetLogger(Name);
             }));
         }
 
@@ -76,7 +76,7 @@ namespace NDock.Base
             }
         }
 
-        public ILogFactory LogFactory { get; private set; }
+        public ILoggerFactory LoggerFactory { get; private set; }
 
         public ILog Logger { get; private set; }
 

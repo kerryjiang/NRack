@@ -10,25 +10,25 @@ using NDock.Base.Config;
 
 namespace NDock.Base.CompositeTargets
 {
-    class LogFactoryCompositeTarget : SingleResultCompositeTargetCore<ILogFactory, ILogFactoryMetadata>
+    class LoggerFactoryCompositeTarget : SingleResultCompositeTargetCore<ILoggerFactory, ILoggerFactoryMetadata>
     {
-        public LogFactoryCompositeTarget(Action<ILogFactory> callback)
+        public LoggerFactoryCompositeTarget(Action<ILoggerFactory> callback)
             : base((config) => config.LogFactory, callback, true)
         {
 
         }
 
-        protected override bool MetadataNameEqual(ILogFactoryMetadata metadata, string name)
+        protected override bool MetadataNameEqual(ILoggerFactoryMetadata metadata, string name)
         {
             return metadata.Name.Equals(name, StringComparison.OrdinalIgnoreCase);
         }
 
-        protected override IEnumerable<Lazy<ILogFactory, ILogFactoryMetadata>> Sort(IEnumerable<Lazy<ILogFactory, ILogFactoryMetadata>> factories)
+        protected override IEnumerable<Lazy<ILoggerFactory, ILoggerFactoryMetadata>> Sort(IEnumerable<Lazy<ILoggerFactory, ILoggerFactoryMetadata>> factories)
         {
             return factories.OrderBy(f => f.Metadata.Priority);
         }
 
-        protected override bool PrepareResult(ILogFactory result, IAppServer appServer, ILogFactoryMetadata metadata)
+        protected override bool PrepareResult(ILoggerFactory result, IAppServer appServer, ILoggerFactoryMetadata metadata)
         {
             if (string.IsNullOrEmpty(metadata.ConfigFileName))
             {
