@@ -10,4 +10,5 @@ NDock  [![Build Status](https://travis-ci.org/kerryjiang/NDock.svg?branch=master
 * **Multiple application isolation**: support isolate your multiple applications using AppDomain and process;
 * **Watch dog**: start application after it stops unexpected;
 * **Automatic recycle management**: restart application automatically after it satisify some conditions;
-* **App Garden**: run one application in multiple instances.
+* **App Garden(TODO)**: run one application in multiple instances;
+* **Task Scheduler(TODO)**： run the designate application on schedule.
