@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>NDock</id>
+    <version>$version$</version>
+    <title>NDock</title>
+    <authors>Kerry Jiang</authors>
+    <owners>Kerry Jiang</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>https://github.com/kerryjiang/NDock</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>NDock is a server application container, which can be used for your back end services' hosting and management.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>service container host</tags>
+	<references>      
+      <reference file="NDock.Base.dll" />
+    </references>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Configuration"  />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="bin\Release\net40\NDock.Base.dll" target="lib/net40" />
+	<file src="bin\Release\net40\NDock.Server.exe" target="lib/net40" />
+	<file src="bin\Release\net40\NDock.Worker.exe" target="lib/net40" />
+    <file src="bin\Release\net45\NDock.Base.dll" target="lib/net45" />
+	<file src="bin\Release\net45\NDock.Server.exe" target="lib/net45" />
+	<file src="bin\Release\net45\NDock.Worker.exe" target="lib/net45" />
+  </files>
+</package>
