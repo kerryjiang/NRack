@@ -54,7 +54,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.NDock.Test.Net45.config" />
-    <None Include="packages.config" />
     <None Include="Asserts\Config\Basic.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
