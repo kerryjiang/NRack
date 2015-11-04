@@ -156,6 +156,7 @@ namespace NDock.Server.Isolation
             if (app == null)
                 return;
 
+            AssemblyUpdateState = null;
             State = ServerState.Stopping;
             app.Stop();
 

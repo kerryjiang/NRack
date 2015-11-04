@@ -61,7 +61,7 @@ namespace NDock.Server.Recycle
         {
             var state = (app as IsolationApp).AssemblyUpdateState;
 
-            // not start
+            // not in running state
             if (state == null)
                 return false;
 
