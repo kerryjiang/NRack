@@ -137,7 +137,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
             if (process == null)
             {
-                if (!m_ProcessWorkEvent.WaitOne(10000))
+                if (!m_ProcessWorkEvent.WaitOne(1000 * 60 * 2))
                 {
                     ShutdownProcess();
                     OnExceptionThrown(new Exception("The remote work item was timeout to setup!"));
