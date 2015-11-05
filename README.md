@@ -1,4 +1,4 @@
-NDock  [![Build Status](https://travis-ci.org/kerryjiang/NDock.svg?branch=master)](https://travis-ci.org/kerryjiang/NDock)
+NDock  [![Build Status](https://travis-ci.org/kerryjiang/NDock.svg?branch=master)](https://travis-ci.org/kerryjiang/NDock) [![NuGet Version](https://img.shields.io/nuget/v/NDock.svg?style=flat)](https://www.nuget.org/packages/NDock/) [![NuGet Downloads](https://img.shields.io/nuget/dt/NDock.svg?style=flat)](https://www.nuget.org/packages/NDock/)
 =====
 
 **NDock** is a server application container, which can be used for your back end services' hosting and management.
