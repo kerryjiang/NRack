@@ -9,7 +9,7 @@ namespace NDock.Base.Config
     [Serializable]
     public class NDockConfig : IConfigSource
     {
-        public const int DefaultTcpRemotingPort = 4040;
+        public const int DefaultTcpRemotingPort = 0;
 
         public NDockConfig()
         {
