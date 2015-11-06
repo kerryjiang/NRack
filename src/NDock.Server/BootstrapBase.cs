@@ -279,16 +279,18 @@ namespace NDock.Server
             serverChannel = new IpcServerChannel(serverIpcChannelName, bootstrapIpcPort, new BinaryServerFormatterSinkProvider { TypeFilterLevel = TypeFilterLevel.Full });
             ChannelServices.RegisterChannel(serverChannel, false);
 
+            if (ConfigSource.TcpRemotingPort > 0)
+            {
+                var serverTcpChannelName = "BootstrapTcp";
 
-            var serverTcpChannelName = "BootstrapTcp";
+                serverChannel = ChannelServices.RegisteredChannels.FirstOrDefault(c => c.ChannelName == serverTcpChannelName);
 
-            serverChannel = ChannelServices.RegisteredChannels.FirstOrDefault(c => c.ChannelName == serverTcpChannelName);
+                if (serverChannel != null)
+                    ChannelServices.UnregisterChannel(serverChannel);
 
-            if (serverChannel != null)
-                ChannelServices.UnregisterChannel(serverChannel);
-
-            serverChannel = new TcpServerChannel(serverTcpChannelName, 40400, new BinaryServerFormatterSinkProvider { TypeFilterLevel = TypeFilterLevel.Full });
-            ChannelServices.RegisterChannel(serverChannel, false);
+                serverChannel = new TcpServerChannel(serverTcpChannelName, ConfigSource.TcpRemotingPort, new BinaryServerFormatterSinkProvider { TypeFilterLevel = TypeFilterLevel.Full });
+                ChannelServices.RegisterChannel(serverChannel, false);
+            }            
 
             AppDomain.CurrentDomain.SetData("BootstrapIpcPort", bootstrapIpcPort);
 

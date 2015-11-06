@@ -31,6 +31,12 @@ namespace NDock.Base.Configuration
             get { return (int)this["statusCollectInterval"]; }
         }
 
+        [ConfigurationProperty("tcpRemotingPort", IsRequired = false, DefaultValue = NDockConfig.DefaultTcpRemotingPort)]
+        public int TcpRemotingPort
+        {
+            get { return (int)this["tcpRemotingPort"]; }
+        }
+
         /// <summary>
         /// Gets all the server configurations
         /// </summary>

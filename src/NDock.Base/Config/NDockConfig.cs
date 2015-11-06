@@ -9,6 +9,8 @@ namespace NDock.Base.Config
     [Serializable]
     public class NDockConfig : IConfigSource
     {
+        public const int DefaultTcpRemotingPort = 4040;
+
         public NDockConfig()
         {
 
@@ -19,6 +21,7 @@ namespace NDock.Base.Config
             Isolation = configSource.Isolation;
             LogFactory = configSource.LogFactory;
             StatusCollectInterval = configSource.StatusCollectInterval;
+            TcpRemotingPort = DefaultTcpRemotingPort;
 
             if (configSource.Servers != null && configSource.Servers.Any())
             {
@@ -33,5 +36,7 @@ namespace NDock.Base.Config
         public string LogFactory { get; set; }
 
         public int StatusCollectInterval { get; set; }
+
+        public int TcpRemotingPort { get; set; }
     }
 }

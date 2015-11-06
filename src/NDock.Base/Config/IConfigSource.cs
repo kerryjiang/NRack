@@ -14,5 +14,7 @@ namespace NDock.Base.Config
         int StatusCollectInterval { get; }
 
         IEnumerable<IServerConfig> Servers { get; }
+
+        int TcpRemotingPort { get; }
     }
 }
