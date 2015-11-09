@@ -1,2 +1,6 @@
 language: csharp
-solution: src/NDock.sln
+script:
+  - nuget restore src/NDock.sln
+  - xbuild src/NDock.sln
+  - nuget restore src/NDock-Net45.sln
+  - xbuild src/NDock-Net45.sln
