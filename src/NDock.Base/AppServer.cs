@@ -198,7 +198,7 @@ namespace NDock.Base
 
                 OnPreStop();
 
-                //TODO: Actual stopping code
+                Stop();
 
                 OnStopped();
                 stoppped = true;
