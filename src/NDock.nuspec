@@ -13,10 +13,10 @@
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags>service container host</tags>
-	<dependencies>
+    <dependencies>
       <dependency id="AnyLog" version="0.1.8" />
     </dependencies>
-	<references>      
+    <references>      
       <reference file="NDock.Base.dll" />
     </references>
     <frameworkAssemblies>
@@ -25,14 +25,17 @@
   </metadata>
   <files>
     <file src="NDock.Base\bin\net40\Release\NDock.Base.dll" target="lib/net40" />
-	<file src="NDock.Server\bin\net40\Release\NDock.Server.exe" target="lib/net40" />
-	<file src="NDock.Worker\bin\net40\Release\NDock.Worker.exe" target="lib/net40" />
-	<file src="NDock.Server\bin\net40\Release\ndock.cmd" target="lib/net40" />
-	<file src="NDock.Server\bin\net40\Release\ndock.sh" target="lib/net40" />
+    <file src="NDock.Server\bin\net40\Release\NDock.Server.exe" target="lib/net40" />
+    <file src="NDock.Worker\bin\net40\Release\NDock.Worker.exe" target="lib/net40" />
+    <file src="NDock.Server\bin\net40\Release\ndock.cmd" target="lib/net40" />
+    <file src="NDock.Server\bin\net40\Release\ndock.sh" target="lib/net40" />
     <file src="NDock.Base\bin\net45\Release\NDock.Base.dll" target="lib/net45" />
-	<file src="NDock.Server\bin\net45\Release\NDock.Server.exe" target="lib/net45" />
-	<file src="NDock.Worker\bin\net45\Release\NDock.Worker.exe" target="lib/net45" />
-	<file src="NDock.Server\bin\net45\Release\ndock.cmd" target="lib/net45" />
-	<file src="NDock.Server\bin\net45\Release\ndock.sh" target="lib/net45" />
+    <file src="NDock.Server\bin\net45\Release\NDock.Server.exe" target="lib/net45" />
+    <file src="NDock.Worker\bin\net45\Release\NDock.Worker.exe" target="lib/net45" />
+    <file src="NDock.Server\bin\net45\Release\ndock.cmd" target="lib/net45" />
+    <file src="NDock.Server\bin\net45\Release\ndock.sh" target="lib/net45" />
+    <file src="NDock.Server\bin\net40\Release\NDock.Server.exe.config" target="content" />
+    <file src="NDock.Server\bin\net40\Release\Config\log4net.config" target="content" />
+    <file src="NDock.Server\bin\net40\Release\Config\nlog.config" target="content" />
   </files>
 </package>
