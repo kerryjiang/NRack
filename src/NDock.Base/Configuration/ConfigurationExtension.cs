@@ -95,6 +95,22 @@ namespace NDock.Base.Configuration
             if (string.IsNullOrEmpty(childConfig))
                 return default(TConfig);
 
+            return DeserializeChildConfig<TConfig>(childConfig);
+        }
+
+
+        /// <summary>
+        /// Deserializes the child configuration.
+        /// </summary>
+        /// <typeparam name="TConfig">The type of the configuration.</typeparam>
+        /// <param name="childConfig">The child configuration string.</param>
+        /// <returns></returns>
+        public static TConfig DeserializeChildConfig<TConfig>(string childConfig)
+            where TConfig : ConfigurationElement, new()
+        {
+            // removed extra namespace prefix
+            childConfig = childConfig.Replace("xmlns=\"http://schema.supersocket.net/supersocket\"", string.Empty);
+
             XmlReader reader = new XmlTextReader(new StringReader(childConfig));
 
             var config = new TConfig();

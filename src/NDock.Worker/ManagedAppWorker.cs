@@ -122,5 +122,10 @@ namespace NDock.Worker
         {
             return m_AppServer.CollectStatus();
         }
+
+        public void ReportPotentialConfigChange(IServerConfig config)
+        {
+            m_AppServer.ReportPotentialConfigChange(config);
+        }
     }
 }

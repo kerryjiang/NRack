@@ -13,7 +13,7 @@ using NDock.Base.Metadata;
 
 namespace NDock.Base
 {
-    public abstract class AppServer : IAppServer
+    public abstract partial class AppServer : IAppServer
     {
         public string Name { get; private set; }
 

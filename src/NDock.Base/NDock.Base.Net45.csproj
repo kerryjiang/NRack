@@ -48,6 +48,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AppServer.ConfigHotUpdate.cs" />
     <Compile Include="AppServer.cs" />
     <Compile Include="CompositeTargtes\CompositeTargetBase.cs" />
     <Compile Include="CompositeTargtes\LoggerFactoryCompositeTarget.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Configuration\ServerConfigElement.cs" />
     <Compile Include="Config\ConfigurationElementBase.cs" />
     <Compile Include="Config\GenericConfigurationElementCollectionBase.cs" />
+    <Compile Include="Config\HotUpdateAttribute.cs" />
     <Compile Include="Config\IConfigSource.cs" />
     <Compile Include="Config\NDockConfig.cs" />
     <Compile Include="Config\ServerConfig.cs" />

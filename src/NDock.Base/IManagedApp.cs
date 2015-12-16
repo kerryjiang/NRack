@@ -29,5 +29,7 @@ namespace NDock.Base
         bool CanBeRecycled();
 
         StatusInfoCollection CollectStatus();
+
+        void ReportPotentialConfigChange(IServerConfig config);
     }
 }

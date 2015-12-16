@@ -66,5 +66,10 @@ namespace NDock.Server.Isolation
         {
             return m_ManagedApp.CollectStatus();
         }
+
+        public void ReportPotentialConfigChange(IServerConfig config)
+        {
+            m_ManagedApp.ReportPotentialConfigChange(config);
+        }
     }
 }

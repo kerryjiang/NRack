@@ -79,5 +79,13 @@ namespace NDock.Server
         {
             throw new NotImplementedException();
         }
+
+        public void ReportPotentialConfigChange(IServerConfig config)
+        {
+            foreach (var item in Items)
+            {
+                item.ReportPotentialConfigChange(config);
+            }
+        }
     }
 }

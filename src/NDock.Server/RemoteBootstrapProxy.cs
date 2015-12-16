@@ -62,6 +62,11 @@ namespace NDock.Server
             {
                 return m_ManagedApp.CollectStatus();
             }
+
+            public void ReportPotentialConfigChange(IServerConfig config)
+            {
+                m_ManagedApp.ReportPotentialConfigChange(config);
+            }
         }
 
         private IBootstrap m_Bootstrap;

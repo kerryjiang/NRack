@@ -280,6 +280,16 @@ namespace NDock.Server.Isolation
 
         protected abstract StatusInfoCollection CollectStatus();
 
+        public void ReportPotentialConfigChange(IServerConfig config)
+        {
+            var app = ManagedApp;
+
+            if (app == null)
+                return;
+
+            app.ReportPotentialConfigChange(config);
+            return;
+        }
 
         internal AppAssemblyUpdateState AssemblyUpdateState { get; private set; }
     }

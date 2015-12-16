@@ -252,6 +252,11 @@ namespace NDock.Server.Isolation.ProcessIsolation
                 throw new NotSupportedException();
             }
 
+            public void ReportPotentialConfigChange(IServerConfig config)
+            {
+                // Do nothing
+            }
+
             public bool Start()
             {
                 throw new NotSupportedException();
