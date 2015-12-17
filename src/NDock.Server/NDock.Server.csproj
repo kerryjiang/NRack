@@ -52,6 +52,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ConfigurationWatcher.cs" />
     <Compile Include="ControlCommand.cs" />
     <Compile Include="DefaultStatusCollector.cs" />
     <Compile Include="Isolation\AppAssemblyUpdateState.cs" />

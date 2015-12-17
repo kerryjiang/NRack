@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Threading;
 using AnyLog;
 using NDock.Base;
 using NDock.Base.Config;
+using NDock.Base.Configuration;
 using NDock.Base.Metadata;
 using NDock.Server.Utils;
 
@@ -22,6 +24,14 @@ namespace NDock.Server
     public abstract class BootstrapBase : IBootstrap, ILoggerProvider, ILoggerFactoryProvider
     {
         protected IConfigSource ConfigSource { get; private set; }
+
+        /// <summary>
+        /// Gets the configuration file path.
+        /// </summary>
+        /// <value>
+        /// The configuration file path.
+        /// </value>
+        public string ConfigFilePath { get; private set; }
 
         protected List<IManagedApp> ManagedApps { get; private set; }
 
@@ -54,9 +64,24 @@ namespace NDock.Server
             if (configSource == null)
                 throw new ArgumentNullException("configSource");
 
+            HandleConfigSource(configSource);
+
             ConfigSource = configSource;
             ManagedApps = new List<IManagedApp>();
             ExportProvider = CreateExportProvider();
+
+            
+        }
+
+        protected void HandleConfigSource(IConfigSource configSource)
+        {
+            var configSection = configSource as ConfigurationSection;
+
+            if (configSection != null)
+            {
+                ConfigFilePath = configSection.GetConfigFilePath();
+                ConfigurationWatcher.Watch(configSection, this);
+            }
         }
 
         protected virtual CompositionContainer CreateExportProvider()

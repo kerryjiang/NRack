@@ -114,6 +114,14 @@ namespace NDock.Server
             }
         }
 
+        public string ConfigFilePath
+        {
+            get
+            {
+                return m_Bootstrap.ConfigFilePath;
+            }
+        }
+
         public bool Initialize()
         {
             throw new NotSupportedException();

@@ -122,11 +122,11 @@ namespace NDock.Base.Configuration
         }
 
         /// <summary>
-        /// Gets the config source path.
+        /// Gets the config file path.
         /// </summary>
         /// <param name="config">The config.</param>
         /// <returns></returns>
-        public static string GetConfigSource(this ConfigurationElement config)
+        public static string GetConfigFilePath(this ConfigurationElement config)
         {
             var source = config.ElementInformation.Source;
 

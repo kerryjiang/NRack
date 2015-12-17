@@ -54,6 +54,7 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ConfigurationWatcher.cs" />
     <Compile Include="Isolation\AppAssemblyUpdateState.cs" />
     <Compile Include="Isolation\ProcessIsolation\ExternalProcessApp.cs" />
     <Compile Include="Isolation\ProcessIsolation\ExternalProcessAppServerMetadata.cs" />

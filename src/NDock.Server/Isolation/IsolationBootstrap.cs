@@ -18,19 +18,19 @@ namespace NDock.Server.Isolation
     [StatusInfo(StatusInfoKeys.TotalThreadCount, Name = "Total Thread Count", Format = "{0}", DataType = typeof(double), Order = 114)]
     abstract class IsolationBootstrap : BootstrapBase
     {
-        protected string ConfigFilePath { get; private set; }
 
         private IBootstrap m_RemoteBootstrapWrap;
 
         private IEnumerable<Lazy<IRecycleTrigger, IProviderMetadata>> m_RecycleTriggers;
 
         public IsolationBootstrap(IConfigSource configSource)
-            : base(GetSerializableConfigSource(configSource))
+            : base(GetSerializableConfigSource(configSource)) // make the configuration source serializable
         {
-            ConfigFilePath = ((ConfigurationElement)configSource).GetConfigSource();
+            HandleConfigSource(configSource);
             m_RemoteBootstrapWrap = new RemoteBootstrapProxy(this);
             m_RecycleTriggers = AppDomain.CurrentDomain.GetCurrentAppDomainExportProvider().GetExports<IRecycleTrigger, IProviderMetadata>();
         }
+
 
         private static IConfigSource GetSerializableConfigSource(IConfigSource configSource)
         {

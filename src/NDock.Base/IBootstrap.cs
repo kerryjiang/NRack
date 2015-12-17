@@ -27,5 +27,13 @@ namespace NDock.Base
         /// Stops this instance.
         /// </summary>
         void Stop();
+
+        /// <summary>
+        /// Gets the configuration file path.
+        /// </summary>
+        /// <value>
+        /// The configuration file path.
+        /// </value>
+        string ConfigFilePath { get; }
     }
 }
