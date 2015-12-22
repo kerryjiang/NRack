@@ -42,12 +42,9 @@
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NDock.Base, Version=0.1.1.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NDock.0.1.1.2\lib\net40\NDock.Base.dll</HintPath>
+    <Reference Include="NDock.Base, Version=0.1.1.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NDock.0.1.1.4\lib\net40\NDock.Base.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="NDock.Server">
-      <HintPath>..\packages\NDock.0.1.1.2\lib\net40\NDock.Server.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -62,21 +59,6 @@
     <Compile Include="TestAppServer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\log4net.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Config\nlog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ndock.cmd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="NDock.Server.exe.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ndock.sh">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
