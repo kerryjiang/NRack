@@ -18,8 +18,6 @@
     </dependencies>
     <references>      
       <reference file="NDock.Base.dll" />
-	  <reference file="NDock.Server.exe" />
-	  <reference file="NDock.Worker.exe" />
     </references>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Configuration"  />
@@ -29,14 +27,19 @@
   <files>
     <file src="NDock.Base\bin\net40\Release\NDock.Base.dll" target="lib\net40" />
     <file src="NDock.Server\bin\net40\Release\NDock.Server.exe" target="lib\net40" />
-    <file src="NDock.Worker\bin\net40\Release\NDock.Worker.exe" target="lib\net40" />    
+    <file src="NDock.Worker\bin\net40\Release\NDock.Worker.exe" target="lib\net40" />
+	<file src="NDock.Server\bin\net40\Release\ndock.cmd" target="lib\net40" />
+    <file src="NDock.Server\bin\net40\Release\ndock.sh" target="lib\net40" />
+    <file src="NDock.Server\bin\net40\Release\NDock.Server.exe.config" target="lib\net40" />
+    <file src="NDock.Server\bin\net40\Release\Config\log4net.config" target="lib\net40\Config" />
+    <file src="NDock.Server\bin\net40\Release\Config\nlog.config" target="lib\net40\Config" />
     <file src="NDock.Base\bin\net45\Release\NDock.Base.dll" target="lib\net45" />
     <file src="NDock.Server\bin\net45\Release\NDock.Server.exe" target="lib\net45" />
     <file src="NDock.Worker\bin\net45\Release\NDock.Worker.exe" target="lib\net45" />
-	<file src="NDock.Server\bin\net40\Release\ndock.cmd" target="content" />
-    <file src="NDock.Server\bin\net40\Release\ndock.sh" target="content" />
-    <file src="NDock.Server\bin\net40\Release\NDock.Server.exe.config" target="content" />
-    <file src="NDock.Server\bin\net40\Release\Config\log4net.config" target="content\Config" />
-    <file src="NDock.Server\bin\net40\Release\Config\nlog.config" target="content\Config" />
+    <file src="NDock.Server\bin\net45\Release\ndock.cmd" target="lib\net45" />
+    <file src="NDock.Server\bin\net45\Release\ndock.sh" target="lib\net45" />
+    <file src="NDock.Server\bin\net45\Release\NDock.Server.exe.config" target="lib\net45" />
+    <file src="NDock.Server\bin\net45\Release\Config\log4net.config" target="lib\net45\Config" />
+    <file src="NDock.Server\bin\net45\Release\Config\nlog.config" target="lib\net45\Config" />
   </files>
 </package>
