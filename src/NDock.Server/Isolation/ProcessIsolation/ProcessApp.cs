@@ -7,6 +7,7 @@ using System.IO;
 using System.Threading;
 using NDock.Base;
 using NDock.Base.Config;
+using NDock.Base.Configuration;
 using NDock.Base.Metadata;
 using NDock.Server.Isolation;
 using NDock.Server.Utils;
@@ -126,7 +127,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
                 m_WorkingProcess = process;
                 m_WorkingProcess.EnableRaisingEvents = true;
             }
-            
+
 
             var portName = string.Format(ProcessAppConst.PortNameTemplate, Name, m_WorkingProcess.Id);
             m_ServerTag = portName;
@@ -137,7 +138,16 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
             if (process == null)
             {
-                if (!m_ProcessWorkEvent.WaitOne(1000 * 60 * 2))
+                var startTimeOut = 0;
+
+                int.TryParse(Config.Options.GetValue("startTimeOut", "0"), out startTimeOut);
+
+                if (startTimeOut <= 0)
+                {
+                    startTimeOut = 10;
+                }
+
+                if (!m_ProcessWorkEvent.WaitOne(1000 * startTimeOut))
                 {
                     ShutdownProcess();
                     OnExceptionThrown(new Exception("The remote work item was timeout to setup!"));
@@ -220,7 +230,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
             {
                 return (IRemoteManagedApp)Activator.GetObject(typeof(IRemoteManagedApp), remoteUri);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ShutdownProcess();
                 OnExceptionThrown(new Exception("Failed to get server instance of a remote process!", e));
