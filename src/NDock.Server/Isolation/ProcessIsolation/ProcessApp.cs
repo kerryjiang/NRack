@@ -40,6 +40,8 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
         private ProcessPerformanceCounter m_PerformanceCounter;
 
+        private bool m_AutoStartAfterUnexpectedShutdown = true;
+
         public string ServerTag
         {
             get { return m_ServerTag; }
@@ -73,6 +75,24 @@ namespace NDock.Server.Isolation.ProcessIsolation
                 return m_WorkingProcess.Id;
             }
         }
+
+        /// <summary>
+        /// Setups with the the specified bootstrap and configuration.
+        /// </summary>
+        /// <param name="bootstrap">The bootstrap.</param>
+        /// <param name="config">The configuration.</param>
+        /// <returns></returns>
+        public override bool Setup(IBootstrap bootstrap, IServerConfig config)
+        {
+            if (!base.Setup(bootstrap, config))
+                return false;
+
+            if ("false".Equals(config.Options.GetValue("autoStartAfterUnexpectedShutdown"), StringComparison.OrdinalIgnoreCase))
+                m_AutoStartAfterUnexpectedShutdown = false;
+
+            return true;
+        }
+
 
         protected override IManagedAppBase CreateAndStartServerInstance()
         {
@@ -291,7 +311,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
             m_WorkingProcess = null;
             m_ProcessWorkStatus = string.Empty;
 
-            if (unexpectedShutdown)
+            if (unexpectedShutdown && m_AutoStartAfterUnexpectedShutdown)
             {
                 //auto restart if meet a unexpected shutdown
                 ((IManagedAppBase)this).Start();
