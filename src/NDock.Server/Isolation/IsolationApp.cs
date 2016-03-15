@@ -94,7 +94,7 @@ namespace NDock.Server.Isolation
             Name = config.Name;            
             State = ServerState.NotStarted;
 
-            AppWorkingDir = GetAppWorkingDir(Name);
+            AppWorkingDir = config.Options.Get("appWorkingDir") ?? GetAppWorkingDir(Name);
 
             if (!Directory.Exists(AppWorkingDir))
                 Directory.CreateDirectory(AppWorkingDir);
