@@ -38,9 +38,23 @@ namespace NDock.Server.Isolation
 
         private Lazy<StatusInfoCollection> m_NotStartedStatus;
 
-        internal static string GetAppWorkingDir(string appName)
+        internal static string GetAppWorkingDir(IServerConfig config)
         {
-            return Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, IsolationAppConst.WorkingDir), appName);
+            var appWorkingDir = config.Options.Get("appWorkingDir");
+
+            if (string.IsNullOrEmpty(appWorkingDir))
+                return Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, IsolationAppConst.WorkingDir), config.Name);
+
+            // absolute path
+            if (Path.IsPathRooted(appWorkingDir))
+                return appWorkingDir;
+            else // relative path
+                return Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, appWorkingDir));
+        }
+
+        private string GetAppWorkingDir()
+        {
+            return GetAppWorkingDir(Config);
         }
 
         protected IsolationApp(AppServerMetadata metadata, string startupConfigFile)
@@ -94,7 +108,7 @@ namespace NDock.Server.Isolation
             Name = config.Name;            
             State = ServerState.NotStarted;
 
-            AppWorkingDir = config.Options.Get("appWorkingDir") ?? GetAppWorkingDir(Name);
+            AppWorkingDir = GetAppWorkingDir();
 
             if (!Directory.Exists(AppWorkingDir))
                 Directory.CreateDirectory(AppWorkingDir);
@@ -102,7 +116,7 @@ namespace NDock.Server.Isolation
             var appConfigFilePath = GetAppConfigFile();
 
             // use the application's own config file if it has
-            //AppRoot\AppName\App.config
+            // AppRoot\AppName\App.config
             if (!string.IsNullOrEmpty(appConfigFilePath))
                 StartupConfigFile = appConfigFilePath;
 

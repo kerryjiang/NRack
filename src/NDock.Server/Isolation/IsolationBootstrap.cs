@@ -49,7 +49,7 @@ namespace NDock.Server.Isolation
 
             try
             {
-                validateDomain = AppDomain.CreateDomain("ValidationDomain", AppDomain.CurrentDomain.Evidence, serverConfig.Options.Get("appWorkingDir") ?? IsolationApp.GetAppWorkingDir(serverConfig.Name), string.Empty, false);
+                validateDomain = AppDomain.CreateDomain("ValidationDomain", AppDomain.CurrentDomain.Evidence, IsolationApp.GetAppWorkingDir(serverConfig), string.Empty, false);
 
                 AssemblyImport.RegisterAssembplyImport(validateDomain);
 
