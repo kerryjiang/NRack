@@ -311,10 +311,26 @@ namespace NDock.Server.Isolation.ProcessIsolation
             m_WorkingProcess = null;
             m_ProcessWorkStatus = string.Empty;
 
-            if (unexpectedShutdown && m_AutoStartAfterUnexpectedShutdown)
+            if (unexpectedShutdown)
             {
-                //auto restart if meet a unexpected shutdown
-                ((IManagedAppBase)this).Start();
+                var logger = Logger;
+
+                if (logger != null)
+                    logger.FatalFormat("The application {0} stopped unexpectly", this.Name);
+
+                if (m_AutoStartAfterUnexpectedShutdown)
+                {
+                    //auto restart if meet a unexpected shutdown
+                    var result = ((IManagedAppBase)this).Start();
+
+                    if (logger != null)
+                    {
+                        if (result)
+                            logger.InfoFormat("The application {0} has been recoveried from unexpected shutdown", this.Name);
+                        else
+                            logger.ErrorFormat("The application {0} failed to be recoveried from unexpected shutdown", this.Name);
+                    }
+                }
             }
         }
 
