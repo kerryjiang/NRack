@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>NDock</id>
+    <id>NRack</id>
     <version>$version$</version>
-    <title>NDock</title>
+    <title>NRack</title>
     <authors>Kerry Jiang</authors>
     <owners>Kerry Jiang</owners>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
-    <projectUrl>https://github.com/kerryjiang/NDock</projectUrl>
+    <projectUrl>https://github.com/kerryjiang/NRack</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>NDock is a server application container, which can be used for your back end services' hosting and management.</description>
+    <description>NRack is a server application container, which can be used for your back end services' hosting and management.</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags>service container host</tags>
@@ -17,7 +17,7 @@
       <dependency id="AnyLog" version="0.1.8" />
     </dependencies>
     <references>      
-      <reference file="NDock.Base.dll" />
+      <reference file="NRack.Base.dll" />
     </references>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Configuration"  />
@@ -25,21 +25,21 @@
     </frameworkAssemblies>
   </metadata>
   <files>
-    <file src="NDock.Base\bin\net40\Release\NDock.Base.dll" target="lib\net40" />
-    <file src="NDock.Server\bin\net40\Release\NDock.Server.exe" target="lib\net40" />
-    <file src="NDock.Worker\bin\net40\Release\NDock.Worker.exe" target="lib\net40" />
-	<file src="NDock.Server\bin\net40\Release\ndock.cmd" target="lib\net40" />
-    <file src="NDock.Server\bin\net40\Release\ndock.sh" target="lib\net40" />
-    <file src="NDock.Server\bin\net40\Release\NDock.Server.exe.config" target="lib\net40" />
-    <file src="NDock.Server\bin\net40\Release\Config\log4net.config" target="lib\net40\Config" />
-    <file src="NDock.Server\bin\net40\Release\Config\nlog.config" target="lib\net40\Config" />
-    <file src="NDock.Base\bin\net45\Release\NDock.Base.dll" target="lib\net45" />
-    <file src="NDock.Server\bin\net45\Release\NDock.Server.exe" target="lib\net45" />
-    <file src="NDock.Worker\bin\net45\Release\NDock.Worker.exe" target="lib\net45" />
-    <file src="NDock.Server\bin\net45\Release\ndock.cmd" target="lib\net45" />
-    <file src="NDock.Server\bin\net45\Release\ndock.sh" target="lib\net45" />
-    <file src="NDock.Server\bin\net45\Release\NDock.Server.exe.config" target="lib\net45" />
-    <file src="NDock.Server\bin\net45\Release\Config\log4net.config" target="lib\net45\Config" />
-    <file src="NDock.Server\bin\net45\Release\Config\nlog.config" target="lib\net45\Config" />
+    <file src="NRack.Base\bin\net40\Release\NRack.Base.dll" target="lib\net40" />
+    <file src="NRack.Server\bin\net40\Release\NRack.Server.exe" target="lib\net40" />
+    <file src="NRack.Worker\bin\net40\Release\NRack.Worker.exe" target="lib\net40" />
+	<file src="NRack.Server\bin\net40\Release\nrack.cmd" target="lib\net40" />
+    <file src="NRack.Server\bin\net40\Release\nrack.sh" target="lib\net40" />
+    <file src="NRack.Server\bin\net40\Release\NRack.Server.exe.config" target="lib\net40" />
+    <file src="NRack.Server\bin\net40\Release\Config\log4net.config" target="lib\net40\Config" />
+    <file src="NRack.Server\bin\net40\Release\Config\nlog.config" target="lib\net40\Config" />
+    <file src="NRack.Base\bin\net45\Release\NRack.Base.dll" target="lib\net45" />
+    <file src="NRack.Server\bin\net45\Release\NRack.Server.exe" target="lib\net45" />
+    <file src="NRack.Worker\bin\net45\Release\NRack.Worker.exe" target="lib\net45" />
+    <file src="NRack.Server\bin\net45\Release\nrack.cmd" target="lib\net45" />
+    <file src="NRack.Server\bin\net45\Release\nrack.sh" target="lib\net45" />
+    <file src="NRack.Server\bin\net45\Release\NRack.Server.exe.config" target="lib\net45" />
+    <file src="NRack.Server\bin\net45\Release\Config\log4net.config" target="lib\net45\Config" />
+    <file src="NRack.Server\bin\net45\Release\Config\nlog.config" target="lib\net45\Config" />
   </files>
 </package>
