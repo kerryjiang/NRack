@@ -7,8 +7,8 @@
     <ProjectGuid>{406671C6-5DCB-4B23-BD28-FB02C235EAE4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NDock.Base</RootNamespace>
-    <AssemblyName>NDock.Base</AssemblyName>
+    <RootNamespace>NRack.Base</RootNamespace>
+    <AssemblyName>NRack.Base</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -53,16 +53,16 @@
     <Compile Include="CompositeTargtes\MultipleResultCompositeTarget.cs" />
     <Compile Include="CompositeTargtes\SingleResultCompositeTarget.cs" />
     <Compile Include="Configuration\ConfigurationExtension.cs" />
-    <Compile Include="Configuration\NDockConfigSection.cs" />
+    <Compile Include="Configuration\NRackConfigSection.cs" />
     <Compile Include="Configuration\ServerConfigElement.cs" />
     <Compile Include="Config\ConfigurationElementBase.cs" />
     <Compile Include="Config\GenericConfigurationElementCollectionBase.cs" />
     <Compile Include="Config\HotUpdateAttribute.cs" />
     <Compile Include="Config\IConfigSource.cs" />
-    <Compile Include="Config\NDockConfig.cs" />
+    <Compile Include="Config\NRackConfig.cs" />
     <Compile Include="Config\ServerConfig.cs" />
     <Compile Include="IStatusCollector.cs" />
-    <Compile Include="NDockEnv.cs" />
+    <Compile Include="NRackEnv.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IAppEndPoint.cs" />
     <Compile Include="IAppServer.cs" />
@@ -86,7 +86,7 @@
     <Compile Include="StatusInfoCollection.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.NDock.Base.config" />
+    <None Include="packages.NRack.Base.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

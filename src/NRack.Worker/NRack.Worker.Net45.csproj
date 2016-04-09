@@ -7,8 +7,8 @@
     <ProjectGuid>{93A2E31D-9AF3-4C9E-986C-1659309F5436}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NDock.Worker</RootNamespace>
-    <AssemblyName>NDock.Worker</AssemblyName>
+    <RootNamespace>NRack.Worker</RootNamespace>
+    <AssemblyName>NRack.Worker</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -56,17 +56,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NDock.Base\NDock.Base.Net45.csproj">
+    <ProjectReference Include="..\NRack.Base\NRack.Base.Net45.csproj">
       <Project>{406671C6-5DCB-4B23-BD28-FB02C235EAE4}</Project>
-      <Name>NDock.Base.Net45</Name>
+      <Name>NRack.Base.Net45</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NDock.Server\NDock.Server.Net45.csproj">
+    <ProjectReference Include="..\NRack.Server\NRack.Server.Net45.csproj">
       <Project>{7800B7EA-FB3A-4305-9EE7-74A7B5744C45}</Project>
-      <Name>NDock.Server.Net45</Name>
+      <Name>NRack.Server.Net45</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.NDock.Worker.Net45.config" />
+    <None Include="packages.NRack.Worker.Net45.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

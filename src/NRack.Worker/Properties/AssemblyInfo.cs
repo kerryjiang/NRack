@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NDock.Worker")]
-[assembly: AssemblyDescription("NDock.Worker")]
+[assembly: AssemblyTitle("NRack.Worker")]
+[assembly: AssemblyDescription("NRack.Worker")]
 [assembly: AssemblyConfiguration("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

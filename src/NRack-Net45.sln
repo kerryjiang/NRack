@@ -1,20 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDock.Base.Net45", "NDock.Base\NDock.Base.Net45.csproj", "{406671C6-5DCB-4B23-BD28-FB02C235EAE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRack.Base.Net45", "NRack.Base\NRack.Base.Net45.csproj", "{406671C6-5DCB-4B23-BD28-FB02C235EAE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDock.Server.Net45", "NDock.Server\NDock.Server.Net45.csproj", "{7800B7EA-FB3A-4305-9EE7-74A7B5744C45}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRack.Server.Net45", "NRack.Server\NRack.Server.Net45.csproj", "{7800B7EA-FB3A-4305-9EE7-74A7B5744C45}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{6E0C838A-35D5-4D95-B3F0-6D0560F9C2FD}"
 	ProjectSection(SolutionItems) = preProject
 		GlobalAssemblyInfo.cs = GlobalAssemblyInfo.cs
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDock.Test.Net45", "NDock.Test\NDock.Test.Net45.csproj", "{B145DFCA-3A62-4FC6-A3F1-EA970719DC9F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRack.Test.Net45", "NRack.Test\NRack.Test.Net45.csproj", "{B145DFCA-3A62-4FC6-A3F1-EA970719DC9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDock.Worker.Net45", "NDock.Worker\NDock.Worker.Net45.csproj", "{93A2E31D-9AF3-4C9E-986C-1659309F5436}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRack.Worker.Net45", "NRack.Worker\NRack.Worker.Net45.csproj", "{93A2E31D-9AF3-4C9E-986C-1659309F5436}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

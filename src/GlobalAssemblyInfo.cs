@@ -2,8 +2,8 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyCompany("NDock")]
-[assembly: AssemblyProduct("NDock")]
+[assembly: AssemblyCompany("NRack")]
+[assembly: AssemblyProduct("NRack")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -5,8 +5,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B145DFCA-3A62-4FC6-A3F1-EA970719DC9F}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>NDock.Test</RootNamespace>
-    <AssemblyName>NDock.Test</AssemblyName>
+    <RootNamespace>NRack.Test</RootNamespace>
+    <AssemblyName>NRack.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -53,23 +53,23 @@
     <None Include="Asserts\Config\AppDomainIsolation.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="packages.NDock.Test.config" />
+    <None Include="packages.NRack.Test.config" />
     <None Include="Asserts\Config\Basic.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NDock.Base\NDock.Base.csproj">
+    <ProjectReference Include="..\NRack.Base\NRack.Base.csproj">
       <Project>{406671C6-5DCB-4B23-BD28-FB02C235EAE4}</Project>
-      <Name>NDock.Base</Name>
+      <Name>NRack.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NDock.Server\NDock.Server.csproj">
+    <ProjectReference Include="..\NRack.Server\NRack.Server.csproj">
       <Project>{7800B7EA-FB3A-4305-9EE7-74A7B5744C45}</Project>
-      <Name>NDock.Server</Name>
+      <Name>NRack.Server</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NDock.Worker\NDock.Worker.csproj">
+    <ProjectReference Include="..\NRack.Worker\NRack.Worker.csproj">
       <Project>{93a2e31d-9af3-4c9e-986c-1659309f5436}</Project>
-      <Name>NDock.Worker</Name>
+      <Name>NRack.Worker</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
