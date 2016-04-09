@@ -35,11 +35,15 @@ namespace NRack.Base
             var catalog = new AggregateCatalog();
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(IAppServer).Assembly));
 
-            catalog.Catalogs.Add(new DirectoryCatalog(AppDomain.CurrentDomain.BaseDirectory, "*.*"));
+            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            if (Directory.Exists(baseDirectory))
+                catalog.Catalogs.Add(new DirectoryCatalog(baseDirectory, "*.*"));
+
 
             if (isolation != IsolationMode.None)
             {
-                catalog.Catalogs.Add(new DirectoryCatalog(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName, "*.*"));
+                catalog.Catalogs.Add(new DirectoryCatalog(Directory.GetParent(baseDirectory).Parent.FullName, "*.*"));
             }
 
             exportProvider = new CompositionContainer(catalog);
