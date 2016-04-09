@@ -64,7 +64,7 @@ namespace NRack.Test
         {
             StartStopWrap(() =>
             {
-                Thread.Sleep(1000 * 60 * 5);
+                //Thread.Sleep(1000 * 60 * 5);
             });
         }
     }
