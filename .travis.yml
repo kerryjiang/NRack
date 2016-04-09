@@ -1,6 +1,6 @@
 language: csharp
 script:
-  - nuget restore src/NDock.sln
-  - xbuild src/NDock.sln
-  - nuget restore src/NDock-Net45.sln
-  - xbuild src/NDock-Net45.sln
+  - nuget restore src/NRack.sln
+  - xbuild src/NRack.sln
+  - nuget restore src/NRack-Net45.sln
+  - xbuild src/NRack-Net45.sln
