@@ -39,14 +39,14 @@ namespace NRack.Server
         /// <returns></returns>
         public static IBootstrap CreateBootstrap()
         {
-            var configSection = ConfigurationManager.GetSection("NRack");
+            var configSection = ConfigurationManager.GetSection("nrack");
 
             if (configSection == null)
-                throw new ConfigurationErrorsException("Missing 'NRack' configuration section.");
+                throw new ConfigurationErrorsException("Missing 'nrack' configuration section.");
 
             var configSource = configSection as IConfigSource;
             if (configSource == null)
-                throw new ConfigurationErrorsException("Invalid 'NRack' configuration section.");
+                throw new ConfigurationErrorsException("Invalid 'nrack' configuration section.");
 
             return CreateBootstrap(configSource);
         }
@@ -63,14 +63,14 @@ namespace NRack.Server
 
             var config = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
 
-            var configSection = config.GetSection("NRack");
+            var configSection = config.GetSection("nrack");
 
             if (configSection == null)
-                throw new ConfigurationErrorsException("Missing 'NRack' configuration section.");
+                throw new ConfigurationErrorsException("Missing 'nrack' configuration section.");
 
             var configSource = configSection as IConfigSource;
             if (configSource == null)
-                throw new ConfigurationErrorsException("Invalid 'NRack' configuration section.");
+                throw new ConfigurationErrorsException("Invalid 'nrack' configuration section.");
 
             return CreateBootstrap(configSource);
         }
