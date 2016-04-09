@@ -4,11 +4,11 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq;
 using System.Text;
-using NDock.Base.Config;
+using NRack.Base.Config;
 
-namespace NDock.Base.Configuration
+namespace NRack.Base.Configuration
 {
-    public class NDockConfigSection : ConfigurationSection, IConfigSource
+    public class NRackConfigSection : ConfigurationSection, IConfigSource
     {
         /// <summary>
         /// Gets the isolation mode.
@@ -31,7 +31,7 @@ namespace NDock.Base.Configuration
             get { return (int)this["statusCollectInterval"]; }
         }
 
-        [ConfigurationProperty("tcpRemotingPort", IsRequired = false, DefaultValue = NDockConfig.DefaultTcpRemotingPort)]
+        [ConfigurationProperty("tcpRemotingPort", IsRequired = false, DefaultValue = NRackConfig.DefaultTcpRemotingPort)]
         public int TcpRemotingPort
         {
             get { return (int)this["tcpRemotingPort"]; }

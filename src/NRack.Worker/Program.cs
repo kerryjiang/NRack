@@ -10,12 +10,12 @@ using System.Runtime.Remoting.Channels.Ipc;
 using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading.Tasks;
-using NDock.Base;
-using NDock.Server;
-using NDock.Server.Isolation;
-using NDock.Server.Isolation.ProcessIsolation;
+using NRack.Base;
+using NRack.Server;
+using NRack.Server.Isolation;
+using NRack.Server.Isolation.ProcessIsolation;
 
-namespace NDock.Worker
+namespace NRack.Worker
 {
     class Program
     {
@@ -46,7 +46,7 @@ namespace NDock.Worker
             var root = Path.Combine(Path.Combine(currentDomain.BaseDirectory, ProcessAppConst.WorkingDir), name);
 
             //Hack to change the default AppDomain's root
-            if (NDockEnv.IsMono) //for Mono
+            if (NRackEnv.IsMono) //for Mono
             {
                 var pro = typeof(AppDomain).GetProperty("SetupInformationNoCopy", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.GetProperty);
                 var setupInfo = (AppDomainSetup)pro.GetValue(currentDomain, null);

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace NDock.Test
+namespace NRack.Test
 {
     [TestFixture]
     public class AppDomainIsolationTest : Test

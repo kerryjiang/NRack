@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AnyLog;
 
-namespace NDock.Base
+namespace NRack.Base
 {
     public class AppServerStatus
     {

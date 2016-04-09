@@ -5,12 +5,12 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NDock.Base;
-using NDock.Base.Configuration;
-using NDock.Base.Metadata;
-using NDock.Base.Provider;
+using NRack.Base;
+using NRack.Base.Configuration;
+using NRack.Base.Metadata;
+using NRack.Base.Provider;
 
-namespace NDock.Server.Recycle
+namespace NRack.Server.Recycle
 {
     [Export(typeof(IRecycleTrigger))]
     [ProviderMetadata(TriggerName)]

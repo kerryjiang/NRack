@@ -1,11 +1,11 @@
-﻿using NDock.Base.Config;
+﻿using NRack.Base.Config;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
 
-namespace NDock.Base.Configuration
+namespace NRack.Base.Configuration
 {
     public class ServerConfigElement : ConfigurationElementBase, IServerConfig
     {

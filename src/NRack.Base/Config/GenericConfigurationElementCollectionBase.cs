@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 
-namespace NDock.Base.Config
+namespace NRack.Base.Config
 {
     /// <summary>
     /// GenericConfigurationElementCollectionBase

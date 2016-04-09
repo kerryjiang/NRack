@@ -4,10 +4,10 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using AnyLog;
-using NDock.Base;
-using NDock.Base.Config;
+using NRack.Base;
+using NRack.Base.Config;
 
-namespace NDock.Server
+namespace NRack.Server
 {
     /// <summary>
     /// The configuration file watcher, it is used for hot configuration updating

@@ -4,10 +4,10 @@ using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using NDock.Base;
-using NDock.Base.Metadata;
+using NRack.Base;
+using NRack.Base.Metadata;
 
-namespace NDock.Server
+namespace NRack.Server
 {
     [Serializable]
     public class RemoteTypeLoadResult<T>

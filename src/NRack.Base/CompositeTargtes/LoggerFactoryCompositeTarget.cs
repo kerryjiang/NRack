@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AnyLog;
-using NDock.Base.Config;
+using NRack.Base.Config;
 
-namespace NDock.Base.CompositeTargets
+namespace NRack.Base.CompositeTargets
 {
     class LoggerFactoryCompositeTarget : SingleResultCompositeTargetCore<ILoggerFactory, ILoggerFactoryMetadata>
     {

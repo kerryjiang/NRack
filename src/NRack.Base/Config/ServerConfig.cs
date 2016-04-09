@@ -4,9 +4,9 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Linq;
 using System.Text;
-using NDock.Base.Configuration;
+using NRack.Base.Configuration;
 
-namespace NDock.Base.Config
+namespace NRack.Base.Config
 {
     [Serializable]
     public class ServerConfig : IServerConfig

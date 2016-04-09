@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NDock.Base;
-using NDock.Base.Config;
-using NDock.Base.Metadata;
+using NRack.Base;
+using NRack.Base.Config;
+using NRack.Base.Metadata;
 
-namespace NDock.Server.Isolation
+namespace NRack.Server.Isolation
 {
     /// <summary>
     /// Marshal wrap for managed app instance

@@ -4,9 +4,9 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NDock.Base.Config;
+using NRack.Base.Config;
 
-namespace NDock.Server.Config
+namespace NRack.Server.Config
 {
     public class RecycleTriggerConfig : ConfigurationElementBase
     {

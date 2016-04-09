@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NDock.Base;
-using NDock.Base.Config;
-using NDock.Base.Metadata;
-using NDock.Server.Isolation;
+using NRack.Base;
+using NRack.Base.Config;
+using NRack.Base.Metadata;
+using NRack.Server.Isolation;
 
-namespace NDock.Server.Isolation.ProcessIsolation
+namespace NRack.Server.Isolation.ProcessIsolation
 {
     class ProcessBootstrap : IsolationBootstrap
     {

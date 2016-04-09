@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NDock.Base
+namespace NRack.Base
 {
     /// <summary>
     /// The interface which can abtract the absolute address of one application instance in the whole system

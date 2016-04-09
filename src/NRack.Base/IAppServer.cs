@@ -4,9 +4,9 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using AnyLog;
-using NDock.Base.Config;
+using NRack.Base.Config;
 
-namespace NDock.Base
+namespace NRack.Base
 {
     public interface IAppServer : IManagedApp
     {

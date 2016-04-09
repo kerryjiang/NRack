@@ -9,13 +9,13 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Ipc;
 using System.ServiceProcess;
 using System.Text;
-using NDock.Base;
-using NDock.Base.Config;
-using NDock.Server.Isolation;
-using NDock.Server.Service;
+using NRack.Base;
+using NRack.Base.Config;
+using NRack.Server.Isolation;
+using NRack.Server.Service;
 
 
-namespace NDock.Server
+namespace NRack.Server
 {
     public static partial class Program
     {
@@ -24,7 +24,7 @@ namespace NDock.Server
         /// </summary>
         public static void Main(string[] args)
         {
-            var isMono = NDockEnv.IsMono;
+            var isMono = NRackEnv.IsMono;
 
             //If this application run in Mono/Linux, change the control script to be executable
             if (isMono && Path.DirectorySeparatorChar == '/')
@@ -41,7 +41,7 @@ namespace NDock.Server
 
             if (args == null || args.Length < 1)
             {
-                Console.WriteLine("Welcome to NDock.Server!");
+                Console.WriteLine("Welcome to NRack.Server!");
 
                 Console.WriteLine("Please press a key to continue...");
                 Console.WriteLine("-[r]: Run this application as a console application;");
@@ -70,7 +70,7 @@ namespace NDock.Server
 
         static void ChangeScriptExecutable()
         {
-            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ndock.sh");
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NRack.sh");
 
             try
             {
@@ -149,7 +149,7 @@ namespace NDock.Server
 
         static void RunAsConsole()
         {
-            Console.WriteLine("Welcome to NDock.Server!");
+            Console.WriteLine("Welcome to NRack.Server!");
 
             CheckCanSetConsoleColor();
 
@@ -161,7 +161,7 @@ namespace NDock.Server
             {
                 SetConsoleColor(ConsoleColor.Red);
 
-                Console.WriteLine("Failed to initialize NDock.Server! Please check error log for more information!");
+                Console.WriteLine("Failed to initialize NRack.Server! Please check error log for more information!");
                 Console.ReadKey();
                 return;
             }
@@ -190,7 +190,7 @@ namespace NDock.Server
             Console.WriteLine("-------------------------------------------------------------------");
 
             Console.ResetColor();
-            Console.WriteLine("Enter key 'quit' to stop the NDock.Server.");
+            Console.WriteLine("Enter key 'quit' to stop the NRack.Server.");
 
             RegisterCommands();
 
@@ -198,7 +198,7 @@ namespace NDock.Server
 
             bootstrap.Stop();
 
-            Console.WriteLine("The NDock.Server has been stopped!");
+            Console.WriteLine("The NRack.Server has been stopped!");
         }
 
         private static void RegisterCommands()
@@ -216,11 +216,11 @@ namespace NDock.Server
                 return;
             }
 
-            var config = ConfigurationManager.GetSection("ndock") as IConfigSource;
+            var config = ConfigurationManager.GetSection("NRack") as IConfigSource;
 
             if (config == null)
             {
-                Console.WriteLine("NDock configuration is required!");
+                Console.WriteLine("NRack configuration is required!");
                 return;
             }
 
@@ -231,14 +231,14 @@ namespace NDock.Server
 
             try
             {
-                var remoteBootstrapUri = string.Format("ipc://NDock.Bootstrap[{0}]/Bootstrap.rem", Math.Abs(AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar).GetHashCode()));
+                var remoteBootstrapUri = string.Format("ipc://NRack.Bootstrap[{0}]/Bootstrap.rem", Math.Abs(AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar).GetHashCode()));
                 bootstrap = (IBootstrap)Activator.GetObject(typeof(IBootstrap), remoteBootstrapUri);
             }
             catch (RemotingException)
             {
                 if (config.Isolation != IsolationMode.Process)
                 {
-                    Console.WriteLine("Error: the NDock.Server has not been started!");
+                    Console.WriteLine("Error: the NRack.Server has not been started!");
                     return;
                 }
             }
@@ -379,7 +379,7 @@ namespace NDock.Server
 #pragma warning restore 0618 // Type or member is obsolete
 
             ServiceBase[] servicesToRun;
-            servicesToRun = new ServiceBase[] { new NDockService() };
+            servicesToRun = new ServiceBase[] { new NRackService() };
             ServiceBase.Run(servicesToRun);
         }
     }

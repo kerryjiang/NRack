@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NDock.Base.Config
+namespace NRack.Base.Config
 {
     /// <summary>
     /// the attribute to mark which property of ServerConfig support hot update

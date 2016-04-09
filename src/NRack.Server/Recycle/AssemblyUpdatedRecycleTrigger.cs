@@ -6,12 +6,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NDock.Base;
-using NDock.Base.Configuration;
-using NDock.Base.Provider;
-using NDock.Server.Isolation;
+using NRack.Base;
+using NRack.Base.Configuration;
+using NRack.Base.Provider;
+using NRack.Server.Isolation;
 
-namespace NDock.Server.Recycle
+namespace NRack.Server.Recycle
 {
     [Export(typeof(IRecycleTrigger))]
     [ProviderMetadata(TriggerName)]

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NDock.Base;
-using NDock.Base.Config;
+using NRack.Base;
+using NRack.Base.Config;
 
-namespace NDock.Server
+namespace NRack.Server
 {
     /// <summary>
     /// IRemoteManagedApp

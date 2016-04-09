@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Configuration;
-using NDock.Base;
-using NDock.Base.Config;
-using NDock.Base.Configuration;
-using NDock.Base.Metadata;
-using NDock.Server.Isolation;
+using NRack.Base;
+using NRack.Base.Config;
+using NRack.Base.Configuration;
+using NRack.Base.Metadata;
+using NRack.Server.Isolation;
 
-namespace NDock.Server.Isolation.AppDomainIsolation
+namespace NRack.Server.Isolation.AppDomainIsolation
 {
     class AppDomainBootstrap : IsolationBootstrap
     {

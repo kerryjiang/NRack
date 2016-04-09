@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using AnyLog;
 
-namespace NDock.Base
+namespace NRack.Base
 {
     public static class Extensions
     {

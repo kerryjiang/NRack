@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NDock.Base
+namespace NRack.Base
 {
     public class ErrorEventArgs : EventArgs
     {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NDock.Base;
+using NRack.Base;
 
-namespace NDock.Server
+namespace NRack.Server
 {
     class ControlCommand
     {

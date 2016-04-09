@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NDock.Base.Metadata;
+using NRack.Base.Metadata;
 
-namespace NDock.Server.Utils
+namespace NRack.Server.Utils
 {
     public class PerformanceCounterInfo
     {

@@ -5,13 +5,13 @@ using System.Text;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
-using NDock.Base;
-using NDock.Base.Config;
-using NDock.Base.Metadata;
-using NDock.Server.Isolation;
+using NRack.Base;
+using NRack.Base.Config;
+using NRack.Base.Metadata;
+using NRack.Server.Isolation;
 using System.Diagnostics;
 
-namespace NDock.Server.Isolation.AppDomainIsolation
+namespace NRack.Server.Isolation.AppDomainIsolation
 {
     [StatusInfo(StatusInfoKeys.CpuUsage, Name = "CPU Usage", Format = "{0:0.00}%", DataType = typeof(double), Order = 112)]
     [StatusInfo(StatusInfoKeys.MemoryUsage, Name = "Memory Usage", Format = "{0:N}", DataType = typeof(double), Order = 113)]

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NDock.Base
+namespace NRack.Base
 {
     /// <summary>
     /// Startup type

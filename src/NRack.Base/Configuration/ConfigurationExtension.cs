@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml;
 
-namespace NDock.Base.Configuration
+namespace NRack.Base.Configuration
 {
     /// <summary>
     /// Configuration extension class
@@ -130,7 +130,7 @@ namespace NDock.Base.Configuration
         {
             var source = config.ElementInformation.Source;
 
-            if (!string.IsNullOrEmpty(source) || !NDockEnv.IsMono)
+            if (!string.IsNullOrEmpty(source) || !NRackEnv.IsMono)
                 return source;
 
             var configProperty = typeof(ConfigurationElement).GetProperty("Configuration", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -209,7 +209,7 @@ namespace NDock.Base.Configuration
         /// <param name="configFilePath">the config file path want to reset to</param>
         public static void ResetConfiguration(this AppDomain appDomain, string configFilePath)
         {
-            if (NDockEnv.IsMono)
+            if (NRackEnv.IsMono)
                 ResetConfigurationForMono(appDomain, configFilePath);
             else
                 ResetConfigurationForDotNet(appDomain, configFilePath);

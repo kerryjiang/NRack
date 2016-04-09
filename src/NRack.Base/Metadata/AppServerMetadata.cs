@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using NDock.Base.Metadata;
+using NRack.Base.Metadata;
 
-namespace NDock.Base
+namespace NRack.Base
 {
     [Serializable]
     public class AppServerMetadata

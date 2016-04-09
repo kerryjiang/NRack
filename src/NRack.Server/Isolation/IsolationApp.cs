@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AnyLog;
-using NDock.Base;
-using NDock.Base.Config;
-using NDock.Base.Configuration;
-using NDock.Base.Metadata;
-using NDock.Server.Recycle;
+using NRack.Base;
+using NRack.Base.Config;
+using NRack.Base.Configuration;
+using NRack.Base.Metadata;
+using NRack.Server.Recycle;
 
-namespace NDock.Server.Isolation
+namespace NRack.Server.Isolation
 {
     public class IsolationAppConst
     {

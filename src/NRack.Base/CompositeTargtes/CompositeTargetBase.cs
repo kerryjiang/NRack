@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NDock.Base.CompositeTargets
+namespace NRack.Base.CompositeTargets
 {
     /// <summary>
     /// the basic class of composite target

@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using NDock.Base;
-using NDock.Base.Metadata;
+using NRack.Base;
+using NRack.Base.Metadata;
 
-namespace NDock.Server.Utils
+namespace NRack.Server.Utils
 {
     class ProcessPerformanceCounter
     {
@@ -30,7 +30,7 @@ namespace NDock.Server.Utils
             m_CollectThreadPoolInfo = collectThreadPoolInfo;
 
             //Windows .Net, to avoid same name process issue
-            if (!NDockEnv.IsMono)
+            if (!NRackEnv.IsMono)
                 RegisterSameNameProcesses(process);
 
             SetupPerformanceCounters();
@@ -55,7 +55,7 @@ namespace NDock.Server.Utils
         private void SetupPerformanceCounters()
         {
             var isUnix = Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX;
-            var instanceName = (isUnix || NDockEnv.IsMono) ? string.Format("{0}/{1}", m_Process.Id, m_Process.ProcessName) : GetPerformanceCounterInstanceName(m_Process);
+            var instanceName = (isUnix || NRackEnv.IsMono) ? string.Format("{0}/{1}", m_Process.Id, m_Process.ProcessName) : GetPerformanceCounterInstanceName(m_Process);
 
             if (string.IsNullOrEmpty(instanceName))
                 return;
@@ -151,7 +151,7 @@ namespace NDock.Server.Utils
                         throw e;
 
                     //Only re-get performance counter for .NET/Windows
-                    if (Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX || NDockEnv.IsMono)
+                    if (Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX || NRackEnv.IsMono)
                         throw e;
 
                     //If a same name process exited, this process's performance counters instance name could be changed,

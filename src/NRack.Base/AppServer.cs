@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AnyLog;
-using NDock.Base.CompositeTargets;
-using NDock.Base.Config;
-using NDock.Base.Metadata;
+using NRack.Base.CompositeTargets;
+using NRack.Base.Config;
+using NRack.Base.Metadata;
 
-namespace NDock.Base
+namespace NRack.Base
 {
     public abstract partial class AppServer : IAppServer
     {
@@ -256,7 +256,7 @@ namespace NDock.Base
 
         /// <summary>
         /// Gets the physical file path by the relative file path,
-        /// search both in the appserver's root and in the NDock root dir if the isolation level has been set other than 'None'.
+        /// search both in the appserver's root and in the NRack root dir if the isolation level has been set other than 'None'.
         /// </summary>
         /// <param name="relativeFilePath">The relative file path.</param>
         /// <returns></returns>

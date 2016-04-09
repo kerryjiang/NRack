@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NDock.Base
+namespace NRack.Base
 {
     /// <summary>
-    /// NDock message bus interface
+    /// NRack message bus interface
     /// </summary>
     public interface IMessageBus
     {

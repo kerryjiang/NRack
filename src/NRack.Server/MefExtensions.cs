@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace NDock.Server
+namespace NRack.Server
 {
     public static class MefExtensions
     {

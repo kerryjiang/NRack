@@ -2,7 +2,7 @@
 using System.Configuration.Install;
 using System.Reflection;
 
-namespace NDock.Server.Service
+namespace NRack.Server.Service
 {
     public static class SelfInstaller
     {

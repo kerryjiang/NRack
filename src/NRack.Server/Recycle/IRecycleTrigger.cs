@@ -4,9 +4,9 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NDock.Base;
+using NRack.Base;
 
-namespace NDock.Server.Recycle
+namespace NRack.Server.Recycle
 {
     public interface IRecycleTrigger
     {

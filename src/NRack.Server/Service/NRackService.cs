@@ -5,15 +5,15 @@ using System.Configuration;
 using System.Diagnostics;
 using System.ServiceProcess;
 using System.Text;
-using NDock.Base;
+using NRack.Base;
 
-namespace NDock.Server.Service
+namespace NRack.Server.Service
 {
-    partial class NDockService : ServiceBase
+    partial class NRackService : ServiceBase
     {
         private IBootstrap m_Bootstrap;
 
-        public NDockService()
+        public NRackService()
         {
             InitializeComponent();
             ServiceName = ConfigurationManager.AppSettings["ServiceName"];

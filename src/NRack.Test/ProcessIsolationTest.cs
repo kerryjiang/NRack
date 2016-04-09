@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace NDock.Test
+namespace NRack.Test
 {
     [TestFixture]
     public class ProcessIsolationTest : Test
@@ -24,14 +24,14 @@ namespace NDock.Test
         {
             StartStopWrap(() =>
             {
-                var ndockTextFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NDock.Test.txt");
+                var NRackTextFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NRack.Test.txt");
 
-                if (!File.Exists(ndockTextFilePath))
-                    Assert.Fail(string.Format("The file {0} was not generated.", ndockTextFilePath));
+                if (!File.Exists(NRackTextFilePath))
+                    Assert.Fail(string.Format("The file {0} was not generated.", NRackTextFilePath));
 
-                Assert.AreEqual("Hello NDock", File.ReadAllText(ndockTextFilePath, Encoding.UTF8));
+                Assert.AreEqual("Hello NRack", File.ReadAllText(NRackTextFilePath, Encoding.UTF8));
 
-                File.Delete(ndockTextFilePath);
+                File.Delete(NRackTextFilePath);
             });
         }
     }

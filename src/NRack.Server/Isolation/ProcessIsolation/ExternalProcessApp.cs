@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using NDock.Base;
-using NDock.Base.Config;
-using NDock.Base.Metadata;
-using NDock.Server.Utils;
+using NRack.Base;
+using NRack.Base.Config;
+using NRack.Base.Metadata;
+using NRack.Server.Utils;
 
-namespace NDock.Server.Isolation.ProcessIsolation
+namespace NRack.Server.Isolation.ProcessIsolation
 {
     [StatusInfo(StatusInfoKeys.IsRunning, Name = "Is Running", DataType = typeof(bool), Order = 100)]
     [StatusInfo(StatusInfoKeys.CpuUsage, Name = "CPU Usage", Format = "{0:0.00}%", DataType = typeof(double), Order = 112)]

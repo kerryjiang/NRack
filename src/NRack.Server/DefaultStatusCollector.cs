@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AnyLog;
-using NDock.Base;
-using NDock.Base.Provider;
+using NRack.Base;
+using NRack.Base.Provider;
 
-namespace NDock.Server
+namespace NRack.Server
 {
     [Export(typeof(IStatusCollector))]
     [ProviderMetadata("DefaultStatusCollector")]

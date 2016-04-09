@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NDock.Server.Isolation
+namespace NRack.Server.Isolation
 {
     class AppAssemblyUpdateState
     {

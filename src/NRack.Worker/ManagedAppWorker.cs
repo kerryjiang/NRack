@@ -4,14 +4,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using AnyLog;
-using NDock.Base;
-using NDock.Base.Config;
-using NDock.Base.Configuration;
-using NDock.Base.Metadata;
-using NDock.Server;
-using NDock.Server.Isolation;
+using NRack.Base;
+using NRack.Base.Config;
+using NRack.Base.Configuration;
+using NRack.Base.Metadata;
+using NRack.Server;
+using NRack.Server.Isolation;
 
-namespace NDock.Worker
+namespace NRack.Worker
 {
     /// <summary>
     /// The service exposed to bootstrap to control the agent

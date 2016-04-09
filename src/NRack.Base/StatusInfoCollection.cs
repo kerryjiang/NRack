@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NDock.Base
+namespace NRack.Base
 {
     /// <summary>
     /// Status information collection

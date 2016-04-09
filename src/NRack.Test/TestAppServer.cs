@@ -1,25 +1,25 @@
 ﻿using System;
-using NDock.Base;
-using NDock.Base.Config;
-using NDock.Base.Metadata;
+using NRack.Base;
+using NRack.Base.Config;
+using NRack.Base.Metadata;
 using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
 using System.IO;
 using System.Text;
 
-namespace NDock.Test
+namespace NRack.Test
 {
     [AppServerMetadata("TestAppServer")]
     public class TestAppServer : AppServer
     {
         public override bool Start()
         {
-            var ndockText = ConfigurationManager.AppSettings["NDock.Test"];
+            var NRackText = ConfigurationManager.AppSettings["NRack.Test"];
 
-            if(!string.IsNullOrEmpty(ndockText))
+            if(!string.IsNullOrEmpty(NRackText))
             {
-                var ndockTextFilePath = Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName, "NDock.Test.txt");
-                File.WriteAllText(ndockTextFilePath, ndockText, Encoding.UTF8);
+                var NRackTextFilePath = Path.Combine(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.FullName, "NRack.Test.txt");
+                File.WriteAllText(NRackTextFilePath, NRackText, Encoding.UTF8);
             }
 
             return true;

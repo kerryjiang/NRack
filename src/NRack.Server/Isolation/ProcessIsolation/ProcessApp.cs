@@ -5,20 +5,20 @@ using System.Text;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
-using NDock.Base;
-using NDock.Base.Config;
-using NDock.Base.Configuration;
-using NDock.Base.Metadata;
-using NDock.Server.Isolation;
-using NDock.Server.Utils;
+using NRack.Base;
+using NRack.Base.Config;
+using NRack.Base.Configuration;
+using NRack.Base.Metadata;
+using NRack.Server.Isolation;
+using NRack.Server.Utils;
 
-namespace NDock.Server.Isolation.ProcessIsolation
+namespace NRack.Server.Isolation.ProcessIsolation
 {
     public class ProcessAppConst : IsolationAppConst
     {
-        public const string PortNameTemplate = "{0}[NDock.Worker:{1}]";
+        public const string PortNameTemplate = "{0}[NRack.Worker:{1}]";
 
-        public const string WorkerAssemblyName = "NDock.Worker.exe";
+        public const string WorkerAssemblyName = "NRack.Worker.exe";
 
         public const string WorkerUri = "ipc://{0}/{1}";
 
@@ -108,7 +108,7 @@ namespace NDock.Server.Isolation.ProcessIsolation
 
                 ProcessStartInfo startInfo;
 
-                if (!NDock.Base.NDockEnv.IsMono)
+                if (!NRack.Base.NRackEnv.IsMono)
                 {
                     startInfo = new ProcessStartInfo(ProcessAppConst.WorkerAssemblyName, args);
                 }

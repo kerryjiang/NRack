@@ -13,13 +13,13 @@ using System.Runtime.Serialization.Formatters;
 using System.Text;
 using System.Threading;
 using AnyLog;
-using NDock.Base;
-using NDock.Base.Config;
-using NDock.Base.Configuration;
-using NDock.Base.Metadata;
-using NDock.Server.Utils;
+using NRack.Base;
+using NRack.Base.Config;
+using NRack.Base.Configuration;
+using NRack.Base.Metadata;
+using NRack.Server.Utils;
 
-namespace NDock.Server
+namespace NRack.Server
 {
     public abstract class BootstrapBase : IBootstrap, ILoggerProvider, ILoggerFactoryProvider
     {
@@ -138,7 +138,7 @@ namespace NDock.Server
             {
                 Interval = interval,
                 Collector = ExportProvider.GetExport<IStatusCollector>().Value,
-                Logger = LoggerFactory.GetLogger("NDockStatus"),
+                Logger = LoggerFactory.GetLogger("NRackStatus"),
                 PerformanceCounter = new ProcessPerformanceCounter(Process.GetCurrentProcess(), PerformanceCounterInfo.GetDefaultPerformanceCounterDefinitions(), this.ConfigSource.Isolation == IsolationMode.None),
                 BootstrapStatus = new AppServerStatus(GetBootstrapMetadata(), new StatusInfoCollection("[Bootstrap]"))
             };
@@ -292,7 +292,7 @@ namespace NDock.Server
         /// </summary>
         protected virtual void RegisterRemotingService()
         {
-            var bootstrapIpcPort = string.Format("NDock.Bootstrap[{0}]", Math.Abs(AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar).GetHashCode()));
+            var bootstrapIpcPort = string.Format("NRack.Bootstrap[{0}]", Math.Abs(AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar).GetHashCode()));
 
             var serverIpcChannelName = "BootstrapIpc";
 

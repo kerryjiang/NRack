@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 
-namespace NDock.Base.Config
+namespace NRack.Base.Config
 {
     public interface IServerConfig
     {

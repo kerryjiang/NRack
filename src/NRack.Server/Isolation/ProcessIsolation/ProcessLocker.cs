@@ -6,9 +6,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Microsoft.Win32.SafeHandles;
-using NDock.Base;
+using NRack.Base;
 
-namespace NDock.Server
+namespace NRack.Server
 {
     class ProcessLocker
     {
@@ -45,7 +45,7 @@ namespace NDock.Server
                 var standardInput = new StreamWriter(new FileStream(safeInputHandle, FileAccess.Write, 4096, false), Encoding.UTF8, 4096);
                 standardInput.AutoFlush = true;
 
-                var standInputFieldName = NDockEnv.IsMono ? "input_stream" : "standardInput";
+                var standInputFieldName = NRackEnv.IsMono ? "input_stream" : "standardInput";
 
                 var standInputField = process.GetType().GetField(standInputFieldName,
                     BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.SetField | BindingFlags.GetField);

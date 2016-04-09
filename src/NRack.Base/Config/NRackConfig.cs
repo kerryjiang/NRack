@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NDock.Base.Configuration;
+using NRack.Base.Configuration;
 
-namespace NDock.Base.Config
+namespace NRack.Base.Config
 {
     [Serializable]
-    public class NDockConfig : IConfigSource
+    public class NRackConfig : IConfigSource
     {
         public const int DefaultTcpRemotingPort = 0;
 
-        public NDockConfig()
+        public NRackConfig()
         {
 
         }
 
-        public NDockConfig(IConfigSource configSource)
+        public NRackConfig(IConfigSource configSource)
         {
             Isolation = configSource.Isolation;
             LogFactory = configSource.LogFactory;

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Text;
-using NDock.Base;
-using NDock.Base.Config;
-using NDock.Base.Metadata;
+using NRack.Base;
+using NRack.Base.Config;
+using NRack.Base.Metadata;
 
-namespace NDock.Server
+namespace NRack.Server
 {
     [StatusInfo(StatusInfoKeys.CpuUsage, Name = "CPU Usage", Format = "{0:0.00}%", DataType = typeof(double), Order = 112)]
     [StatusInfo(StatusInfoKeys.MemoryUsage, Name = "Physical Memory Usage", Format = "{0:N}", DataType = typeof(double), Order = 113)]

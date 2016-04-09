@@ -5,15 +5,15 @@ using System.Configuration;
 using System.Configuration.Install;
 using System.ServiceProcess;
 
-namespace NDock.Server.Service
+namespace NRack.Server.Service
 {
     [RunInstaller(true)]
-    public partial class NDockServiceInstaller : Installer
+    public partial class NRackServiceInstaller : Installer
     {
         private ServiceInstaller serviceInstaller;
         private ServiceProcessInstaller processInstaller;
 
-        public NDockServiceInstaller()
+        public NRackServiceInstaller()
         {
             InitializeComponent();
 

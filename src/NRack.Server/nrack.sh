@@ -1,2 +1,2 @@
 #!/bin/bash
-mono NDock.Server.exe -c $1 $2
+mono NRack.Server.exe -c $1 $2

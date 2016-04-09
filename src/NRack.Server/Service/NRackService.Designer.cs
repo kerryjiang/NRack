@@ -1,8 +1,8 @@
 using System.Configuration;
 
-namespace NDock.Server.Service
+namespace NRack.Server.Service
 {
-    partial class NDockService
+    partial class NRackService
     {
         /// <summary> 
         /// Required designer variable.

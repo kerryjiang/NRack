@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using NDock.Base;
-using NDock.Server;
+using NRack.Base;
+using NRack.Server;
 using NUnit.Framework;
 
-namespace NDock.Test
+namespace NRack.Test
 {
     [TestFixture]
     public class Test

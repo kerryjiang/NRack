@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
-using NDock.Base;
-using NDock.Base.Config;
-using NDock.Base.Configuration;
-using NDock.Base.Metadata;
-using NDock.Base.Provider;
-using NDock.Server.Config;
-using NDock.Server.Recycle;
+using NRack.Base;
+using NRack.Base.Config;
+using NRack.Base.Configuration;
+using NRack.Base.Metadata;
+using NRack.Base.Provider;
+using NRack.Server.Config;
+using NRack.Server.Recycle;
 
-namespace NDock.Server.Isolation
+namespace NRack.Server.Isolation
 {
     [StatusInfo(StatusInfoKeys.CpuUsage, Name = "CPU Usage", Format = "{0:0.00}%", DataType = typeof(double), Order = 112)]
     [StatusInfo(StatusInfoKeys.MemoryUsage, Name = "Physical Memory Usage", Format = "{0:N}", DataType = typeof(double), Order = 113)]
@@ -39,7 +39,7 @@ namespace NDock.Server.Isolation
                 return configSource;
             }
 
-            return new NDockConfig(configSource);
+            return new NRackConfig(configSource);
         }
 
         protected override AppServerMetadata GetAppServerMetadata(IServerConfig serverConfig)

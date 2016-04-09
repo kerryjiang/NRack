@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NDock.Base.Config
+namespace NRack.Base.Config
 {
     public interface IConfigSource
     {

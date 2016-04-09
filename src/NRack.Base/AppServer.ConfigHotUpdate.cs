@@ -5,10 +5,10 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NDock.Base.Config;
-using NDock.Base.Configuration;
+using NRack.Base.Config;
+using NRack.Base.Configuration;
 
-namespace NDock.Base
+namespace NRack.Base
 {
     interface IConfigValueChangeNotifier
     {

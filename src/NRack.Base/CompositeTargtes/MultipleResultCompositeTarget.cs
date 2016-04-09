@@ -4,10 +4,10 @@ using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NDock.Base.Config;
-using NDock.Base.Provider;
+using NRack.Base.Config;
+using NRack.Base.Provider;
 
-namespace NDock.Base.CompositeTargets
+namespace NRack.Base.CompositeTargets
 {
     /// <summary>
     /// the basic class for the multiple elements result composite target

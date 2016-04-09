@@ -1,6 +1,6 @@
-namespace NDock.Server.Service
+namespace NRack.Server.Service
 {
-    partial class NDockServiceInstaller
+    partial class NRackServiceInstaller
     {
         /// <summary>
         /// Required designer variable.

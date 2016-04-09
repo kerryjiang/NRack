@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
-using NDock.Base;
-using NDock.Base.Config;
-using NDock.Server.Isolation.AppDomainIsolation;
-using NDock.Server.Isolation.ProcessIsolation;
+using NRack.Base;
+using NRack.Base.Config;
+using NRack.Server.Isolation.AppDomainIsolation;
+using NRack.Server.Isolation.ProcessIsolation;
 
-namespace NDock.Server
+namespace NRack.Server
 {
     /// <summary>
     /// Bootstrap Factory
@@ -39,14 +39,14 @@ namespace NDock.Server
         /// <returns></returns>
         public static IBootstrap CreateBootstrap()
         {
-            var configSection = ConfigurationManager.GetSection("ndock");
+            var configSection = ConfigurationManager.GetSection("NRack");
 
             if (configSection == null)
-                throw new ConfigurationErrorsException("Missing 'ndock' configuration section.");
+                throw new ConfigurationErrorsException("Missing 'NRack' configuration section.");
 
             var configSource = configSection as IConfigSource;
             if (configSource == null)
-                throw new ConfigurationErrorsException("Invalid 'ndock' configuration section.");
+                throw new ConfigurationErrorsException("Invalid 'NRack' configuration section.");
 
             return CreateBootstrap(configSource);
         }
@@ -63,14 +63,14 @@ namespace NDock.Server
 
             var config = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
 
-            var configSection = config.GetSection("ndock");
+            var configSection = config.GetSection("NRack");
 
             if (configSection == null)
-                throw new ConfigurationErrorsException("Missing 'ndock' configuration section.");
+                throw new ConfigurationErrorsException("Missing 'NRack' configuration section.");
 
             var configSource = configSection as IConfigSource;
             if (configSource == null)
-                throw new ConfigurationErrorsException("Invalid 'ndock' configuration section.");
+                throw new ConfigurationErrorsException("Invalid 'NRack' configuration section.");
 
             return CreateBootstrap(configSource);
         }

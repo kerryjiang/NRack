@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AnyLog;
-using NDock.Base;
-using NDock.Base.Config;
+using NRack.Base;
+using NRack.Base.Config;
 
-namespace NDock.Server
+namespace NRack.Server
 {
     class RemoteBootstrapProxy : MarshalByRefObject, IBootstrap, ILoggerProvider
     {

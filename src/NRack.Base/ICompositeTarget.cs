@@ -4,7 +4,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Text;
 
-namespace NDock.Base
+namespace NRack.Base
 {
     /// <summary>
     /// The interface for the composite target
