@@ -1,7 +1,7 @@
-NDock  [![Build Status](https://travis-ci.org/kerryjiang/NDock.svg?branch=master)](https://travis-ci.org/kerryjiang/NDock) [![NuGet Version](https://img.shields.io/nuget/v/NDock.svg?style=flat)](https://www.nuget.org/packages/NDock/)
+NRack  [![Build Status](https://travis-ci.org/kerryjiang/NRack.svg?branch=master)](https://travis-ci.org/kerryjiang/NRack) [![NuGet Version](https://img.shields.io/nuget/v/NRack.svg?style=flat)](https://www.nuget.org/packages/NRack/)
 =====
 
-**NDock** 是一个服务器应用容器, 他能用宿主和管理你的多个后端服务。
+**NRack** 是一个服务器应用容器, 他能用宿主和管理你的多个后端服务。
 
 **功能特点**:
 
