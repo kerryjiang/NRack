@@ -148,8 +148,15 @@ namespace NRack.Server
 
         private void StopStatusCollect()
         {
-            m_StatusCollectTimer.Dispose();
-            m_StatusCollectTimer = null;
+            var timer = m_StatusCollectTimer;
+
+            if (timer != null)
+            {
+                if(Interlocked.CompareExchange(ref m_StatusCollectTimer, null, timer) == timer)
+                {
+                    timer.Dispose();
+                }
+            }
         }
 
         private void OnStatusCollectTimerCallback(object state)
