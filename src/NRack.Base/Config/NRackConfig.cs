@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using NRack.Base.Configuration;
 
 namespace NRack.Base.Config
 {
+#if !DOTNETCORE
     [Serializable]
+#endif
     public class NRackConfig : IConfigSource
     {
         public const int DefaultTcpRemotingPort = 0;

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using NRack.Base.Configuration;
 
 namespace NRack.Base.Config
 {
+#if !DOTNETCORE
     [Serializable]
+#endif
     public class ServerConfig : IServerConfig
     {
         public ServerConfig()
@@ -18,7 +16,9 @@ namespace NRack.Base.Config
 
         public ServerConfig(IServerConfig serverConfig)
         {
+#if !DOTNETCORE
             serverConfig.CopyPropertiesTo(this);
+#endif
         }
 
         public string Name { get; set; }
@@ -35,6 +35,7 @@ namespace NRack.Base.Config
 
         public NameValueCollection OptionElements { get; set; }
 
+#if !DOTNETCORE
 
         /// <summary>
         /// Gets the child config.
@@ -47,5 +48,8 @@ namespace NRack.Base.Config
         {
             return this.OptionElements.GetChildConfig<TConfig>(childConfigName);
         }
+#endif
+
     }
+
 }

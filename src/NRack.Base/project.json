@@ -1,0 +1,36 @@
+{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": false,
+    "compile": {
+      "exclude": [
+          "*.cs",
+          "CompositeTargtes/**/*.cs",
+          "Configuration/**/*.cs",
+          "Metadata/**/*.cs",
+          "Properties/**/*.cs",
+          "Provider/**/*.cs",
+          "Config/**/*.cs" ],
+      "includeFiles": [
+          "Config/IServerConfig.cs",
+          "Config/IConfigSource.cs",
+          "Config/NRackConfig.cs",
+          "Config/ServerConfig.cs",
+          "StartupType.cs",
+          "IsolationMode.cs"
+        ]
+    }
+  },
+  "frameworks": {
+    "netstandard1.3": {
+      "buildOptions": {
+        "define": [ "DOTNETCORE" ]
+      },
+      "dependencies": {
+        "System.Runtime": "4.1.0-rc2-*",
+        "System.Collections.Specialized": "4.0.1-rc2-*",
+        "System.Linq": "4.1.0-rc2-*"
+      }
+    }
+  }
+}
