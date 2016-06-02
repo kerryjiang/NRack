@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+#if !DOTNETCORE
+using System.Configuration;
+#endif
 
 namespace NRack.Base.Config
 {
