@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NRack.Base.Config;
 using NRack.Base.Provider;
+#if DOTNETCORE
+using Microsoft.Extensions.Logging;
+using ILog = Microsoft.Extensions.Logging.ILogger;
+#else
+using AnyLog;
+#endif
 
 namespace NRack.Base.CompositeTargets
 {

@@ -5,11 +5,8 @@
     "compile": {
       "exclude": [
           "*.cs",
-          "CompositeTargtes/**/*.cs",
           "Configuration/**/*.cs",
-          "Metadata/**/*.cs",
           "Properties/**/*.cs",
-          "Provider/**/*.cs",
           "Config/**/*.cs" ],
       "includeFiles": [
           "Config/IServerConfig.cs",
@@ -17,11 +14,6 @@
           "Config/NRackConfig.cs",
           "Config/ServerConfig.cs",
           "Config/HotUpdateAttribute.cs",
-          "Metadata/IAppServerMetadata.cs",
-          "Metadata/AppServerMetadataAttribute.cs",
-          "Metadata/AppServerMetadata.cs",
-          "Metadata/StatusInfoAttribute.cs",
-          "Metadata/StatusInfoKeys.cs",
           "IBootstrap.cs",
           "IAppServer.cs",
           "IAppEndPoint.cs",
@@ -34,6 +26,9 @@
           "Extensions.cs",
           "IStatusCollector.cs",
           "ICompositeTarget.cs"
+        ],
+        "excludeFiles": [
+          "CompositeTargtes/LoggerFactoryCompositeTarget.cs"
         ]
     }
   },

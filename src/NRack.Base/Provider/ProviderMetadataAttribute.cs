@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+#if DOTNETCORE
+using System.Composition;
+#else
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+#endif
 
 namespace NRack.Base.Provider
 {
