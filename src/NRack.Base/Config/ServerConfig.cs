@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 #if !DOTNETCORE
 using System.Configuration;
+using NRack.Base.Configuration;
 #endif
 
 namespace NRack.Base.Config
