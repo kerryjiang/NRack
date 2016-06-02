@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using NRack.Base.Metadata;
 
@@ -38,11 +39,13 @@ namespace NRack.Base
                     var metatdata = atts[0] as AppServerMetadataAttribute;
                     return new AppServerMetadata(metatdata, topType);
                 }
-
-                if (serverType.BaseType == null)
+                
+                var baseType = serverType.GetBaseType();
+                
+                if (baseType == null)
                     return null;
 
-                serverType = serverType.BaseType;
+                serverType = baseType;
             }
         }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Linq;
-using System.Text;
+using System.Reflection;
 
 namespace NRack.Base.Metadata
 {

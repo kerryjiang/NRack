@@ -30,7 +30,8 @@
           "StartupType.cs",
           "ServerState.cs",
           "IsolationMode.cs",
-          "StatusInfoCollection.cs"       
+          "StatusInfoCollection.cs",
+          "ReflectionExtensions.cs"    
         ]
     }
   },
@@ -45,7 +46,8 @@
         "System.Collections.Specialized": "4.0.1-rc2-*",
         "System.Linq": "4.1.0-rc2-*",
         "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc2-*",
-        "Microsoft.Composition": "1.0.30"
+        "Microsoft.Composition": "1.0.30",
+        "System.Reflection.Extensions": "4.0.1-rc2-*"
       }
     }
   }
