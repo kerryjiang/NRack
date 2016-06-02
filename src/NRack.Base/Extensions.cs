@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition.Hosting;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using AnyLog;
+﻿
+
+#if !DOTNETCORE
 
 namespace NRack.Base
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.Composition.Hosting;
+    using System.IO;
+    using System.Linq;
+    using System.Reflection;
+    using System.Text;
+    using AnyLog;
+
     public static class Extensions
     {
 
@@ -129,4 +133,35 @@ namespace NRack.Base
             log.Error(sb.ToString());
         }
     }
+}
+
+#endif
+
+
+namespace System.Reflection
+{
+    using System;
+    using System.Linq;
+    using System.Reflection;
+
+    
+    public static class ReflectionExtensions
+    {
+#if DOTNETCORE
+        public static Attribute[] GetCustomAttributes(this Type type, Type attributeType, bool inherit)
+        {
+            return type.GetTypeInfo().GetCustomAttributes(attributeType, inherit).ToArray();
+        }
+#endif
+
+        public static Type GetBaseType(this Type type)
+        {
+#if DOTNETCORE
+            return type.GetTypeInfo().BaseType;
+#else
+            return type.BaseType;
+#endif
+        }
+    }
+
 }

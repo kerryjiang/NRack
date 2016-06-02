@@ -31,7 +31,7 @@
           "ServerState.cs",
           "IsolationMode.cs",
           "StatusInfoCollection.cs",
-          "ReflectionExtensions.cs",
+          "Extensions.cs",
           "IStatusCollector.cs",
           "ICompositeTarget.cs"
         ]
