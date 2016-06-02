@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+#if DOTNETCORE
+using System.Composition;
+#else
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
+#endif
+
 
 namespace NRack.Base.Metadata
 {

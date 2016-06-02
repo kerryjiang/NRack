@@ -16,8 +16,21 @@
           "Config/IConfigSource.cs",
           "Config/NRackConfig.cs",
           "Config/ServerConfig.cs",
+          "Config/HotUpdateAttribute.cs",
+          "Metadata/IAppServerMetadata.cs",
+          "Metadata/AppServerMetadataAttribute.cs",
+          "Metadata/AppServerMetadata.cs",
+          "Metadata/StatusInfoAttribute.cs",
+          "Metadata/StatusInfoKeys.cs",
+          "IBootstrap.cs",
+          "IAppServer.cs",
+          "IAppEndPoint.cs",
+          "IManagedApp.cs",
+          "IMessageBus.cs",
           "StartupType.cs",
-          "IsolationMode.cs"
+          "ServerState.cs",
+          "IsolationMode.cs",
+          "StatusInfoCollection.cs"       
         ]
     }
   },
@@ -26,10 +39,13 @@
       "buildOptions": {
         "define": [ "DOTNETCORE" ]
       },
+      "imports": "portable-net45+win8",
       "dependencies": {
         "System.Runtime": "4.1.0-rc2-*",
         "System.Collections.Specialized": "4.0.1-rc2-*",
-        "System.Linq": "4.1.0-rc2-*"
+        "System.Linq": "4.1.0-rc2-*",
+        "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc2-*",
+        "Microsoft.Composition": "1.0.30"
       }
     }
   }

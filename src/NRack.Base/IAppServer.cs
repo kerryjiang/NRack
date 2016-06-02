@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
+
+#if DOTNETCORE
+using ILog = Microsoft.Extensions.Logging.ILogger;
+#else
 using AnyLog;
-using NRack.Base.Config;
+#endif
+
 
 namespace NRack.Base
 {
