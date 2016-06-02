@@ -4,9 +4,13 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+#if DOTNETCORE
+using Microsoft.Extensions.Logging;
+using ILog = Microsoft.Extensions.Logging.ILogger;
+#else
 using AnyLog;
+#endif
 using NRack.Base.CompositeTargets;
 using NRack.Base.Config;
 using NRack.Base.Metadata;

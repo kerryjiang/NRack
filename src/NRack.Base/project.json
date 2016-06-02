@@ -4,7 +4,6 @@
     "emitEntryPoint": false,
     "compile": {
       "exclude": [
-          "*.cs",
           "Configuration/**/*.cs",
           "Properties/**/*.cs",
           "Config/**/*.cs" ],
@@ -13,19 +12,7 @@
           "Config/IConfigSource.cs",
           "Config/NRackConfig.cs",
           "Config/ServerConfig.cs",
-          "Config/HotUpdateAttribute.cs",
-          "IBootstrap.cs",
-          "IAppServer.cs",
-          "IAppEndPoint.cs",
-          "IManagedApp.cs",
-          "IMessageBus.cs",
-          "StartupType.cs",
-          "ServerState.cs",
-          "IsolationMode.cs",
-          "StatusInfoCollection.cs",
-          "Extensions.cs",
-          "IStatusCollector.cs",
-          "ICompositeTarget.cs"
+          "Config/HotUpdateAttribute.cs"
         ],
         "excludeFiles": [
           "CompositeTargtes/LoggerFactoryCompositeTarget.cs"

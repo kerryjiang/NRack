@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+#if !DOTNETCORE
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NRack.Base.Config;
 using NRack.Base.Configuration;
+#else
+using Microsoft.Extensions.Logging;
+using System.Reflection;
+#endif
+using System.Linq;
+using NRack.Base.Config;
+
 
 namespace NRack.Base
 {
@@ -29,6 +33,8 @@ namespace NRack.Base
             return m_Handler(newValue);
         }
     }
+    
+#if !DOTNETCORE
     class ConfigValueChangeNotifier<TConfigOption> : IConfigValueChangeNotifier
         where TConfigOption : ConfigurationElement, new()
     {
@@ -46,11 +52,12 @@ namespace NRack.Base
                 return m_Handler(ConfigurationExtension.DeserializeChildConfig<TConfigOption>(newValue));
         }
     }
-
+#endif
     public abstract partial class AppServer
     {
         private Dictionary<string, IConfigValueChangeNotifier> m_ConfigUpdatedNotifiers = new Dictionary<string, IConfigValueChangeNotifier>(StringComparer.OrdinalIgnoreCase);
 
+#if !DOTNETCORE
         /// <summary>
         /// Registers the configuration option value handler, it is used for reading configuration value and reload it after the configuration is changed;
         /// </summary>
@@ -65,6 +72,7 @@ namespace NRack.Base
             m_ConfigUpdatedNotifiers.Add(name, notifier);
             return notifier.Notify(config.Options.GetValue(name));
         }
+#endif
 
         /// <summary>
         /// Registers the configuration option value handler, it is used for reading configuration value and reload it after the configuration is changed;
@@ -150,7 +158,7 @@ namespace NRack.Base
             if (updatableConfig == null)
                 return;
 
-            config.CopyPropertiesTo(p => p.GetCustomAttributes(typeof(HotUpdateAttribute), true).Length > 0, updatableConfig);
+            config.CopyPropertiesTo(p => p.GetCustomAttributes(typeof(HotUpdateAttribute), true).Any(), updatableConfig);
         }
     }
 }

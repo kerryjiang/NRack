@@ -1,21 +1,58 @@
-﻿
-
-#if !DOTNETCORE
-
-namespace NRack.Base
+﻿namespace NRack.Base
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.Composition.Hosting;
-    using System.IO;
+    using System.Collections.Specialized;
     using System.Linq;
     using System.Reflection;
     using System.Text;
+    #if DOTNETCORE
+    using Microsoft.Extensions.Logging;
+    using ILog = Microsoft.Extensions.Logging.ILogger;
+    #else
     using AnyLog;
+    using System.ComponentModel.Composition.Hosting;
+    using System.IO;
+    #endif
+
 
     public static class Extensions
     {
+        /// <summary>
+        /// Gets the value from namevalue collection by key.
+        /// </summary>
+        /// <param name="collection">The collection.</param>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        public static string GetValue(this NameValueCollection collection, string key)
+        {
+            return GetValue(collection, key, string.Empty);
+        }
 
+        /// <summary>
+        /// Gets the value from namevalue collection by key.
+        /// </summary>
+        /// <param name="collection">The collection.</param>
+        /// <param name="key">The key.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
+        public static string GetValue(this NameValueCollection collection, string key, string defaultValue)
+        {
+            if (string.IsNullOrEmpty(key))
+                throw new ArgumentNullException("key");
+
+            if (collection == null)
+                return defaultValue;
+
+            var e = collection[key];
+
+            if (e == null)
+                return defaultValue;
+
+            return e;
+        }
+
+#if !DOTNETCORE
         private const string CurrentAppDomainExportProviderKey = "CurrentAppDomainExportProvider";
 
         /// <summary>
@@ -60,6 +97,7 @@ namespace NRack.Base
         {
             return appDomain.GetData("Bootstrap") as IBootstrap;
         }
+#endif
 
         /// <summary>
         /// Copies the properties of one object to another object.
@@ -83,13 +121,12 @@ namespace NRack.Base
         /// <returns></returns>
         public static T CopyPropertiesTo<T>(this T source, Predicate<PropertyInfo> predict, T target)
         {
-            PropertyInfo[] properties = source.GetType()
-                .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty);
+            PropertyInfo[] properties = source.GetType().GetPropertiesCanGet();
 
             Dictionary<string, PropertyInfo> sourcePropertiesDict = properties.ToDictionary(p => p.Name);
 
             PropertyInfo[] targetProperties = target.GetType()
-                .GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty)
+                .GetPropertiesCanSet()
                 .Where(p => predict(p)).ToArray();
 
             for (int i = 0; i < targetProperties.Length; i++)
@@ -102,7 +139,7 @@ namespace NRack.Base
                     if (sourceProperty.PropertyType != p.PropertyType)
                         continue;
 
-                    if (!sourceProperty.PropertyType.IsSerializable)
+                    if (!sourceProperty.PropertyType.IsSerializableType())
                         continue;
 
                     p.SetValue(target, sourceProperty.GetValue(source, null), null);
@@ -135,8 +172,6 @@ namespace NRack.Base
     }
 }
 
-#endif
-
 
 namespace System.Reflection
 {
@@ -154,6 +189,37 @@ namespace System.Reflection
         }
 #endif
 
+#if DOTNETCORE
+        public static PropertyInfo[] GetPropertiesCanSet(this Type type)
+        {
+            return type.GetTypeInfo().DeclaredProperties.Where(p => p.CanWrite).ToArray();
+        }
+        
+        public static PropertyInfo[] GetPropertiesCanGet(this Type type)
+        {
+            return type.GetTypeInfo().DeclaredProperties.Where(p => p.CanRead).ToArray();
+        }
+        
+        public static bool IsSerializableType(this Type type)
+        {
+            return type.GetTypeInfo().IsSerializable;
+        }
+#else
+        public static PropertyInfo[] GetPropertiesCanSet(this Type type)
+        {
+            return type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty).ToArray();
+        }
+        
+        public static PropertyInfo[] GetPropertiesCanGet(this Type type)
+        {
+            return type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty).ToArray();
+        }
+        
+        public static bool IsSerializableType(this Type type)
+        {
+            return type.IsSerializable;
+        }
+#endif
         public static Type GetBaseType(this Type type)
         {
 #if DOTNETCORE
