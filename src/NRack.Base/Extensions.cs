@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.ComponentModel.Composition;
     using System.Linq;
     using System.Reflection;
     using System.Text;
@@ -168,6 +169,15 @@
             }
 
             log.Error(sb.ToString());
+        }
+        
+        internal static CompositionContainer GetCompositionContainer(this IAppServer appServer)
+        {
+#if DOTNETCORE
+            return new CompositionContainer();
+#else
+            return AppDomain.CurrentDomain.GetCurrentAppDomainExportProvider();
+#endif
         }
     }
 }

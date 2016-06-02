@@ -33,16 +33,18 @@ namespace NRack.Base
 
         protected virtual void RegisterCompositeTarget(IList<ICompositeTarget> targets)
         {
+#if !DOTNETCORE
             targets.Add(new LoggerFactoryCompositeTarget((value) =>
             {
                 LoggerFactory = value;
                 Logger = value.GetLogger(Name);
             }));
+#endif
         }
 
         protected virtual CompositionContainer GetCompositionContainer(IServerConfig config)
         {
-            return AppDomain.CurrentDomain.GetCurrentAppDomainExportProvider();
+            return this.GetCompositionContainer();
         }
 
         private bool Composite(IServerConfig config)
@@ -258,6 +260,7 @@ namespace NRack.Base
 
         }
 
+#if !DOTNETCORE
         /// <summary>
         /// Gets the physical file path by the relative file path,
         /// search both in the appserver's root and in the NRack root dir if the isolation level has been set other than 'None'.
@@ -286,5 +289,6 @@ namespace NRack.Base
 
             return filePath;
         }
+#endif
     }
 }
