@@ -67,6 +67,12 @@ namespace NRack.Server
             {
                 m_ManagedApp.ReportPotentialConfigChange(config);
             }
+
+            public override object InitializeLifetimeService()
+            {
+                //Never expire
+                return null;
+            }
         }
 
         private IBootstrap m_Bootstrap;
