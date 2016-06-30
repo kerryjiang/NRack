@@ -26,12 +26,12 @@
       },
       "imports": "portable-net45+win8",
       "dependencies": {
-        "System.Runtime": "4.1.0-rc2-*",
-        "System.Collections.Specialized": "4.0.1-rc2-*",
-        "System.Linq": "4.1.0-rc2-*",
-        "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc2-*",
+        "System.Runtime": "4.1.0",
+        "System.Collections.Specialized": "4.0.1",
+        "System.Linq": "4.1.0",
+        "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
         "Microsoft.Composition": "1.0.30",
-        "System.Reflection.Extensions": "4.0.1-rc2-*"
+        "System.Reflection.Extensions": "4.0.1"
       }
     }
   }
