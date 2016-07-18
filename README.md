@@ -12,3 +12,5 @@ NRack  [![Build Status](https://travis-ci.org/kerryjiang/NRack.svg?branch=master
 * **Automatic recycle management**: restart application automatically after it satisify some conditions;
 * **App Garden(TODO)**: run one application in multiple instances;
 * **Task Scheduler(TODO)**： run the designate application on schedule.
+
+Documentation: [http://nrack.getdocs.net/](http://nrack.getdocs.net/)

@@ -12,3 +12,5 @@ NRack  [![Build Status](https://travis-ci.org/kerryjiang/NRack.svg?branch=master
 * **自动化回收管理**： 达到一定条件后自动重启程序；
 * **应用程序花园(TODO)**： 为同一应用运行多个实例；
 * **计划任务(TODO)**： 定时按计划运行制定程序。
+
+文档: [http://nrack.getdocs.net/](http://nrack.getdocs.net/)
