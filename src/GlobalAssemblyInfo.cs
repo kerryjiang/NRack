@@ -4,8 +4,8 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("NRack")]
 [assembly: AssemblyProduct("NRack")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("0.1.1.4")]
-[assembly: AssemblyFileVersion("0.1.1.4")]
+[assembly: AssemblyVersion("0.1.1.5")]
+[assembly: AssemblyFileVersion("0.1.1.5")]

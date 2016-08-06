@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>NRack is a server application container, which can be used for your back end services' hosting and management.</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright 2015</copyright>
+    <copyright>Copyright 2016</copyright>
     <tags>service container host</tags>
     <dependencies>
       <dependency id="AnyLog" version="0.1.8" />
