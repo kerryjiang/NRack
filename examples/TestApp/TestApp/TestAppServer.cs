@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NDock.Base;
-using NDock.Base.Metadata;
+using NRack.Base;
+using NRack.Base.Metadata;
 
-namespace NDock.Examples.TestApp
+namespace NRack.Examples.TestApp
 {
     [AppServerMetadata("TestAppServer")]
     public class TestAppServer : AppServer

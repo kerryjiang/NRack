@@ -7,8 +7,8 @@
     <ProjectGuid>{E23EDFA0-19AD-44EF-A35B-985F1D0A407D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NDock.Examples.TestApp</RootNamespace>
-    <AssemblyName>NDock.Examples.TestApp</AssemblyName>
+    <RootNamespace>NRack.Examples.TestApp</RootNamespace>
+    <AssemblyName>NRack.Examples.TestApp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,8 +34,8 @@
       <HintPath>..\packages\AnyLog.0.1.8\lib\net40\AnyLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NDock.Base, Version=0.1.1.4, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NDock.0.1.1.4\lib\net40\NDock.Base.dll</HintPath>
+    <Reference Include="NRack.Base, Version=0.1.1.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NRack.0.1.1.5\lib\net40\NRack.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
