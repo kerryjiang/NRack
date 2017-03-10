@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <AssemblyName>NRack.Base</AssemblyName>
+    <OutputType>Library</OutputType>
+    <PackageId>NRack.Base</PackageId>
+    <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8</PackageTargetFallback>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Configuration\**\*.cs;Properties\**\*.cs;Config\**\*.cs;CompositeTargtes\LoggerFactoryCompositeTarget.cs" />
+    <Compile Include="Config\IServerConfig.cs;Config\IConfigSource.cs;Config\NRackConfig.cs;Config\ServerConfig.cs;Config\HotUpdateAttribute.cs" Exclude="CompositeTargtes\LoggerFactoryCompositeTarget.cs" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+    <DefineConstants>$(DefineConstants);DOTNETCORE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.3' ">
+    <PackageReference Include="System.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Collections.Specialized" Version="4.3.0" />
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Composition" Version="1.0.30" />
+    <PackageReference Include="System.Reflection.Extensions" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>
